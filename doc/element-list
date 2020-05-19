@@ -1,0 +1,9 @@
+module:Scopone_Project
+application
+application.control
+application.model.engine
+application.model.engine.subrutines
+application.model.engine.TDA
+application.model.networking
+application.model.networking.subrutines
+application.model.networking.TDA

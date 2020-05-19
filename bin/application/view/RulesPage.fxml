@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.MenuController">
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RULES" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bodoni MT" size="40.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <bottom>
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#returnButton" text="Back" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bodoni MT" size="24.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="25.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <padding>
+      <Insets left="50.0" right="50.0" />
+   </padding>
+   <center>
+      <TabPane style="-fx-border-color: acacac;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab closable="false" text="How to play">
+            <content>
+                  <BorderPane>
+                     <center>
+                        <TextArea editable="false" prefHeight="500.0" prefWidth="1160.0" text="Come la scopa, si gioca con un mazzo di 40 carte nei valori dei semi italiani spade, coppe, bastoni e denari.&#10;&#10;La variante scopone scientifico prevede che siano presenti due squadre formate rispettivamente da 2 giocatori. Ad ogni giocatore verranno assegnate 10 carte. L'ordine di gioco prevede l'alternarsi delle squadre ( s1=g1+g3  s2=g2+g4  t1=s1, t2=s2, t3=s3, t4=s4).&#10;I giocatori durante il proprio turno potranno lanciare una carta a terra in proprio possesso. Se quest'ultima ha lo stesso valore di una presente a terra, quel giocatore prenderà entrambe le carte, riponendole nell'area dedicata alle carte conquistate della squadra. E' anche possibile calare una carta e prendere da terra due o più carte il cui valore sommato uguaglia il valore della carta lanciata. &#10;Quando viene lanciato un asso quest'ultimo permette di prendere tutte le carte presenti sul tavolo.&#10;Quando a terra non rimane alcuna carta, a seguito di una presa, con carta diversa da un asso, si dice che si è fatto &quot;scopa&quot;.&#10;Il gioco termina quando tutti i giocatori hanno terminato le carte in mano e le carte presenti in tavola verranno assegnate alla coppia che ha effettuato l'ultima presa e vengono assegnati i punteggi." wrapText="true" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Bodoni MT" size="14.0" />
+                           </font>
+                        </TextArea>
+                     </center>
+                  </BorderPane>
+            </content>
+          </Tab>
+          <Tab closable="false" text="Points">
+            <content>
+                  <BorderPane>
+                     <center>
+                        <TextArea editable="false" prefHeight="500.0" prefWidth="1160.0" text="- Ogni scopa totalizzata vale 1 punto&#10;- Rebello: la coppia che ha conquistato la carta del 10/Re di denari riceve 1 punto&#10;- Settebello: la coppia che ha conquistato la carta del 7 di denari riceve 1 punto&#10;- Maggioranza delle carte: la coppia che ha conquistato 20 o più carte guadagna 1 punto. In caso la smazzata finisca in parità non vengono assegnati punti per le carte.&#10;- Denari: la coppia che ha conquistato 5 o più carte del seme di denari guadagna un punto. Anche in questo caso, qualora vi fosse parità non si procede all'assegnazione di punti.&#10;- Napoli: la copia che ha conquistato asso di danari e 2 di danari e 3 di danari riceve tre punti, verrà inoltre aggiunto un punto per ogni numero della scala di danari che si è conquistato&#10;- Primiera: la coppia che realizza la primiera guadagna un punto&#10;&#10;La primiera è costituita dai punti conferiti della carta più alta che si ha per ogni seme. Il punteggio di ciascuna carta è dato come di seguito: &#10;il 7 vale 21 punti&#10;il 6 vale 18 punti&#10;l'Asso vale 16 punti&#10;il 5 vale 15 punti&#10;il 4 vale 14 punti&#10;il 3 vale 13 punti&#10;il 2 vale 12 punti&#10;le figure valgono 10 punti&#10;&#10;Per poter accedere alla primiera, oltre a totalizzare il punteggio di primiera più alto, è necessario possedere almeno una carta per ciascun seme di gioco, altrimenti la primiera sarà aggiudicata all'avversario, e in caso di parità di punteggio, la primiera non viene assegnata." wrapText="true" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Bodoni MT" size="14.0" />
+                           </font>
+                        </TextArea>
+                     </center>
+                  </BorderPane>
+            </content>
+          </Tab>
+        </tabs>
+         <BorderPane.margin>
+            <Insets bottom="15.0" top="10.0" />
+         </BorderPane.margin>
+      </TabPane>
+   </center>
+</BorderPane>

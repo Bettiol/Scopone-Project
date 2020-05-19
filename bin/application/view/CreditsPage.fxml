@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.MenuController">
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CREDITS" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bodoni MT" size="40.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <bottom>
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#returnButton" text="Back" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bodoni MT" size="24.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="25.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <center>
+      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="AC-130 Death Angel AKA Un gran bello scopone - V. 1.0&#10;&#10;AC-130 Death Angel software non libero&#10;&#10;Crediti&#10;&#10;Componenti del team:&#10;Alessandro Moscatelli - Sviluppatore, Tester&#10;Enrico Brognera - Sviluppatore, Tester&#10;Lorenzo Silvello - Sviluppatore, Graphics Design, Tester&#10;Luca Bettiol - Sviluppatore, Graphics Design, Tester&#10;Sara Basei - Sviluppatore, Documentazione, Tester&#10;&#10;Librerie&#10;&#10;AC-130 Death Angel include codice dei seguenti progetti o prodotto mediante i seguenti software:&#10;&#10;JavaFX - https://openjfx.io/&#10;Scene Builder - https://gluonhq.com/products/scene-builder/&#10;Eclipse IDE - https://www.eclipse.org/downloads/&#10;IntelliJ IDEA - https://www.jetbrains.com/idea/&#10;Javadoc - https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html&#10;ObjectAid UML Explorer - https://www.objectaid.com/&#10;&#10;Sito web di AC-130 Death Angel: https://cvn68nimitz.altervista.org/&#10;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="15.0" top="10.0" />
+         </BorderPane.margin>
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </TextArea>
+   </center>
+   <padding>
+      <Insets left="50.0" right="50.0" />
+   </padding>
+</BorderPane>

@@ -1,4 +1,1 @@
 # Scopone-Project
-
-
-Test

@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.io.IOException;
 
+import application.model.engine.TDA.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,10 +18,16 @@ public class Main extends Application {
 
 	private static Stage primaryStages;
 
-	private static MediaPlayer mainTheme;
+	public static MediaPlayer mainTheme;
+
+	public static Settings settings;
 
 	@Override
 	public void start(Stage primaryStage) {
+		// Carica le impostazioni
+		settings = new Settings();
+		settings.loadSettings();
+
 		// Inizializza view
 		try {
 			primaryStages = primaryStage;
@@ -62,23 +69,23 @@ public class Main extends Application {
 		primaryStages.setWidth(primaryStages.getWidth());
 		primaryStages.setHeight(primaryStages.getHeight());
 
-		primaryStages.centerOnScreen();
+		// primaryStages.centerOnScreen();
 
 		return loader.getController();
 	}
 
 	public static void playMainTheme(String sound) {
 		if (mainTheme == null) {
-			File f = new File("sounds/" + sound);
+			File f = new File("resources/sounds/" + sound);
 			Media media = new Media(f.toURI().toString());
 			mainTheme = new MediaPlayer(media);
-			mainTheme.volumeProperty().set(0.1);
+			mainTheme.volumeProperty().set(settings.getVolume());
 			mainTheme.play();
 		} else if (!mainTheme.getStatus().equals(Status.PLAYING)) {
-			File f = new File("sounds/" + sound);
+			File f = new File("resources/sounds/" + sound);
 			Media media = new Media(f.toURI().toString());
 			mainTheme = new MediaPlayer(media);
-			mainTheme.volumeProperty().set(0.1);
+			mainTheme.volumeProperty().set(settings.getVolume());
 			mainTheme.play();
 		}
 	}
@@ -90,12 +97,12 @@ public class Main extends Application {
 	}
 
 	public static void playSound(String sound) {
-		File f = new File("sounds/" + sound);
+		File f = new File("resources/sounds/" + sound);
 
 		Media media = new Media(f.toURI().toString());
 		MediaPlayer mp = new MediaPlayer(media);
 
-		mp.volumeProperty().set(0.1);
+		mp.volumeProperty().set(settings.getVolume());
 		mp.play();
 	}
 

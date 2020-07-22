@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
+import application.Main;
 import application.model.engine.TDA.CardDictionary;
 import application.model.engine.TDA.Carta;
 import application.model.engine.subrutines.RefreshCards;
@@ -138,6 +139,10 @@ public class ControllerCardView implements Initializable {
 	}
 
 	private void inizializeTable() {
+		String bg = "-fx-background-image: url(\'file:" + Main.settings.getTable().getPath() + "\');"
+				+ "-fx-background-position: center center;" + "-fx-background-size: stretch;";
+		bg = bg.replace("\\", "/");
+		background.setStyle(bg);
 		ObservableList<Node> ol = table.getChildren();
 		ImageView iv = null;
 

@@ -8,13 +8,13 @@
 
 }
 
-#tableBackground {
+/* #tableBackground {
 
-	-fx-background-image: url("file:resources/table.jpg");
+	-fx-background-image: url("file:resources/tables/table.jpg");
     -fx-background-position: center center;
     -fx-background-size: stretch;
 
-}
+}*/
 
 #loadingPage {
 
@@ -36,3 +36,10 @@
 	-fx-background-color: red;
 	
 }
+
+.selected {
+    -fx-border-color: red;
+    -fx-border-style: solid;
+    -fx-border-width: 500;
+}
+

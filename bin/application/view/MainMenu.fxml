@@ -31,10 +31,11 @@
                <font>
                   <Font name="Bodoni MT" size="24.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#creditsPage" prefHeight="50.0" prefWidth="400.0" text="Credits">
+            <Button mnemonicParsing="false" onAction="#settingsPage" prefHeight="50.0" prefWidth="400.0" text="Settings">
                <font>
                   <Font name="Bodoni MT" size="24.0" />
-               </font></Button>
+               </font>
+            </Button>
             <Button mnemonicParsing="false" onAction="#exitButton" prefHeight="50.0" prefWidth="400.0" text="Exit">
                <font>
                   <Font name="Bodoni MT" size="24.0" />

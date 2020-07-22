@@ -1,7 +1,9 @@
 package application.model.engine.TDA;
 
+import java.io.File;
 import java.util.HashMap;
 
+import application.Main;
 import javafx.scene.image.Image;
 
 /**
@@ -25,9 +27,9 @@ public class CardDictionary {
 	public CardDictionary() {
 		super();
 		this.cards = new HashMap<String, Image>(40);
-		this.transparent = new Image("file:resources/transparent.png");
-		this.retro = new Image("file:resources/retro.png");
-		this.retro90 = new Image("file:resources/retro90.png");
+		this.transparent = new Image("file:" + Main.settings.getDeck() + File.separator + "transparent.png");
+		this.retro = new Image("file:" + Main.settings.getDeck() + File.separator + "retro.png");
+		this.retro90 = new Image("file:" + Main.settings.getDeck() + File.separator + "retro90.png");
 
 		this.initialize();
 	}
@@ -52,7 +54,9 @@ public class CardDictionary {
 
 			for (int j = 0; j < 10; j++) {
 				key = (j + 1) + "_" + seme;
-				cards.put(key, new Image("file:resources/" + key + ".png"));
+				cards.put(key, new Image("file:" + Main.settings.getDeck() + File.separator + key + ".png"));
+				// System.out.println("file:" + Main.settings.getDeck() + File.separator + key +
+				// ".png");
 			}
 		}
 	}

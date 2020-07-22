@@ -56,13 +56,13 @@ public class MenuController implements Initializable {
 	}
 
 	/**
-	 * Cambia lo stage nella pagina dei crediti
+	 * Cambia lo stage nella pagina delle opzioni
 	 * 
 	 * @throws IOException
 	 */
 	@FXML
-	public void creditsPage() throws IOException {
-		Main.changeStage("CreditsPage.fxml");
+	public void settingsPage() throws IOException {
+		Main.changeStage("SettingsPage.fxml");
 	}
 
 	/**

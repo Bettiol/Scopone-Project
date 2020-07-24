@@ -9,6 +9,7 @@ import application.Main;
 import application.model.engine.TDA.Settings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -39,7 +40,7 @@ public class SettingsController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		oldSettings = Main.settings;
+		oldSettings = Main.settings.copy();
 
 		// Tavoli
 		ImageView iv;
@@ -131,7 +132,36 @@ public class SettingsController implements Initializable {
 
 	@FXML
 	public void applyChanges() {
+		oldSettings = Main.settings.copy();
 		Main.settings.saveSettings();
+	}
+
+	@FXML
+	public void restoreDefaults() {
+		Main.settings.defaultSettings();
+		oldSettings = Main.settings.copy();
+
+		ObservableList<Toggle> ol;
+		RadioButton rb;
+		ol = tgTables.getToggles();
+		for (int i = 0; i < ol.size(); i++) {
+			rb = (RadioButton) ol.get(i);
+			if (rb.getUserData().equals(Main.settings.getTable())) {
+				rb.setSelected(true);
+				break;
+			}
+		}
+		ol = tgDecks.getToggles();
+		for (int i = 0; i < ol.size(); i++) {
+			rb = (RadioButton) ol.get(i);
+			if (rb.getUserData().equals(Main.settings.getDeck())) {
+				rb.setSelected(true);
+				break;
+			}
+		}
+
+		mainVolume.setValue(Main.settings.getVolume() * 100);
+		blasphemy.setSelected(Main.settings.isBlasphemy());
 	}
 
 	/**
@@ -141,7 +171,9 @@ public class SettingsController implements Initializable {
 	 */
 	@FXML
 	public void returnButton() throws IOException {
-		Main.settings.saveSettings();
+		Main.settings = oldSettings;
+		Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
+
 		Main.changeStage("MainMenu.fxml");
 	}
 

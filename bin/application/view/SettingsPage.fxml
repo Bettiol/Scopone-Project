@@ -26,16 +26,6 @@
          </BorderPane.margin>
       </Text>
    </top>
-   <bottom>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#returnButton" text="Back" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Bodoni MT" size="24.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="25.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
    <padding>
       <Insets left="50.0" right="50.0" />
    </padding>
@@ -101,4 +91,25 @@
          </padding>
       </VBox>
    </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#applyChanges" prefWidth="125.0" text="Apply">
+               <font>
+                  <Font name="Bodoni MT" size="24.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#returnButton" prefWidth="125.0" text="Back">
+               <font>
+                  <Font name="Bodoni MT" size="24.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#restoreDefaults" prefWidth="125.0" text="Default">
+               <font>
+                  <Font name="Bodoni MT" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

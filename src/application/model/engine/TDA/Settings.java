@@ -77,6 +77,17 @@ public class Settings implements Serializable {
 		blasphemy = false;
 	}
 
+	public Settings copy() {
+		Settings s = new Settings();
+
+		s.table = this.table;
+		s.deck = this.deck;
+		s.volume = this.volume;
+		s.blasphemy = this.blasphemy;
+
+		return s;
+	}
+
 	public File getTable() {
 		return table;
 	}

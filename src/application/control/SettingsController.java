@@ -12,7 +12,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Toggle;
@@ -51,10 +50,10 @@ public class SettingsController implements Initializable {
 			iv = new ImageView(new Image("file:" + tavoli[i].getPath()));
 			iv.setFitWidth(150);
 			iv.setFitHeight(150);
+			// iv.setPreserveRatio(true);
 
 			rb = new RadioButton();
 			rb.setGraphic(iv);
-			rb.setContentDisplay(ContentDisplay.BOTTOM);
 			rb.setUserData(tavoli[i]);
 
 			// System.out.println(tavoli[i]);
@@ -88,7 +87,6 @@ public class SettingsController implements Initializable {
 
 				rb = new RadioButton();
 				rb.setGraphic(iv);
-				rb.setContentDisplay(ContentDisplay.BOTTOM);
 				rb.setUserData(carte[i]);
 				if (carte[i].equals(Main.settings.getDeck())) {
 					rb.setSelected(true);

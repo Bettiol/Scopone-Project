@@ -48,9 +48,11 @@
 .radio-button:selected {
     -fx-border-color: red;
     -fx-border-width: 5;
+    -fx-border-radius: 1%;
     
     -fx-padding: 0 0 0 0;
 }
+
 
 .radio-button > .radio > .dot {
 	 visibility: hidden;

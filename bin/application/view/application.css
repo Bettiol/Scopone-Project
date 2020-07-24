@@ -37,9 +37,23 @@
 	
 }
 
-.selected {
-    -fx-border-color: red;
-    -fx-border-style: solid;
-    -fx-border-width: 500;
+.radio-button > .radio {
+	-fx-background-insets: 0;
+	-fx-background-radius: 0px;
+	-fx-padding: 0;
+  
+	visibility: hidden;
 }
 
+.radio-button:selected {
+    -fx-border-color: red;
+    -fx-border-width: 5;
+    
+    -fx-padding: 0 0 0 0;
+}
+
+.radio-button > .radio > .dot {
+	 visibility: hidden;
+	 -fx-background-radius: 0px;
+     -fx-padding: 0px;
+}

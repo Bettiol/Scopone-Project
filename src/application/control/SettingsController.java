@@ -61,6 +61,7 @@ public class SettingsController implements Initializable {
 			if (tavoli[i].equals(Main.settings.getTable())) {
 				rb.setSelected(true);
 			}
+			// rb.getStyleClass().add("radio-button");
 			tgTables.getToggles().add(rb);
 
 			tables.getChildren().add(rb);

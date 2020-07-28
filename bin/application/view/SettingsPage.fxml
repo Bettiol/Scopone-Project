@@ -74,13 +74,18 @@
                               <Font name="Bodoni MT" size="18.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="blasphemy" mnemonicParsing="false" text="Enable blasphemy">
+                        <CheckBox fx:id="blasphemy" mnemonicParsing="false" prefWidth="150.0" text="Enable bad language">
                            <font>
                               <Font name="Bodoni MT" size="14.0" />
                            </font>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin></CheckBox>
+                        <CheckBox fx:id="fullScreen" mnemonicParsing="false" prefWidth="150.0" text="Enable full screen">
+                           <font>
+                              <Font name="Bodoni MT" size="14.0" />
+                           </font>
+                        </CheckBox>
                      </children>
                   </VBox>
                </children>

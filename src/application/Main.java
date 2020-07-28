@@ -38,6 +38,8 @@ public class Main extends Application {
 			primaryStages.setMinWidth(1280);
 			primaryStages.setMinHeight(720);
 
+			primaryStages.setFullScreen(Main.settings.isFullScreen());
+
 			Main.changeStage("MainMenu.fxml");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,10 +66,11 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 
 		primaryStages.setScene(scene);
-		primaryStages.show();
-
 		primaryStages.setWidth(primaryStages.getWidth());
 		primaryStages.setHeight(primaryStages.getHeight());
+		primaryStages.setFullScreen(Main.settings.isFullScreen());
+
+		primaryStages.show();
 
 		// primaryStages.centerOnScreen();
 

@@ -16,6 +16,7 @@ public class Settings implements Serializable {
 	private File deck;
 	private double volume;
 	private boolean blasphemy;
+	private boolean fullScreen;
 
 	public void loadSettings() {
 		Settings cfg = null;
@@ -33,6 +34,7 @@ public class Settings implements Serializable {
 				deck = cfg.getDeck();
 				volume = cfg.getVolume();
 				blasphemy = cfg.isBlasphemy();
+				fullScreen = cfg.isFullScreen();
 
 				ois.close();
 			} else if (f.createNewFile()) {
@@ -75,6 +77,7 @@ public class Settings implements Serializable {
 		deck = new File("resources/cards/trevigiane");
 		volume = 1;
 		blasphemy = false;
+		fullScreen = false;
 	}
 
 	public Settings copy() {
@@ -84,8 +87,47 @@ public class Settings implements Serializable {
 		s.deck = this.deck;
 		s.volume = this.volume;
 		s.blasphemy = this.blasphemy;
+		s.fullScreen = this.fullScreen;
 
 		return s;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Settings other = (Settings) obj;
+		if (blasphemy != other.blasphemy) {
+			return false;
+		}
+		if (deck == null) {
+			if (other.deck != null) {
+				return false;
+			}
+		} else if (!deck.equals(other.deck)) {
+			return false;
+		}
+		if (fullScreen != other.fullScreen) {
+			return false;
+		}
+		if (table == null) {
+			if (other.table != null) {
+				return false;
+			}
+		} else if (!table.equals(other.table)) {
+			return false;
+		}
+		if (Double.doubleToLongBits(volume) != Double.doubleToLongBits(other.volume)) {
+			return false;
+		}
+		return true;
 	}
 
 	public File getTable() {
@@ -120,4 +162,11 @@ public class Settings implements Serializable {
 		this.blasphemy = blasphemy;
 	}
 
+	public boolean isFullScreen() {
+		return fullScreen;
+	}
+
+	public void setFullScreen(boolean fullScreen) {
+		this.fullScreen = fullScreen;
+	}
 }

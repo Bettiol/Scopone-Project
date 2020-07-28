@@ -7,6 +7,7 @@ import application.control.ControllerCardView;
 import application.model.engine.AI;
 import application.model.engine.HumanPlayer;
 import application.model.engine.LocalTable;
+import application.model.engine.TDA.GameSettings;
 import application.model.networking.RemotePlayer;
 import application.model.networking.RemoteTable;
 import application.model.networking.TCPConnection;
@@ -22,6 +23,7 @@ import application.model.networking.TCPConnection;
 public class LoadTable implements Runnable {
 
 	private TCPConnection[] arr;
+	private GameSettings cfg;
 	private boolean remote;
 
 	/**
@@ -29,9 +31,10 @@ public class LoadTable implements Runnable {
 	 * 
 	 * @param arr Connessioni con i player esterni
 	 */
-	public LoadTable(TCPConnection[] arr) {
+	public LoadTable(TCPConnection[] arr, GameSettings cfg) {
 		super();
 		this.arr = arr;
+		this.cfg = cfg;
 		this.remote = false;
 	}
 
@@ -41,10 +44,11 @@ public class LoadTable implements Runnable {
 	 * @param host   Connessione con l'host
 	 * @param remote Boolean che indica che sono connesso in remoto ad un host
 	 */
-	public LoadTable(TCPConnection host, boolean remote) {
+	public LoadTable(TCPConnection host, GameSettings cfg, boolean remote) {
 		super();
 		this.arr = new TCPConnection[1];
 		this.arr[0] = host;
+		this.cfg = cfg;
 		this.remote = true;
 	}
 
@@ -63,7 +67,7 @@ public class LoadTable implements Runnable {
 		}
 
 		if (!remote) {
-			LocalTable table = new LocalTable();
+			LocalTable table = new LocalTable(cfg);
 
 			new HumanPlayer(table, c);
 			if (arr == null) {

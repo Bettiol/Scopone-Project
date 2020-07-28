@@ -3,6 +3,7 @@ package application.control;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -12,6 +13,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
@@ -27,6 +31,8 @@ public class SettingsController implements Initializable {
 	private Slider mainVolume;
 	@FXML
 	private CheckBox blasphemy;
+	@FXML
+	private CheckBox fullScreen;
 
 	@FXML
 	private HBox tables;
@@ -128,6 +134,15 @@ public class SettingsController implements Initializable {
 			}
 		});
 
+		fullScreen.setSelected(Main.settings.isFullScreen());
+		fullScreen.selectedProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				Main.settings.setFullScreen(newValue);
+			}
+		});
+
 	}
 
 	@FXML
@@ -171,10 +186,23 @@ public class SettingsController implements Initializable {
 	 */
 	@FXML
 	public void returnButton() throws IOException {
-		Main.settings = oldSettings;
-		Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
+
+		if (!Main.settings.equals(oldSettings)) {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setHeaderText("Ci sono delle modifiche non salvate. Vuoi salvarle?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				applyChanges();
+			} else {
+				Main.settings = oldSettings;
+				Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
+			}
+
+		}
 
 		Main.changeStage("MainMenu.fxml");
+
 	}
 
 }

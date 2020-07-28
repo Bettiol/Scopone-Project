@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import application.model.engine.TDA.Carta;
 import application.model.engine.TDA.Deck;
+import application.model.engine.TDA.GameSettings;
 import application.model.engine.TDA.Initialization;
 import application.model.engine.TDA.Player;
 import application.model.engine.TDA.Points;
@@ -40,11 +41,13 @@ public class LocalTable extends Table implements Runnable {
 	private int teamTwoPoints;
 	private ArrayList<Carta> lastPick; // Puntatore all'array con l'ultima presa
 
+	private GameSettings cfg;
+
 	/**
 	 * Metodo costruttore della classe, nel quale si inizializzano le carte del
 	 * tavolo e dei giocatori, i giocatori, i punti e l'ultima presa
 	 */
-	public LocalTable() {
+	public LocalTable(GameSettings cfg) {
 		table = new Carta[8];
 		dimTable = 0;
 		turn = 0;
@@ -59,6 +62,8 @@ public class LocalTable extends Table implements Runnable {
 		lastPick = null;
 		teamOnePoints = 0;
 		teamTwoPoints = 0;
+
+		this.cfg = cfg;
 	}
 
 	@Override
@@ -146,7 +151,7 @@ public class LocalTable extends Table implements Runnable {
 
 		// Tolgo la carta dalla mano del giocatore e me la prendo
 		Carta c = scarta(giocata);
-		// ciclo tutti i giocatori per comunicare quale carto ho giocato
+		// Ciclo tutti i giocatori per comunicare quale carto ho giocato
 		for (int i = 0; i < players; i++) {
 			myPlayers[i].setPlayedCard(c);
 		}

@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
-import application.model.engine.subrutines.LoadTable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -32,7 +31,9 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	public void singlePlayerMode() throws IOException {
-		new LoadTable(null).run();
+		Main.changeStage("GameSettingsPage.fxml");
+
+		// new LoadTable(null).run();
 	}
 
 	/**

@@ -30,6 +30,9 @@ public class AI extends Player {
 
 	private ArrayList<Carta> teamOnePicks;
 	private ArrayList<Carta> teamTwoPicks;
+	
+	private boolean assoPiglia=true;
+	private boolean reBello=true;
 
 	/**
 	 * Metodocostruttore della classe
@@ -118,7 +121,7 @@ public class AI extends Player {
 		for (int i = 0; i < dimHand; i++) {
 			punti = 0;
 			// assegno punti fissi all'asso
-			if (handCards[i].getNum() == 1) {
+			if (handCards[i].getNum() == 1 && assoPiglia==true) {
 				punti = selezionaPuntiAsso();
 			} else {
 				// visualizzo se poter far scopa
@@ -210,7 +213,7 @@ public class AI extends Player {
 			}
 			if (c.getSeme().compareTo("danaro") == 0 || tableCards[pos].getSeme().compareTo("danaro") == 0) {
 				p = p + 3;
-				if ((c.getNum() == 10 && c.getSeme().compareTo("danaro") == 0)
+				if ((c.getNum() == 10 && c.getSeme().compareTo("danaro") == 0 && reBello==true)
 						|| (tableCards[pos].getNum() == 10 && tableCards[pos].getSeme().compareTo("danaro") == 0)) {
 					p = p + 7;
 				}
@@ -238,8 +241,8 @@ public class AI extends Player {
 					} else if (c.getNum() == 6 || posizioni[i][0] == 6 || posizioni[i][1] == 6
 							|| posizioni[i][2] == 6) {
 						appP = appP + 70;
-					} else if (c.getNum() == 10 || posizioni[i][0] == 10 || posizioni[i][1] == 10
-							|| posizioni[i][2] == 10) {
+					} else if ((c.getNum() == 10 || posizioni[i][0] == 10 || posizioni[i][1] == 10
+							|| posizioni[i][2] == 10 )&& reBello==true) {
 						appP = appP + 72;
 					} else if (c.getNum() == 2 || c.getNum() == 3 || posizioni[i][0] == 2 || posizioni[i][1] == 2
 							|| posizioni[i][2] == 2 || posizioni[i][0] == 3 || posizioni[i][1] == 3
@@ -250,7 +253,7 @@ public class AI extends Player {
 					}
 					if (c.getSeme().compareTo("danaro") == 0) {
 						appP = appP + 3;
-						if (c.getNum() == 10) {
+						if (c.getNum() == 10 && reBello==true) {
 							appP = appP + 7;
 						}
 						if (posizioni[i][0] != -1 && tableCards[posizioni[i][0]].getSeme().compareTo("danaro") == 0) {
@@ -272,7 +275,7 @@ public class AI extends Player {
 		}
 		// se lascio scopa in tavola
 		int somma = contaPuntiTavolo();
-		if (somma - c.getNum() < 11 && (pos != -1 || posizioni[0][0] != -1)
+		if ((somma - c.getNum() < 11) && (pos != -1 || posizioni[0][0] != -1)
 				&& this.carteRimaneti(somma - c.getNum()) != 0) {
 			p = 1;
 		}
@@ -312,14 +315,14 @@ public class AI extends Player {
 		}
 		// decremento vedere se manca re bello, 7 bello...
 		if ((c.getNum() == 2 && !this.scesoDueBello()) || (c.getNum() == 3 && !this.scesoTreBello())
-				|| (c.getNum() == 7 && !this.scesoSetteBello()) || (c.getNum() == 10 && !this.scesoReBello())) {
+				|| (c.getNum() == 7 && !this.scesoSetteBello()) || (c.getNum() == 10 && !this.scesoReBello() && reBello==true)) {
 			p = p - 20;
 		}
 		// decremento se e re bello sette bello...
 		if ((3 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
 				|| (2 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
 				|| (7 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
-				|| (10 == c.getNum() && c.getSeme().compareTo("danaro") == 0)) {
+				|| (10 == c.getNum() && c.getSeme().compareTo("danaro") == 0 && reBello==true)) {
 			p = p - 20;
 		}
 		// controllo di non lasciare scopa in tavola
@@ -348,15 +351,11 @@ public class AI extends Player {
 					appP = appP - 5;
 				}
 				// analizzo di non lasciare somme valide per punti
-				if (sommPossibili[i] == 7 || sommPossibili[i] == 10 || sommPossibili[i] == 2 || sommPossibili[i] == 3) {
-					appP = appP - 10;
-				}
-				// analizzo di non appoggiarein tavola punti
-				if (!this.scesoDueBello() || !this.scesoTreBello() || !this.scesoSetteBello() || !this.scesoReBello()) {
-					appP = appP - 20;
+				if ((sommPossibili[i] == 7 && !this.scesoSetteBello()) || (sommPossibili[i] == 10 && !this.scesoReBello() && reBello==true) || (sommPossibili[i] == 2 && !this.scesoDueBello()) || (sommPossibili[i] == 3 && !this.scesoTreBello())) {
+					appP = appP - 30;
 				}
 				// controllo di non lasciare scopa in tavolo
-				if (this.contaPuntiTavolo() + sommPossibili[i] < 11) {
+				if ((this.contaPuntiTavolo() + sommPossibili[i] < 11) && (this.carteRimaneti(this.contaPuntiTavolo() + sommPossibili[i]) != 0)) {
 					p = 10;
 				}
 				// se ottengo un valore peggiore lo aggiorno
@@ -368,7 +367,8 @@ public class AI extends Player {
 		int app[][] = this.ricercaCombinazioni(c);
 		// controllo che la carta non possa prendere nulla in contrario tolgo 30 punti
 		if (this.ricercaCartaT(c) != -1 || app[0][0] != -1) {
-			p = p - 30;
+			//p = p - 30;
+			p = 10;
 		}
 		return p;
 	}

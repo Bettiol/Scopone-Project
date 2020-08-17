@@ -7,9 +7,9 @@ module Scopone_Project_Eclipse {
 	exports application.model.networking;
 	exports application.model.engine.TDA;
 	exports application.model.engine;
-
+	
 	opens application.control;
-
+	
 	requires transitive javafx.base;
 	requires transitive javafx.controls;
 	requires transitive javafx.fxml;

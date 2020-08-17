@@ -40,10 +40,11 @@ public class AI extends Player {
 	 * @param table tavolo a cui il giocatore è collegato
 	 * @param sub   se deve sostituire un Player che si è disconnesso
 	 */
-	public AI(LocalTable table, boolean sub) {
+	public AI(LocalTable table, boolean sub, boolean assoPiglia, boolean reBello) {
 		super();
 		this.table = table;
-
+		this.assoPiglia=assoPiglia;
+		this.reBello=reBello;
 		if (!sub) {
 			table.addPlayer(this);
 		}
@@ -55,8 +56,8 @@ public class AI extends Player {
 	 * 
 	 * @param table tavolo a cui il giocatore è collegato
 	 */
-	public AI(LocalTable table) {
-		this(table, false);
+	public AI(LocalTable table, boolean assoPiglia, boolean reBello) {
+		this(table, false, assoPiglia, reBello);
 	}
 
 	@Override

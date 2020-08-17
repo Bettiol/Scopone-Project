@@ -77,13 +77,13 @@ public class LoadTable implements Runnable {
 				 * c);
 				 */
 
-				new AI(table);
-				new AI(table);
-				new AI(table);
+				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
+				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
+				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
 			} else if (arr.length == 1) {
-				new AI(table);
+				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
 				new RemotePlayer(arr[0], table);
-				new AI(table);
+				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
 			} else if (arr.length == 3) {
 				new RemotePlayer(arr[0], table);
 				new RemotePlayer(arr[1], table);

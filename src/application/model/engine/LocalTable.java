@@ -89,7 +89,7 @@ public class LocalTable extends Table implements Runnable {
 			// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
 			// System.out.println("Player(" + i + ") + turno " + app);
 			if (allWentOk == -1) {
-				myPlayers[i] = new AI(this, true);
+				myPlayers[i] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
 				System.out.println("Non una bella partenza per player(" + i + ")");
 			}
 
@@ -112,7 +112,7 @@ public class LocalTable extends Table implements Runnable {
 					allWentOk = myPlayers[j].notifyTableState(table, dimTable);
 					if (allWentOk == -1) {
 						System.out.println("Qualcosa è andato storto nella notifica al player " + j);
-						myPlayers[j] = new AI(this, true);
+						myPlayers[j] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
 					}
 				}
 
@@ -120,7 +120,7 @@ public class LocalTable extends Table implements Runnable {
 				i++;
 			} else {
 				System.out.println("Player " + turn + " non ha fatto nulla");
-				myPlayers[turn] = new AI(this, true);
+				myPlayers[turn] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
 			}
 
 		}
@@ -164,7 +164,7 @@ public class LocalTable extends Table implements Runnable {
 		}
 
 		// Calcolo la presa
-		if (c.getNum() == 1) {
+		if (c.getNum() == 1 && cfg.isAssoPigliatutto()) {
 			assignPick(c, new Carta("Presa asso", 1));
 			lastPick.add(c);
 		} else {
@@ -302,7 +302,7 @@ public class LocalTable extends Table implements Runnable {
 	 */
 	private void assignPick(Carta calata, Carta presa) {
 		if (turn == 0 || turn == 2) {
-			if (calata.getNum() == 1) {
+			if (calata.getNum() == 1 && cfg.isAssoPigliatutto()) {
 				for (int i = dimTable - 1; i >= 0; i--) {
 					teamOnePicks.add(scartaTavolo(table[i]));
 				}
@@ -316,7 +316,7 @@ public class LocalTable extends Table implements Runnable {
 
 			lastPick = teamOnePicks;
 		} else {
-			if (calata.getNum() == 1) {
+			if (calata.getNum() == 1 && cfg.isAssoPigliatutto()) {
 				for (int i = dimTable - 1; i >= 0; i--) {
 					teamTwoPicks.add(scartaTavolo(table[i]));
 				}
@@ -473,10 +473,10 @@ public class LocalTable extends Table implements Runnable {
 			squadra[0].setSettebello(false);
 			squadra[1].setSettebello(true);
 		}
-		if (trovaReBello(teamOnePicks) == true) {
+		if (trovaReBello(teamOnePicks) == true && cfg.isReBello()) {
 			squadra[0].setRebello(true);
 			squadra[1].setRebello(false);
-		} else {
+		} else if(cfg.isReBello()){
 			squadra[0].setRebello(false);
 			squadra[1].setRebello(true);
 		}
@@ -490,15 +490,17 @@ public class LocalTable extends Table implements Runnable {
 			squadra[0].setDanari(false);
 			squadra[1].setDanari(false);
 		}
-		int nap = trovaNapoli(teamOnePicks);
-		if (nap != 0) {
-			squadra[0].setNapoli(nap);
-			squadra[1].setNapoli(0);
-		}
-		nap = trovaNapoli(teamTwoPicks);
-		if (nap != 0) {
-			squadra[0].setNapoli(0);
-			squadra[1].setNapoli(nap);
+		if(cfg.isNapoli()) {
+			int nap = trovaNapoli(teamOnePicks);
+			if (nap != 0) {
+				squadra[0].setNapoli(nap);
+				squadra[1].setNapoli(0);
+			}
+			nap = trovaNapoli(teamTwoPicks);
+			if (nap != 0) {
+				squadra[0].setNapoli(0);
+				squadra[1].setNapoli(nap);
+			}
 		}
 		if (teamOnePicks.size() > teamTwoPicks.size()) {
 			squadra[0].setCarte(true);

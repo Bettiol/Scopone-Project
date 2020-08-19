@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"Scopone_Project"}]

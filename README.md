@@ -1,2 +1,3 @@
-# Scopone-Project
-A JavaFX Venetian Card Game
+# Scopone-Project_ApiConnection
+
+Connection to Github Api for Updater

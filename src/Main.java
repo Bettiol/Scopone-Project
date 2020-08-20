@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -10,12 +11,15 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Main {
 
 	private static HttpURLConnection connection;
+	public final static int CONNECT_TIMEOUT = 5000;
+	public final static int READ_TIMEOUT = 5000;
 
 	public static void main(String[] args) {
 
@@ -28,8 +32,8 @@ public class Main {
 			connection = (HttpURLConnection) url.openConnection();
 
 			connection.setRequestMethod("GET");
-			connection.setConnectTimeout(5000);
-			connection.setReadTimeout(5000);
+			connection.setConnectTimeout(CONNECT_TIMEOUT);
+			connection.setReadTimeout(READ_TIMEOUT);
 
 			int status = connection.getResponseCode();
 
@@ -49,7 +53,8 @@ public class Main {
 				}
 				reader.close();
 
-				parse(responseContent.toString());
+				//parse(responseContent.toString());
+				downloadAsset();
 			}
 
 		} catch (MalformedURLException e) {
@@ -147,6 +152,21 @@ public class Main {
 		System.out.println(isAfter);
 		System.out.println(isEqual);
 
+	}
+	
+	public static void downloadAsset() {
+		
+		try {
+			FileUtils.copyURLToFile(new URL("https://speed.hetzner.de/100MB.bin"), new File("Test.zip"), CONNECT_TIMEOUT, READ_TIMEOUT);
+			System.out.println("File scaricato");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

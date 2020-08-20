@@ -6,6 +6,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/SDK &amp; Others/json-20200518.jar"/>
+	<classpathentry kind="lib" path="C:/SDK &amp; Others/json-20200518/json-20200518.jar"/>
+	<classpathentry kind="lib" path="C:/SDK &amp; Others/commons-io-2.7/commons-io-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/SDK &amp; Others/commons-io-2.7/commons-io-2.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/SDK &amp; Others/commons-io-2.7/commons-io-2.7-sources.jar"/>
+	<classpathentry kind="lib" path="C:/SDK &amp; Others/commons-io-2.7/commons-io-2.7-tests.jar"/>
+	<classpathentry kind="lib" path="C:/SDK &amp; Others/commons-io-2.7/commons-io-2.7-test-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

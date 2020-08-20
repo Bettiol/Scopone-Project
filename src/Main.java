@@ -1,3 +1,7 @@
+import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -11,33 +15,29 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
-import org.apache.commons.io.FileUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 public class Main {
 
-	private static HttpURLConnection connection;
-	public final static int CONNECT_TIMEOUT = 5000;
-	public final static int READ_TIMEOUT = 5000;
+    public final static int CONNECT_TIMEOUT = 5000;
+    public final static int READ_TIMEOUT = 5000;
+    private static HttpURLConnection connection;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		BufferedReader reader;
-		String line;
-		StringBuffer responseContent = new StringBuffer();
+        BufferedReader reader;
+        String line;
+        StringBuffer responseContent = new StringBuffer();
 
-		try {
-			URL url = new URL("https://api.github.com/repos/Bettiol/GitFlowTest/releases");
-			connection = (HttpURLConnection) url.openConnection();
+        try {
+            URL url = new URL("https://api.github.com/repos/Bettiol/GitFlowTest/releases");
+            connection = (HttpURLConnection) url.openConnection();
 
-			connection.setRequestMethod("GET");
-			connection.setConnectTimeout(CONNECT_TIMEOUT);
-			connection.setReadTimeout(READ_TIMEOUT);
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(CONNECT_TIMEOUT);
+            connection.setReadTimeout(READ_TIMEOUT);
 
-			int status = connection.getResponseCode();
+            int status = connection.getResponseCode();
 
-			if (status == 404) {
+            if (status == 404) {
 				/*
 				reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
 				while ((line = reader.readLine()) != null) {
@@ -45,25 +45,25 @@ public class Main {
 				}
 				reader.close();
 				 */
-				System.out.println("Errore 404");
-			} else {
-				reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				while ((line = reader.readLine()) != null) {
-					responseContent.append(line);
-				}
-				reader.close();
+                System.out.println("Errore 404");
+            } else {
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                while ((line = reader.readLine()) != null) {
+                    responseContent.append(line);
+                }
+                reader.close();
 
-				//parse(responseContent.toString());
-				downloadAsset();
-			}
+                parse(responseContent.toString());
+                //downloadAsset();
+            }
 
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 		/*
 		 JAVA 11+
@@ -76,97 +76,97 @@ public class Main {
 		 	.thenAccept(System.out::println).join();
 		 */
 
-	}
+    }
 
-	public static void parse(String responseBody) {
+    public static void parse(String responseBody) {
 
-		JSONArray informazioni = new JSONArray(responseBody);
+        JSONArray informazioni = new JSONArray(responseBody);
 
-		ArrayList<Asset> assets = null;
+        ArrayList<Asset> assets = null;
 
-		ArrayList<Release> release = new ArrayList<Release>();
-
-
-		for (int i = 0; i < informazioni.length(); i++) {
-
-			assets = new ArrayList<Asset>();
-
-			JSONObject info = informazioni.getJSONObject(i);
-
-			long id = info.getLong("id");
-			String tagname = info.getString("tag_name");
-			String name = info.getString("name");
-			String body = info.getString("body");
-
-			String publishatstring = info.getString("published_at");
-			LocalDateTime publishat = dateConverter(publishatstring);
-
-			JSONArray asset = info.getJSONArray("assets");
-
-			for (Object o : asset) {
-
-				JSONObject jsonLineItem = (JSONObject) o; 
-
-				long idasset = jsonLineItem.getLong("id"); 
-				String nameasset = jsonLineItem.getString("name");
-				long size = jsonLineItem.getLong("size"); 
-				String url = jsonLineItem.getString("url");
-
-				String createdatstring = jsonLineItem.getString("created_at");
-				LocalDateTime createdat = dateConverter(createdatstring);
-
-				boolean statusaddassets = assets.add(new Asset(idasset, nameasset, size, createdat, url));
-				System.out.println("Status ADD assets --> " + statusaddassets);
-			}
-
-			boolean statusaddrelease = release.add(new Release(id, tagname, name, publishat, assets, body));
-			System.out.println("Status ADD release --> " + statusaddrelease);	 
-		}
-
-		for(int j = 0; j < release.size(); j++) {
-
-			System.out.println(release.get(j).toString());
-			System.out.println("\n");
-
-		}
+        ArrayList<Release> release = new ArrayList<Release>();
 
 
-	}
+        for (int i = 0; i < informazioni.length(); i++) {
 
-	public static LocalDateTime dateConverter(String datastring) {
+            assets = new ArrayList<Asset>();
 
-		Instant data = Instant.parse(datastring);
+            JSONObject info = informazioni.getJSONObject(i);
 
-		LocalDateTime dataconvert = LocalDateTime.ofInstant(data, ZoneId.of(ZoneOffset.UTC.getId()));
+            long id = info.getLong("id");
+            String tagname = info.getString("tag_name");
+            String name = info.getString("name");
+            String body = info.getString("body");
 
-		return dataconvert;
-	}
+            String publishatstring = info.getString("published_at");
+            LocalDateTime publishat = dateConverter(publishatstring);
 
-	public static void dateCompare(LocalDateTime data1, LocalDateTime data2) {
+            JSONArray asset = info.getJSONArray("assets");
 
-		boolean isBefore = data1.isBefore(data2);
-		boolean isAfter = data1.isAfter(data2);
-		boolean isEqual = data1.isEqual(data2);
+            for (Object o : asset) {
 
-		System.out.println(isBefore);
-		System.out.println(isAfter);
-		System.out.println(isEqual);
+                JSONObject jsonLineItem = (JSONObject) o;
 
-	}
-	
-	public static void downloadAsset() {
-		
-		try {
-			FileUtils.copyURLToFile(new URL("https://speed.hetzner.de/100MB.bin"), new File("Test.zip"), CONNECT_TIMEOUT, READ_TIMEOUT);
-			System.out.println("File scaricato");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+                long idasset = jsonLineItem.getLong("id");
+                String nameasset = jsonLineItem.getString("name");
+                long size = jsonLineItem.getLong("size");
+                String url = jsonLineItem.getString("url");
+
+                String createdatstring = jsonLineItem.getString("created_at");
+                LocalDateTime createdat = dateConverter(createdatstring);
+
+                boolean statusaddassets = assets.add(new Asset(idasset, nameasset, size, createdat, url));
+                System.out.println("Status ADD assets --> " + statusaddassets);
+            }
+
+            boolean statusaddrelease = release.add(new Release(id, tagname, name, publishat, assets, body));
+            System.out.println("Status ADD release --> " + statusaddrelease);
+        }
+
+        for (int j = 0; j < release.size(); j++) {
+
+            System.out.println(release.get(j).toString());
+            System.out.println("\n");
+
+        }
+
+
+    }
+
+    public static LocalDateTime dateConverter(String datastring) {
+
+        Instant data = Instant.parse(datastring);
+
+        LocalDateTime dataconvert = LocalDateTime.ofInstant(data, ZoneId.of(ZoneOffset.UTC.getId()));
+
+        return dataconvert;
+    }
+
+    public static void dateCompare(LocalDateTime data1, LocalDateTime data2) {
+
+        boolean isBefore = data1.isBefore(data2);
+        boolean isAfter = data1.isAfter(data2);
+        boolean isEqual = data1.isEqual(data2);
+
+        System.out.println(isBefore);
+        System.out.println(isAfter);
+        System.out.println(isEqual);
+
+    }
+
+    public static void downloadAsset() {
+
+        try {
+            FileUtils.copyURLToFile(new URL("https://speed.hetzner.de/100MB.bin"), new File("Test.zip"), CONNECT_TIMEOUT, READ_TIMEOUT);
+            System.out.println("File scaricato");
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 
 }

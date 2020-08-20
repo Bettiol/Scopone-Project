@@ -119,6 +119,7 @@ public class AI extends Player {
 		int punti = 0;
 		int p = 0;
 		// analizzo ciascuna carta e assegno un punto di giocabilità
+		System.out.println("pippo");
 		for (int i = 0; i < dimHand; i++) {
 			punti = 0;
 			// assegno punti fissi all'asso
@@ -139,14 +140,17 @@ public class AI extends Player {
 					// seleziono e salvo la carta con un punteggio migliore
 				}
 			}
+			System.out.println("carta: "+handCards[i]+"  putni: "+punti);
 			if (punti > puntiMax) {
 				scarta = i;
 				puntiMax = punti;
 			}
 		}
+		if(puntiMax<10) {
+			scarta=seekingLesserEvil();
+		}
 		return handCards[scarta];
 	}
-
 	/**
 	 * Il metodo analizza se c'è la possibilità di fare scopa e assegna un punteggio
 	 * di giocabilità: 99 se possibile 100 se possibile con una carta di danari 0 se
@@ -327,7 +331,7 @@ public class AI extends Player {
 			p = p - 20;
 		}
 		// controllo di non lasciare scopa in tavola
-		if (this.contaPuntiTavolo() + c.getNum() < 11 && dimTable != 0) {
+		if (this.contaPuntiTavolo() + c.getNum() < 11 && dimTable != 0 && carteRimaneti(this.contaPuntiTavolo() + c.getNum())!=0) {
 			p = 10;
 		}
 		int sommPossibili[] = this.ricercaSommePossibili(c);
@@ -366,9 +370,8 @@ public class AI extends Player {
 			}
 		}
 		int app[][] = this.ricercaCombinazioni(c);
-		// controllo che la carta non possa prendere nulla in contrario tolgo 30 punti
+		// controllo che la carta non possa prendere nulla in contrario imposto i punti a 10
 		if (this.ricercaCartaT(c) != -1 || app[0][0] != -1) {
-			//p = p - 30;
 			p = 10;
 		}
 		return p;
@@ -727,4 +730,48 @@ public class AI extends Player {
 
 		return index;
 	}
+	
+	private int seekingLesserEvil() {
+		int scarta=(int) (Math.random()*this.dimHand);
+		int punti=0;
+		int puntiMax=0;
+		for(int i=0;i<dimHand;i++) {
+			//calcolo della minore possibilità di lasciare scopa
+			if(handCards[i].getNum()+contaPuntiTavolo()<11) {
+				if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==0)
+					punti = 25;
+				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==1)
+					punti = 20;
+				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==2)
+					punti = 15;
+				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==3)
+					punti = 10;
+				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==4)
+					punti = 5;
+			}
+			else
+				punti = 25;
+			//se sono finiti gli assi tolgo il timore di lancire una carta che porta punto
+			if(handCards[i].getNum()==10 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(10)!=0 && carteRimaneti(1)!=0)
+				punti=punti-5;
+			else if(handCards[i].getNum()==7 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(7)!=0 && carteRimaneti(1)!=0)
+				punti=punti-5;
+			else if(handCards[i].getNum()==3 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(3)!=0 && carteRimaneti(1)!=0)
+				punti=punti-5;
+			else if(handCards[i].getNum()==2 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(2)!=0 && carteRimaneti(1)!=0)
+				punti=punti-5;
+			
+			if(handCards[i].getSeme().compareTo("danaro")==0)
+				punti=punti-2;
+			if(handCards[i].getNum()==7 && carteRimaneti(7)!=0)
+				punti = punti -2;
+			
+			if (punti > puntiMax) {
+				scarta = i;
+				puntiMax = punti;
+			}
+		}
+		return scarta;
+	}
 }
+

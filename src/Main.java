@@ -4,6 +4,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +45,7 @@ public class Main {
 				}
 				reader.close();
 			}
-			// System.out.println(responseContent.toString());
+			//System.out.println(responseContent.toString());
 
 			parse(responseContent.toString());
 
@@ -71,24 +73,63 @@ public class Main {
 	public static void parse(String responseBody) {
 
 		JSONArray informazioni = new JSONArray(responseBody);
+		
+		List<Asset> assets = new ArrayList<Asset>();
+		
+		List<Release> release = new ArrayList<Release>();
+		
+		System.out.println(informazioni.length());
+		
 		for (int i = 0; i < informazioni.length(); i++) {
+			
 			JSONObject info = informazioni.getJSONObject(i);
-			String publicata = info.getString("published_at");
-			System.out.println(publicata);
 			
 			
-			/*
-			JSONArray tag = info.getJSONArray("assets");
+			String publishat = info.getString("published_at");
+			long id = info.getLong("id");
+			String tagname = info.getString("tag_name");
+			String name = info.getString("name");
+			String body = info.getString("body");
 			
-			for (Object o : tag) {
+			
+			//System.out.println(publicata);
+			
+			
+			
+			JSONArray asset = info.getJSONArray("assets");
+			
+			for (Object o : asset) {
 			 
 				JSONObject jsonLineItem = (JSONObject) o; 
-				long id = jsonLineItem.getLong("id"); System.out.println(id); 
+				
+				long idasset = jsonLineItem.getLong("id"); 
+				String nameasset = jsonLineItem.getString("name");
+				long size = jsonLineItem.getLong("size"); 
+				String createdat = jsonLineItem.getString("created_at");
+				String url = jsonLineItem.getString("url");
+				
+				boolean retu = assets.add(new Asset(idasset, nameasset, size, createdat, url));
+				//System.out.println(assets);
 			}
-			*/
-			 
+			
+			
+			boolean re = release.add(new Release(id, tagname, name, publishat, assets, body));
+			//System.out.println(assets);
+			
+			assets.clear();
+			
+			//System.out.println(assets);
+			
+					 
 		}
-
+		
+		System.out.println(release);
+		/*for(int j = 0; j < release.size(); j++) {
+            System.out.println(release.get(j).toString());
+            System.out.println("\n");
+        }*/
+		
+		
 	}
 
 }

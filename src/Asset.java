@@ -1,13 +1,14 @@
+import java.time.LocalDateTime;
 
 public class Asset {
 
-    private long id;
-    private String name;
-    private long size;
-    private String createdat;
-    private String url;
-    
-	public Asset(long id, String name, long size, String createdat, String url) {
+	private long id;
+	private String name;
+	private long size;
+	private LocalDateTime createdat;
+	private String url;
+
+	public Asset(long id, String name, long size, LocalDateTime createdat, String url) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,11 +41,11 @@ public class Asset {
 		this.size = size;
 	}
 
-	public String getCreatedat() {
+	public LocalDateTime getCreatedat() {
 		return createdat;
 	}
 
-	public void setCreatedat(String createdat) {
+	public void setCreatedat(LocalDateTime createdat) {
 		this.createdat = createdat;
 	}
 
@@ -61,8 +62,5 @@ public class Asset {
 		return "Asset [id=" + id + ", name=" + name + ", size=" + size + ", createdat=" + createdat + ", url=" + url
 				+ "]";
 	}
-    
-    
-    
-	
+
 }

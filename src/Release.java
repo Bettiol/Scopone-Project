@@ -1,15 +1,17 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Release {
-	
+
 	private long id;
 	private String tagname;
 	private String name;
-	private String publishat;
+	private LocalDateTime publishat;
 	private ArrayList<Asset> assets;
 	private String body;
-	
-	public Release(long id, String tagname, String name, String publishat, ArrayList<Asset> assets, String body) {
+
+	public Release(long id, String tagname, String name, LocalDateTime publishat, ArrayList<Asset> assets,
+			String body) {
 		super();
 		this.id = id;
 		this.tagname = tagname;
@@ -43,11 +45,11 @@ public class Release {
 		this.name = name;
 	}
 
-	public String getPublishat() {
+	public LocalDateTime getPublishat() {
 		return publishat;
 	}
 
-	public void setPublishat(String publishat) {
+	public void setPublishat(LocalDateTime publishat) {
 		this.publishat = publishat;
 	}
 
@@ -72,8 +74,5 @@ public class Release {
 		return "Release [id=" + id + ", tagname=" + tagname + ", name=" + name + ", publishat=" + publishat
 				+ ", assets=" + assets + ", body=" + body + "]";
 	}
-	
-	
 
-	
 }

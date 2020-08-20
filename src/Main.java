@@ -5,7 +5,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -74,9 +73,9 @@ public class Main {
 
 		JSONArray informazioni = new JSONArray(responseBody);
 		
-		List<Asset> assets = new ArrayList<Asset>();
+		ArrayList<Asset> assets = new ArrayList<Asset>();
 		
-		List<Release> release = new ArrayList<Release>();
+		ArrayList<Release> release = new ArrayList<Release>();
 		
 		System.out.println(informazioni.length());
 		

@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.ArrayList;
 
 public class Release {
 	
@@ -6,10 +6,10 @@ public class Release {
 	private String tagname;
 	private String name;
 	private String publishat;
-	private List<Asset> assets;
+	private ArrayList<Asset> assets;
 	private String body;
 	
-	public Release(long id, String tagname, String name, String publishat, List<Asset> assets, String body) {
+	public Release(long id, String tagname, String name, String publishat, ArrayList<Asset> assets, String body) {
 		super();
 		this.id = id;
 		this.tagname = tagname;
@@ -51,11 +51,11 @@ public class Release {
 		this.publishat = publishat;
 	}
 
-	public List<Asset> getAssets() {
+	public ArrayList<Asset> getAssets() {
 		return assets;
 	}
 
-	public void setAssets(List<Asset> assets) {
+	public void setAssets(ArrayList<Asset> assets) {
 		this.assets = assets;
 	}
 

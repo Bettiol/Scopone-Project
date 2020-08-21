@@ -44,6 +44,11 @@ public class Main {
 
     }
 
+    /**
+     * Metodo per collegarsi alle API di GitHub e leggere il JSON
+     * @param urlApi
+     * @return JSON sottoforma di stringa
+     */
     public static String connectionToApi(String urlApi) {
 
         HttpURLConnection connection;
@@ -63,6 +68,8 @@ public class Main {
             int status = connection.getResponseCode();
 
             if (status == 404) {
+
+                //TODO gestione degli altri codici HTTP
 				/*
 				reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
 				while ((line = reader.readLine()) != null) {
@@ -91,6 +98,11 @@ public class Main {
         return responseContent.toString();
     }
 
+    /**
+     * Metodo per analizzare il JSON e creare un oggetto -- usa libreria esterna
+     * @param responseBody
+     * @return ArrayList di oggetti Release, contente le informazioni sulle release
+     */
     public static ArrayList<Release> parse(String responseBody) {
 
         JSONArray informazioni = new JSONArray(responseBody);
@@ -140,6 +152,11 @@ public class Main {
 
     }
 
+    /**
+     * Metodo per convertire la String data in LocalDateTime
+     * @param datastring
+     * @return Variabile LocalDateTime
+     */
     public static LocalDateTime dateConverter(String datastring) {
 
         Instant data = Instant.parse(datastring);
@@ -149,6 +166,11 @@ public class Main {
         return dataconvert;
     }
 
+    /**
+     * Metodo per cercare l'ultima release disponibile analizzando le date
+     * @param releases
+     * @return Oggetto Release (ultima release)
+     */
     public static Release findLastRelease(ArrayList<Release> releases) {
 
         int position = 0;
@@ -171,6 +193,10 @@ public class Main {
 
     }
 
+    /**
+     * Metodo per stampare un ArrayList di Release -- da eliminare
+     * @param releases
+     */
     public static void printReleaseArrayList(ArrayList<Release> releases) {
 
         for (int i = 0; i < releases.size(); i++) {
@@ -182,6 +208,10 @@ public class Main {
 
     }
 
+    /**
+     * Metodo che racchiude le chiamate ai metodi per verificare le release disponibili
+     * @return Oggetto Release (ultima release)
+     */
     public static Release verifyLastRelease() {
 
         String response;
@@ -199,6 +229,10 @@ public class Main {
         return lastrelease;
     }
 
+    /**
+     * Metodo per scaricare file -- usa libreria esterna
+     * @param lastassets
+     */
     public static void downloadAsset(ArrayList<Asset> lastassets) {
 
         try {

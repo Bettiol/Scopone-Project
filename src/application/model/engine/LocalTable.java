@@ -40,6 +40,8 @@ public class LocalTable extends Table implements Runnable {
 	private int teamOnePoints;
 	private int teamTwoPoints;
 	private ArrayList<Carta> lastPick; // Puntatore all'array con l'ultima presa
+	private int teamOneTotal;
+	private int teamTwoTotal;
 
 	private GameSettings cfg;
 
@@ -62,6 +64,9 @@ public class LocalTable extends Table implements Runnable {
 		lastPick = null;
 		teamOnePoints = 0;
 		teamTwoPoints = 0;
+		
+		teamOneTotal=0;
+		teamTwoTotal=0;
 
 		this.cfg = cfg;
 	}
@@ -70,6 +75,11 @@ public class LocalTable extends Table implements Runnable {
 	public void run() {
 		Deck m = new Deck();
 		int allWentOk;
+		// Genero casualmente il turno
+		turn = (int) Math.floor(Math.random() * 3);
+		
+		do {
+		//Genera il mazzo
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 10; j++) {
 				playersHands[i][j] = m.pescaCarta();
@@ -77,9 +87,7 @@ public class LocalTable extends Table implements Runnable {
 			Arrays.sort(playersHands[i]);
 			handSizes[i] = 10;
 		}
-
-		// Genero casualmente il turno
-		turn = (int) Math.floor(Math.random() * 3);
+		
 		// Dico ai player chi sono
 		int app = turn;
 		Initialization pippo = null;
@@ -128,14 +136,23 @@ public class LocalTable extends Table implements Runnable {
 		assignLastPick();
 
 		Points[] result = stampaPunti();
-
+		teamOnePoints=result[0].calcolaTotale();
+		teamTwoPoints=result[1].calcolaTotale();
+		
 		// Notifico a tutti la fine del match
-		for (i = 0; i < 4; i++) {
-			allWentOk = myPlayers[i].showResult(result);
-			if (allWentOk == -1) {
-				System.out.println("Qualcosa è andato storto nella notifica a player " + i);
+		if(cfg.getPointLimit()==0) {
+			for (i = 0; i < 4; i++) {
+				allWentOk = myPlayers[i].showResult(result);
+				if (allWentOk == -1) {
+					System.out.println("Qualcosa è andato storto nella notifica a player " + i);
+				}
 			}
 		}
+		else {
+			//da finire con le schermate di caricamento
+		}
+		turn=(turn+1)%4;
+		}while(cfg.getPointLimit()<teamOneTotal && cfg.getPointLimit()<teamTwoTotal);
 		// System.out.println(result);
 	}
 
@@ -665,5 +682,5 @@ public class LocalTable extends Table implements Runnable {
 		tot = pDanari + pCoppe + pSpade + pBastoni;
 		return tot;
 	}
-
+	
 }

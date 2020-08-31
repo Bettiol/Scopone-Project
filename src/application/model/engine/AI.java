@@ -754,11 +754,11 @@ public class AI extends Player {
 			//se sono finiti gli assi tolgo il timore di lancire una carta che porta punto
 			if(handCards[i].getNum()==10 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(10)!=0 && carteRimaneti(1)!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==7 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(7)!=0 && carteRimaneti(1)!=0)
+			else if(handCards[i].getNum()==7 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(7)!=0 && carteRimaneti(1)!=0 && carteRimaneti(7+contaPuntiTavolo())!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==3 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(3)!=0 && carteRimaneti(1)!=0)
+			else if(handCards[i].getNum()==3 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(3)!=0 && carteRimaneti(1)!=0 && carteRimaneti(3+contaPuntiTavolo())!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==2 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(2)!=0 && carteRimaneti(1)!=0)
+			else if(handCards[i].getNum()==2 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(2)!=0 && carteRimaneti(1)!=0 && carteRimaneti(2+contaPuntiTavolo())!=0)
 				punti=punti-5;
 			
 			if(handCards[i].getSeme().compareTo("danaro")==0)

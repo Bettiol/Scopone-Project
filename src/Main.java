@@ -70,14 +70,19 @@ public class Main {
             if (status == 404) {
 
                 //TODO gestione degli altri codici HTTP
-				/*
+                /*
 				reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
 				while ((line = reader.readLine()) != null) {
 					responseContent.append(line);
 				}
 				reader.close();
-				 */
+				*/
+
+                System.out.println(responseContent.toString());
                 System.out.println("Errore 404");
+
+                System.exit(0);
+
             } else {
                 reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 while ((line = reader.readLine()) != null) {

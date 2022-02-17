@@ -138,7 +138,7 @@ public class ControllerCardView implements Initializable {
 	}
 
 	private void inizializeTable() {
-		/*TODO
+		/*TODO Background
 		String bg = "-fx-background-image: url(\'file:" + Main.settings.getTable().getPath() + "\');"
 				+ "-fx-background-position: center center;" + "-fx-background-size: stretch;";
 		bg = bg.replace("\\", "/");

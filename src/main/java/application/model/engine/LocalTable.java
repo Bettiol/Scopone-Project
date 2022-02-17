@@ -183,9 +183,9 @@ public class LocalTable extends Table implements Runnable {
 
 		// Calcolo la presa
 		if (c.getNum() == 1 && cfg.isAssoPigliatutto()) {
-			//TODO Non so che cazzo sia ma deve volare (Rompe la presa degli assi)
-			/*assignPick(c, new Carta("Presa asso", 1));
-			lastPick.add(c);*/
+			//TODO Messo a null ma meglio ricontrollare
+			assignPick(c, null);
+			lastPick.add(c);
 		} else {
 			Carta res = ricercaCartaT(c);
 			if (res != null) {

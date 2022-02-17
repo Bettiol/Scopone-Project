@@ -79,79 +79,79 @@ public class LocalTable extends Table implements Runnable {
 		turn = (int) Math.floor(Math.random() * 3);
 		
 		do {
-		//Genera il mazzo
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 10; j++) {
-				playersHands[i][j] = m.pescaCarta();
-			}
-			Arrays.sort(playersHands[i]);
-			handSizes[i] = 10;
-		}
-		
-		// Dico ai player chi sono
-		int app = turn;
-		Initialization pippo = null;
-		for (int i = 0; i < 4; i++) {
-			pippo = new Initialization(i, app, playersHands[i], null);
-			allWentOk = myPlayers[i].init(pippo);
-			// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
-			// System.out.println("Player(" + i + ") + turno " + app);
-			if (allWentOk == -1) {
-				myPlayers[i] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
-				System.out.println("Non una bella partenza per player(" + i + ")");
+			//Genera il mazzo
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 10; j++) {
+					playersHands[i][j] = m.pescaCarta();
+				}
+				Arrays.sort(playersHands[i]);
+				handSizes[i] = 10;
 			}
 
-			// app = (app + 1) % 4;
-		}
+			// Dico ai player chi sono
+			int app = turn;
+			Initialization pippo = null;
+			for (int i = 0; i < 4; i++) {
+				pippo = new Initialization(i, app, playersHands[i], null);
+				allWentOk = myPlayers[i].init(pippo);
+				// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
+				// System.out.println("Player(" + i + ") + turno " + app);
+				if (allWentOk == -1) {
+					myPlayers[i] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+					System.out.println("Non una bella partenza per player(" + i + ")");
+				}
 
-		// Inizia a giocare
-		int i = 0;
-		while (i < 40) {
-			turn = turn % 4;
-			/*
-			 * System.out.print(myPlayers[turn] instanceof RemotePlayer ? "Turno remoto" :
-			 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
-			 * System.out.println(" (" + turn + ")");
-			 */
-			allWentOk = myPlayers[turn].setPlayerTurn(playersHands[turn], handSizes[turn], table, dimTable);
-			if (allWentOk != -1) {
-				for (int j = 0; j < 4; j++) {
-					// System.out.println("turno 56 :" + turn);
-					allWentOk = myPlayers[j].notifyTableState(table, dimTable);
+				// app = (app + 1) % 4;
+			}
+
+			// Inizia a giocare
+			int i = 0;
+			while (i < 40) {
+				turn = turn % 4;
+				/*
+				 * System.out.print(myPlayers[turn] instanceof RemotePlayer ? "Turno remoto" :
+				 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
+				 * System.out.println(" (" + turn + ")");
+				 */
+				allWentOk = myPlayers[turn].setPlayerTurn(playersHands[turn], handSizes[turn], table, dimTable);
+				if (allWentOk != -1) {
+					for (int j = 0; j < 4; j++) {
+						// System.out.println("turno 56 :" + turn);
+						allWentOk = myPlayers[j].notifyTableState(table, dimTable);
+						if (allWentOk == -1) {
+							System.out.println("Qualcosa è andato storto nella notifica al player " + j);
+							myPlayers[j] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+						}
+					}
+
+					turn++;
+					i++;
+				} else {
+					System.out.println("Player " + turn + " non ha fatto nulla");
+					myPlayers[turn] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+				}
+
+			}
+
+			assignLastPick();
+
+			Points[] result = stampaPunti();
+			teamOnePoints=result[0].calcolaTotale();
+			teamTwoPoints=result[1].calcolaTotale();
+
+			// Notifico a tutti la fine del match
+			if(cfg.getPointLimit()==0) {
+				for (i = 0; i < 4; i++) {
+					allWentOk = myPlayers[i].showResult(result);
 					if (allWentOk == -1) {
-						System.out.println("Qualcosa è andato storto nella notifica al player " + j);
-						myPlayers[j] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+						System.out.println("Qualcosa è andato storto nella notifica a player " + i);
 					}
 				}
-
-				turn++;
-				i++;
-			} else {
-				System.out.println("Player " + turn + " non ha fatto nulla");
-				myPlayers[turn] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
 			}
-
-		}
-
-		assignLastPick();
-
-		Points[] result = stampaPunti();
-		teamOnePoints=result[0].calcolaTotale();
-		teamTwoPoints=result[1].calcolaTotale();
-		
-		// Notifico a tutti la fine del match
-		if(cfg.getPointLimit()==0) {
-			for (i = 0; i < 4; i++) {
-				allWentOk = myPlayers[i].showResult(result);
-				if (allWentOk == -1) {
-					System.out.println("Qualcosa è andato storto nella notifica a player " + i);
-				}
+			else {
+				//da finire con le schermate di caricamento
 			}
-		}
-		else {
-			//da finire con le schermate di caricamento
-		}
-		turn=(turn+1)%4;
+			turn=(turn+1)%4;
 		}while(cfg.getPointLimit()<teamOneTotal && cfg.getPointLimit()<teamTwoTotal);
 		// System.out.println(result);
 	}

@@ -2,8 +2,9 @@ package application;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
-import application.model.engine.TDA.Settings;
+import application.model.engine.types.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,13 +20,14 @@ public class Main extends Application {
 
 	public static MediaPlayer mainTheme;
 
+	public static final URL settingsPath = Main.class.getResource("settings.json");
 	public static Settings settings;
 
 	@Override
 	public void start(Stage primaryStage) {
 		// Carica le impostazioni
 		settings = new Settings();
-		//TODO settings.loadSettings();
+		settings.load(settingsPath);
 
 		// Inizializza view
 		try {

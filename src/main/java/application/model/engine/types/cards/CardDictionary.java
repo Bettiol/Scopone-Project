@@ -1,6 +1,5 @@
-package application.model.engine.TDA;
+package application.model.engine.types.cards;
 
-import java.io.File;
 import java.util.HashMap;
 
 import application.Main;
@@ -38,22 +37,12 @@ public class CardDictionary {
 	 * Associa tutte le carte con le loro rispettive immagini
 	 */
 	private void initialize() {
-		String seme = null;
-
 		String key;
-		for (int i = 0; i < 4; i++) {
-			if (i == 0) {
-				seme = "danaro";
-			} else if (i == 1) {
-				seme = "bastone";
-			} else if (i == 2) {
-				seme = "spada";
-			} else {
-				seme = "coppa";
-			}
+		for (Semi seme : Semi.values()) {
 
-			for (int j = 0; j < 10; j++) {
-				key = (j + 1) + "_" + seme;
+			for (int j = 1; j <= 10; ++j) {
+				key = j + "_" + seme;
+				//TODO Settings
 				cards.put(key, new Image(Main.class.getResourceAsStream("assets/cards/trevigiane/" + key + ".png")));
 			}
 		}

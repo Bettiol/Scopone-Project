@@ -2,14 +2,14 @@ package application.control;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
-import application.model.engine.TDA.Settings;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import application.model.engine.types.Settings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,57 +52,73 @@ public class SettingsController implements Initializable {
 		ImageView iv;
 		RadioButton rb;
 		tgTables = new ToggleGroup();
-		File[] tavoli = new File(Main.class.getResource("assets/tables/").getPath()).listFiles();
-		System.out.println(Main.class.getResource("assets/tables/").getPath());
-		for (File file : tavoli) {
-			iv = new ImageView(new Image("file:" + file.getPath()));
-			iv.setFitWidth(150);
-			iv.setFitHeight(150);
-			// iv.setPreserveRatio(true);
 
-			rb = new RadioButton();
-			rb.setGraphic(iv);
-			rb.setUserData(file);
-
-			// System.out.println(tavoli[i]);
-			if (file.equals(Main.settings.getTable())) {
-				rb.setSelected(true);
-			}
-			// rb.getStyleClass().add("radio-button");
-			tgTables.getToggles().add(rb);
-
-			tables.getChildren().add(rb);
+		File[] tavoli = new File[0];
+		try {
+			tavoli = Paths.get(Main.class.getResource("assets/tables/").toURI()).toFile().listFiles();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
 		}
-		tgTables.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println(newValue.getUserData());
-			Main.settings.setTable((URL) newValue.getUserData());
-		});
 
-		// Immagini
-		File[] carte = new File(Main.class.getResource("assets/cards/").getPath()).listFiles();
-		tgDecks = new ToggleGroup();
-		for (File file : carte) {
-			if (file.isDirectory()) {
-				iv = new ImageView(new Image("file:" + file.getPath() + File.separator + "1_danaro.png"));
+		if (tavoli != null) {
+			for (File file : tavoli) {
+				iv = new ImageView(new Image("file:" + file.getPath()));
 				iv.setFitWidth(150);
 				iv.setFitHeight(150);
-				iv.setPreserveRatio(true);
+				// iv.setPreserveRatio(true);
 
 				rb = new RadioButton();
 				rb.setGraphic(iv);
 				rb.setUserData(file);
-				if (file.equals(Main.settings.getDeck())) {
+
+				// System.out.println(tavoli[i]);
+				if (file.equals(Main.settings.getTable())) {
 					rb.setSelected(true);
 				}
-				tgDecks.getToggles().add(rb);
+				// rb.getStyleClass().add("radio-button");
+				tgTables.getToggles().add(rb);
 
-				decks.getChildren().add(rb);
+				tables.getChildren().add(rb);
 			}
+			tgTables.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+				System.out.println(newValue.getUserData());
+				Main.settings.setTable((URL) newValue.getUserData());
+			});
 		}
-		// tgDecks.se
-		tgDecks.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-			Main.settings.setDeck((URL) newValue.getUserData());
-		});
+
+		// Immagini
+		File[] carte = new File[0];
+		try {
+			carte = Paths.get(Main.class.getResource("assets/cards/").toURI()).toFile().listFiles();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		tgDecks = new ToggleGroup();
+		if (carte != null) {
+			for (File file : carte) {
+				if (file.isDirectory()) {
+					iv = new ImageView(new Image("file:" + file.getPath() + File.separator + "1_danaro.png"));
+					iv.setFitWidth(150);
+					iv.setFitHeight(150);
+					iv.setPreserveRatio(true);
+
+					rb = new RadioButton();
+					rb.setGraphic(iv);
+					rb.setUserData(file);
+					if (file.equals(Main.settings.getDeck())) {
+						rb.setSelected(true);
+					}
+					tgDecks.getToggles().add(rb);
+
+					decks.getChildren().add(rb);
+				}
+			}
+			// tgDecks.se
+			tgDecks.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+				Main.settings.setDeck((URL) newValue.getUserData());
+			});
+		}
 
 		// Volume
 		mainVolume.setValue(Main.settings.getVolume() * 100);
@@ -126,7 +142,7 @@ public class SettingsController implements Initializable {
 	@FXML
 	public void applyChanges() {
 		oldSettings = Main.settings.copy();
-		Main.settings.saveSettings();
+		Main.settings.save(Main.settingsPath);
 	}
 
 	@FXML
@@ -137,16 +153,16 @@ public class SettingsController implements Initializable {
 		ObservableList<Toggle> ol;
 		RadioButton rb;
 		ol = tgTables.getToggles();
-		for (int i = 0; i < ol.size(); i++) {
-			rb = (RadioButton) ol.get(i);
+		for (Toggle toggle : ol) {
+			rb = (RadioButton) toggle;
 			if (rb.getUserData().equals(Main.settings.getTable())) {
 				rb.setSelected(true);
 				break;
 			}
 		}
 		ol = tgDecks.getToggles();
-		for (int i = 0; i < ol.size(); i++) {
-			rb = (RadioButton) ol.get(i);
+		for (Toggle toggle : ol) {
+			rb = (RadioButton) toggle;
 			if (rb.getUserData().equals(Main.settings.getDeck())) {
 				rb.setSelected(true);
 				break;

@@ -1,4 +1,4 @@
-package application.model.engine.TDA;
+package application.model.engine.types;
 
 import java.io.Serial;
 import java.io.Serializable;

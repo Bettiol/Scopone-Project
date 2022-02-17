@@ -3,13 +3,14 @@ package application.model.engine;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import application.model.engine.TDA.Carta;
-import application.model.engine.TDA.Deck;
-import application.model.engine.TDA.GameSettings;
-import application.model.engine.TDA.Initialization;
-import application.model.engine.TDA.Player;
-import application.model.engine.TDA.Points;
-import application.model.engine.TDA.Table;
+import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Deck;
+import application.model.engine.types.GameSettings;
+import application.model.engine.types.Initialization;
+import application.model.engine.types.Player;
+import application.model.engine.types.Points;
+import application.model.engine.types.Table;
+import application.model.engine.types.cards.Semi;
 
 /**
  * La classe rappresente il tavolo di gioco e il mazziere e posside come sue
@@ -182,8 +183,9 @@ public class LocalTable extends Table implements Runnable {
 
 		// Calcolo la presa
 		if (c.getNum() == 1 && cfg.isAssoPigliatutto()) {
-			assignPick(c, new Carta("Presa asso", 1));
-			lastPick.add(c);
+			//TODO Non so che cazzo sia ma deve volare (Rompe la presa degli assi)
+			/*assignPick(c, new Carta("Presa asso", 1));
+			lastPick.add(c);*/
 		} else {
 			Carta res = ricercaCartaT(c);
 			if (res != null) {
@@ -551,7 +553,7 @@ public class LocalTable extends Table implements Runnable {
 	private boolean trovaSetteBello(ArrayList<Carta> cartePrese) {
 		boolean trovato = false;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getNum() == 7 && cartePrese.get(i).getSeme().compareTo("danaro") == 0) {
+			if (cartePrese.get(i).getNum() == 7 && cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
 				trovato = true;
 			}
 		}
@@ -567,7 +569,7 @@ public class LocalTable extends Table implements Runnable {
 	private boolean trovaReBello(ArrayList<Carta> cartePrese) {
 		boolean trovato = false;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getNum() == 10 && cartePrese.get(i).getSeme().compareTo("danaro") == 0) {
+			if (cartePrese.get(i).getNum() == 10 && cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
 				trovato = true;
 			}
 		}
@@ -583,7 +585,7 @@ public class LocalTable extends Table implements Runnable {
 	private int trovaDanari(ArrayList<Carta> cartePrese) {
 		int trovato = 0;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getSeme().compareTo("danaro") == 0) {
+			if (cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
 				trovato++;
 			}
 		}
@@ -598,23 +600,23 @@ public class LocalTable extends Table implements Runnable {
 	 */
 	private int trovaNapoli(ArrayList<Carta> cartePrese) {
 		int punti = 0;
-		if (cartePrese.contains(new Carta("danaro", 1))) {
-			if (cartePrese.contains(new Carta("danaro", 2))) {
-				if (cartePrese.contains(new Carta("danaro", 3))) {
+		if (cartePrese.contains(new Carta(Semi.DENARI, 1))) {
+			if (cartePrese.contains(new Carta(Semi.DENARI, 2))) {
+				if (cartePrese.contains(new Carta(Semi.DENARI, 3))) {
 					punti = 3;
-					if (cartePrese.contains(new Carta("danaro", 4))) {
+					if (cartePrese.contains(new Carta(Semi.DENARI, 4))) {
 						punti++;
-						if (cartePrese.contains(new Carta("danaro", 5))) {
+						if (cartePrese.contains(new Carta(Semi.DENARI, 5))) {
 							punti++;
-							if (cartePrese.contains(new Carta("danaro", 6))) {
+							if (cartePrese.contains(new Carta(Semi.DENARI, 6))) {
 								punti++;
-								if (cartePrese.contains(new Carta("danaro", 7))) {
+								if (cartePrese.contains(new Carta(Semi.DENARI, 7))) {
 									punti++;
-									if (cartePrese.contains(new Carta("danaro", 8))) {
+									if (cartePrese.contains(new Carta(Semi.DENARI, 8))) {
 										punti++;
-										if (cartePrese.contains(new Carta("danaro", 9))) {
+										if (cartePrese.contains(new Carta(Semi.DENARI, 9))) {
 											punti++;
-											if (cartePrese.contains(new Carta("danaro", 10))) {
+											if (cartePrese.contains(new Carta(Semi.DENARI, 10))) {
 												punti++;
 											}
 										}
@@ -660,15 +662,15 @@ public class LocalTable extends Table implements Runnable {
 			} else {
 				app = 10;
 			}
-			if (cartePrese.get(i).getSeme().compareTo("danaro") == 0) {
+			if (cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
 				if (app > pDanari) {
 					pDanari = app;
 				}
-			} else if (cartePrese.get(i).getSeme().compareTo("spada") == 0) {
+			} else if (cartePrese.get(i).getSeme().compareTo(Semi.SPADE) == 0) {
 				if (app > pSpade) {
 					pSpade = app;
 				}
-			} else if (cartePrese.get(i).getSeme().compareTo("coppa") == 0) {
+			} else if (cartePrese.get(i).getSeme().compareTo(Semi.COPPE) == 0) {
 				if (app > pCoppe) {
 					pCoppe = app;
 				}

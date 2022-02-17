@@ -1,7 +1,7 @@
 package application.model.engine.subrutines;
 
-import application.model.engine.TDA.CardDictionary;
-import application.model.engine.TDA.Carta;
+import application.model.engine.types.cards.CardDictionary;
+import application.model.engine.types.cards.Carta;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;

@@ -3,7 +3,7 @@ package application.model.networking.TDA;
 import java.io.Serial;
 import java.io.Serializable;
 
-import application.model.engine.TDA.Carta;
+import application.model.engine.types.cards.Carta;
 
 /**
  * 

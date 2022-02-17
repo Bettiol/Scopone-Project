@@ -1,4 +1,6 @@
-package application.model.engine.TDA;
+package application.model.engine.types;
+
+import application.model.engine.types.cards.Carta;
 
 import java.io.Serial;
 import java.io.Serializable;

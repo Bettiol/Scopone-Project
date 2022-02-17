@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
-import application.model.engine.TDA.CardDictionary;
-import application.model.engine.TDA.Carta;
+import application.model.engine.types.cards.CardDictionary;
+import application.model.engine.types.cards.Carta;
 import application.model.engine.subrutines.RefreshCards;
 import application.model.engine.subrutines.RefreshCombos;
 import application.model.engine.subrutines.RefreshPlayed;

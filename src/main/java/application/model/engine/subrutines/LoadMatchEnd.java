@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import application.Main;
 import application.control.MatchEndController;
-import application.model.engine.TDA.Points;
+import application.model.engine.types.Points;
 
 /**
  * 

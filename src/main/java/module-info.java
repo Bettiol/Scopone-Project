@@ -1,4 +1,6 @@
 module application {
+    requires org.json;
+
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;

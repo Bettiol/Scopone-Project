@@ -3,7 +3,7 @@ package application.control;
 import java.io.IOException;
 
 import application.Main;
-import application.model.engine.TDA.Points;
+import application.model.engine.types.Points;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

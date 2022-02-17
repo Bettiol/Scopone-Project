@@ -2,10 +2,11 @@ package application.model.engine;
 
 import java.util.ArrayList;
 
-import application.model.engine.TDA.Carta;
-import application.model.engine.TDA.Initialization;
-import application.model.engine.TDA.Player;
-import application.model.engine.TDA.Points;
+import application.model.engine.types.cards.Carta;
+import application.model.engine.types.Initialization;
+import application.model.engine.types.Player;
+import application.model.engine.types.Points;
+import application.model.engine.types.cards.Semi;
 
 /**
  * La classe AI rappresenta un Player che effettua le scelte senza interagire
@@ -166,7 +167,7 @@ public class AI extends Player {
 		if (sommaTavolo == c.getNum()) {
 			p = 99;
 			// scopa con danaro
-			if (sommaTavolo == c.getNum() && c.getSeme().compareTo("danaro") == 0) {
+			if (sommaTavolo == c.getNum() && c.getSeme() == Semi.DENARI) {
 				p = 100;
 			}
 		}
@@ -216,22 +217,22 @@ public class AI extends Player {
 			} else {
 				p = p + 60;
 			}
-			if (c.getSeme().compareTo("danaro") == 0 || tableCards[pos].getSeme().compareTo("danaro") == 0) {
+			if (c.getSeme() == Semi.DENARI || tableCards[pos].getSeme() == Semi.DENARI) {
 				p = p + 3;
-				if ((c.getNum() == 10 && c.getSeme().compareTo("danaro") == 0 && reBello)
-						|| (tableCards[pos].getNum() == 10 && tableCards[pos].getSeme().compareTo("danaro") == 0)) {
+				if ((c.getNum() == 10 && c.getSeme() == Semi.DENARI && reBello)
+						|| (tableCards[pos].getNum() == 10 && tableCards[pos].getSeme() == Semi.DENARI)) {
 					p = p + 7;
 				}
-				if ((c.getNum() == 7 && c.getSeme().compareTo("danaro") == 0)
-						|| (tableCards[pos].getNum() == 7 && tableCards[pos].getSeme().compareTo("danaro") == 0)) {
+				if ((c.getNum() == 7 && c.getSeme() == Semi.DENARI)
+						|| (tableCards[pos].getNum() == 7 && tableCards[pos].getSeme() == Semi.DENARI)) {
 					p = p + 7;
 				}
-				if ((c.getNum() == 2 && c.getSeme().compareTo("danaro") == 0)
-						|| (tableCards[pos].getNum() == 2 && tableCards[pos].getSeme().compareTo("danaro") == 0)) {
+				if ((c.getNum() == 2 && c.getSeme() == Semi.DENARI)
+						|| (tableCards[pos].getNum() == 2 && tableCards[pos].getSeme() == Semi.DENARI)) {
 					p = p + 7;
 				}
-				if ((c.getNum() == 3 && c.getSeme().compareTo("danaro") == 0)
-						|| (tableCards[pos].getNum() == 3 && tableCards[pos].getSeme().compareTo("danaro") == 0)) {
+				if ((c.getNum() == 3 && c.getSeme() == Semi.DENARI)
+						|| (tableCards[pos].getNum() == 3 && tableCards[pos].getSeme() == Semi.DENARI)) {
 					p = p + 7;
 				}
 			}
@@ -256,18 +257,18 @@ public class AI extends Player {
 					} else {
 						appP = appP + 60;
 					}
-					if (c.getSeme().compareTo("danaro") == 0) {
+					if (c.getSeme() == Semi.DENARI) {
 						appP = appP + 3;
 						if (c.getNum() == 10 && reBello) {
 							appP = appP + 7;
 						}
-						if (posizioni[i][0] != -1 && tableCards[posizioni[i][0]].getSeme().compareTo("danaro") == 0) {
+						if (posizioni[i][0] != -1 && tableCards[posizioni[i][0]].getSeme() == Semi.DENARI) {
 							appP = appP + 3;
 						}
-						if (posizioni[i][1] != -1 && tableCards[posizioni[i][1]].getSeme().compareTo("danaro") == 0) {
+						if (posizioni[i][1] != -1 && tableCards[posizioni[i][1]].getSeme() == Semi.DENARI) {
 							appP = appP + 3;
 						}
-						if (posizioni[i][2] != -1 && tableCards[posizioni[i][2]].getSeme().compareTo("danaro") == 0) {
+						if (posizioni[i][2] != -1 && tableCards[posizioni[i][2]].getSeme() == Semi.DENARI) {
 							appP = appP + 3;
 						}
 					}
@@ -315,19 +316,19 @@ public class AI extends Player {
 			p = 25;
 		}
 		// analizzo il seme e il valore della carta
-		if (c.getSeme().compareTo("danaro") == 0) {
+		if (c.getSeme() == Semi.DENARI) {
 			p = p - 5;
 		}
 		// decremento vedere se manca re bello, 7 bello...
 		if ((c.getNum() == 2 && !this.scesoDueBello()) || (c.getNum() == 3 && !this.scesoTreBello())
-				|| (c.getNum() == 7 && !this.scesoSetteBello()) || (c.getNum() == 10 && !this.scesoReBello() && reBello==true)) {
+				|| (c.getNum() == 7 && !this.scesoSetteBello()) || (c.getNum() == 10 && !this.scesoReBello() && reBello)) {
 			p = p - 20;
 		}
 		// decremento se e re bello sette bello...
-		if ((3 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
-				|| (2 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
-				|| (7 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
-				|| (10 == c.getNum() && c.getSeme().compareTo("danaro") == 0 && reBello)) {
+		if ((3 == c.getNum() && c.getSeme() == Semi.DENARI)
+				|| (2 == c.getNum() && c.getSeme() == Semi.DENARI)
+				|| (7 == c.getNum() && c.getSeme() == Semi.DENARI)
+				|| (10 == c.getNum() && c.getSeme() == Semi.DENARI && reBello)) {
 			p = p - 20;
 		}
 		// controllo di non lasciare scopa in tavola
@@ -352,11 +353,11 @@ public class AI extends Player {
 					appP = 20;
 				}
 				// analizzo il seme e il valore della carta
-				if (c.getSeme().compareTo("danaro") == 0) {
+				if (c.getSeme() == Semi.DENARI) {
 					appP = appP - 5;
 				}
 				// analizzo di non lasciare somme valide per punti
-				if ((sommPossibili[i] == 7 && !this.scesoSetteBello()) || (sommPossibili[i] == 10 && !this.scesoReBello() && reBello==true) || (sommPossibili[i] == 2 && !this.scesoDueBello()) || (sommPossibili[i] == 3 && !this.scesoTreBello())) {
+				if ((sommPossibili[i] == 7 && !this.scesoSetteBello()) || (sommPossibili[i] == 10 && !this.scesoReBello() && reBello) || (sommPossibili[i] == 2 && !this.scesoDueBello()) || (sommPossibili[i] == 3 && !this.scesoTreBello())) {
 					appP = appP - 30;
 				}
 				// controllo di non lasciare scopa in tavolo
@@ -521,22 +522,22 @@ public class AI extends Player {
 	public boolean scesoReBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (10 == handCards[i].getNum() && handCards[i].getSeme().compareTo("danaro") == 0) {
+			if (10 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (10 == tableCards[i].getNum() && tableCards[i].getSeme().compareTo("danaro") == 0) {
+			if (10 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (10 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (10 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (10 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (10 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
@@ -553,22 +554,22 @@ public class AI extends Player {
 	public boolean scesoSetteBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (7 == handCards[i].getNum() && handCards[i].getSeme().compareTo("danaro") == 0) {
+			if (7 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (7 == tableCards[i].getNum() && tableCards[i].getSeme().compareTo("danaro") == 0) {
+			if (7 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (7 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (7 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (7 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (7 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
@@ -585,22 +586,22 @@ public class AI extends Player {
 	public boolean scesoDueBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (2 == handCards[i].getNum() && handCards[i].getSeme().compareTo("danaro") == 0) {
+			if (2 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (2 == tableCards[i].getNum() && tableCards[i].getSeme().compareTo("danaro") == 0) {
+			if (2 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (2 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (2 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (2 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (2 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
@@ -617,22 +618,22 @@ public class AI extends Player {
 	public boolean scesoTreBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (3 == handCards[i].getNum() && handCards[i].getSeme().compareTo("danaro") == 0) {
+			if (3 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (3 == tableCards[i].getNum() && tableCards[i].getSeme().compareTo("danaro") == 0) {
+			if (3 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (3 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (3 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (3 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme().compareTo("danaro") == 0) {
+			if (3 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
 				sceso = true;
 			}
 		}
@@ -666,20 +667,20 @@ public class AI extends Player {
 			if (tableCards[i].getNum() == 2 && !scesoDueBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getSeme().compareTo("danaro") == 0) {
+			if (tableCards[i].getSeme() == Semi.DENARI) {
 				punti = punti + 5;
 			}
 			// se è prensente il re/sette/due/tre bello in tavola aumento i punti
-			if (tableCards[i].getSeme().compareTo("danaro") == 0 && tableCards[i].getNum() == 10) {
+			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 10) {
 				punti = 75 + 6;
 			}
-			if (tableCards[i].getSeme().compareTo("danaro") == 0 && tableCards[i].getNum() == 7) {
+			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 7) {
 				punti = 75 + 6;
 			}
-			if (tableCards[i].getSeme().compareTo("danaro") == 0 && tableCards[i].getNum() == 2) {
+			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 2) {
 				punti = 75 + 6;
 			}
-			if (tableCards[i].getSeme().compareTo("danaro") == 0 && tableCards[i].getNum() == 3) {
+			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 3) {
 				punti = 75 + 6;
 			}
 		}
@@ -706,12 +707,12 @@ public class AI extends Player {
 			j = 0;
 			while (combos[i][j] != null && j < 3) {
 				p = p + 5;
-				if (combos[i][j].getNum() == 7 && combos[i][j].getSeme().compareTo("danaro") == 0) {
+				if (combos[i][j].getNum() == 7 && combos[i][j].getSeme() == Semi.DENARI) {
 					p = p + 25;
 				} else if ((combos[i][j].getNum() == 2 || combos[i][j].getNum() == 3)
-						&& combos[i][j].getSeme().compareTo("danaro") == 0) {
+						&& combos[i][j].getSeme() == Semi.DENARI) {
 					p = p + 20;
-				} else if (combos[i][j].getSeme().compareTo("danaro") == 0) {
+				} else if (combos[i][j].getSeme() == Semi.DENARI) {
 					p = p + 5;
 				} else if (combos[i][j].getNum() == 7) {
 					p = p + 10;
@@ -752,20 +753,20 @@ public class AI extends Player {
 			else
 				punti = 25;
 			//se sono finiti gli assi tolgo il timore di lancire una carta che porta punto
-			if(handCards[i].getNum()==10 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(10)!=0 && carteRimaneti(1)!=0)
+			if(handCards[i].getNum()==10 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(10)!=0 && carteRimaneti(1)!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==7 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(7)!=0 && carteRimaneti(1)!=0 && carteRimaneti(7+contaPuntiTavolo())!=0)
+			else if(handCards[i].getNum()==7 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(7)!=0 && carteRimaneti(1)!=0 && carteRimaneti(7+contaPuntiTavolo())!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==3 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(3)!=0 && carteRimaneti(1)!=0 && carteRimaneti(3+contaPuntiTavolo())!=0)
+			else if(handCards[i].getNum()==3 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(3)!=0 && carteRimaneti(1)!=0 && carteRimaneti(3+contaPuntiTavolo())!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==2 && handCards[i].getSeme().compareTo("danaro")==0 && carteRimaneti(2)!=0 && carteRimaneti(1)!=0 && carteRimaneti(2+contaPuntiTavolo())!=0)
+			else if(handCards[i].getNum()==2 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(2)!=0 && carteRimaneti(1)!=0 && carteRimaneti(2+contaPuntiTavolo())!=0)
 				punti=punti-5;
 			
-			if(handCards[i].getSeme().compareTo("danaro")==0)
+			if(handCards[i].getSeme() == Semi.DENARI)
 				punti=punti-2;
 			if(handCards[i].getNum()==7 && carteRimaneti(7)!=0)
 				punti = punti -2;
-			
+
 			if (punti > puntiMax) {
 				scarta = i;
 				puntiMax = punti;

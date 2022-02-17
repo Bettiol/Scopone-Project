@@ -1,4 +1,4 @@
-package application.model.engine.TDA;
+package application.model.engine.types.cards;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,7 +18,7 @@ public class Carta implements Serializable, Comparable<Carta> {
 	@Serial
 	private static final long serialVersionUID = 8223232637933818932L;
 
-	private String seme;
+	private Semi seme;
 	private int num;
 
 	/**
@@ -27,7 +27,7 @@ public class Carta implements Serializable, Comparable<Carta> {
 	 * @param seme il seme a cui appartiene la carta
 	 * @param num  il valore della carta
 	 */
-	public Carta(String seme, int num) {
+	public Carta(Semi seme, int num) {
 		super();
 		this.seme = seme;
 		this.num = num;
@@ -38,7 +38,7 @@ public class Carta implements Serializable, Comparable<Carta> {
 	 * 
 	 * @return la stringa contenente il seme della carta
 	 */
-	public String getSeme() {
+	public Semi getSeme() {
 		return seme;
 	}
 

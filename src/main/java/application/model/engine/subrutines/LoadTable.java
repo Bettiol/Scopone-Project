@@ -7,7 +7,7 @@ import application.control.ControllerCardView;
 import application.model.engine.AI;
 import application.model.engine.HumanPlayer;
 import application.model.engine.LocalTable;
-import application.model.engine.TDA.GameSettings;
+import application.model.engine.types.GameSettings;
 import application.model.networking.RemotePlayer;
 import application.model.networking.RemoteTable;
 import application.model.networking.TCPConnection;

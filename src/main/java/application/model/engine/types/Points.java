@@ -1,5 +1,6 @@
-package application.model.engine.TDA;
+package application.model.engine.types;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,9 @@ import java.io.Serializable;
 
 public class Points implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 6776383109489534815L;
+
 	private int scope;
 	private int napoli;
 	private boolean settebello;

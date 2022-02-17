@@ -2,11 +2,11 @@ package application.model.networking;
 
 import java.io.IOException;
 
-import application.model.engine.TDA.Carta;
-import application.model.engine.TDA.Initialization;
-import application.model.engine.TDA.Player;
-import application.model.engine.TDA.Points;
-import application.model.engine.TDA.Table;
+import application.model.engine.types.cards.Carta;
+import application.model.engine.types.Initialization;
+import application.model.engine.types.Player;
+import application.model.engine.types.Points;
+import application.model.engine.types.Table;
 import application.model.engine.subrutines.LoadScene;
 import application.model.networking.TDA.Message;
 import application.model.networking.TDA.State;

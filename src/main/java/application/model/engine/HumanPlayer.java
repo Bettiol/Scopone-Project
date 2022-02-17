@@ -14,7 +14,7 @@ import javafx.application.Platform;
 /**
  * La classe rappresenta un Player che necessita di un interazione con l'utente
  * per effttuare alcune operazione di scelta della carta o della combos, inoltre
- * questo giocatore risiede nella stessa memoria in cui è presente il table
+ * questo giocatore risiede nella stessa memoria in cui Ã¨ presente il table
  * 
  * @author Brognera
  * @author Moscatelli
@@ -35,7 +35,7 @@ public class HumanPlayer extends Player {
 	/**
 	 * Metodo costruttore della classe
 	 * 
-	 * @param table tavolo a cui il giocatore è collegato
+	 * @param table tavolo a cui il giocatore Ã¨ collegato
 	 * @param ccv   il controller per l'interzione con l'interfaccia grafica
 	 */
 	public HumanPlayer(Table table, ControllerCardView ccv) {
@@ -108,7 +108,7 @@ public class HumanPlayer extends Player {
 			e.printStackTrace();
 		}
 
-		int index = ccv.getGiocata().intValue();
+		int index = ccv.getGiocata();
 
 		return table.choiceCapture(combos[index]);
 	}

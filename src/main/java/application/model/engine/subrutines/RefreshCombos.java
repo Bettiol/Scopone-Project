@@ -28,7 +28,7 @@ public class RefreshCombos implements Runnable {
 	 * 
 	 * @param table  Pannello con il tavolo.
 	 * @param scelte Pannello con le scelte
-	 * @param combos Matrice con le varie possibilit‡
+	 * @param combos Matrice con le varie possibilit√†
 	 * @param cd     Dizionario delle carte
 	 */
 	public RefreshCombos(Pane table, Pane scelte, Carta[][] combos, CardDictionary cd) {

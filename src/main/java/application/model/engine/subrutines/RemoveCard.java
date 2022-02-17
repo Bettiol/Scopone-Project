@@ -42,7 +42,7 @@ public class RemoveCard implements Runnable {
 
 		ol = g.getChildren();
 
-		// Non da 9 perché è stata aggiunta la label
+		// Non da 9 perchÃ© Ã¨ stata aggiunta la label
 		int i = 10;
 		boolean found = false;
 		while (i >= 1 && !found) {

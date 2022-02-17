@@ -14,7 +14,7 @@ import application.model.networking.TCPConnection;
 
 /**
  * La classe gestisce l'avvio di una partita, sia questa in singlepalyer, con
- * più host collegati o in remoto.
+ * piÃ¹ host collegati o in remoto.
  * 
  * @author Brognera
  * @author Moscatelli
@@ -66,17 +66,12 @@ public class LoadTable implements Runnable {
 			e.printStackTrace();
 		}
 
+
 		if (!remote) {
 			LocalTable table = new LocalTable(cfg);
 
 			new HumanPlayer(table, c);
 			if (arr == null) {
-
-				/*
-				 * new HumanPlayer(table, c); new HumanPlayer(table, c); new HumanPlayer(table,
-				 * c);
-				 */
-
 				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
 				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());
 				new AI(table, cfg.isAssoPigliatutto(), cfg.isReBello());

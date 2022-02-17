@@ -99,7 +99,7 @@ public class MatchEndController {
 	}
 
 	/**
-	 * Questo metodo cambia il testo di una label in "+1" se x è vero o "0" se x è
+	 * Questo metodo cambia il testo di una label in "+1" se x Ã¨ vero o "0" se x Ã¨
 	 * falso
 	 * 
 	 * @param l Label
@@ -124,7 +124,7 @@ public class MatchEndController {
 	}
 
 	/**
-	 * Torna al menù principale
+	 * Torna al menÃ¹ principale
 	 * 
 	 * @throws IOException
 	 */

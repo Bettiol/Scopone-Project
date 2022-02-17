@@ -52,19 +52,20 @@ public class SettingsController implements Initializable {
 		ImageView iv;
 		RadioButton rb;
 		tgTables = new ToggleGroup();
-		File[] tavoli = new File("resources/tables/").listFiles();
-		for (int i = 0; i < tavoli.length; i++) {
-			iv = new ImageView(new Image("file:" + tavoli[i].getPath()));
+		File[] tavoli = new File(Main.class.getResource("assets/tables/").getPath()).listFiles();
+		System.out.println(Main.class.getResource("assets/tables/").getPath());
+		for (File file : tavoli) {
+			iv = new ImageView(new Image("file:" + file.getPath()));
 			iv.setFitWidth(150);
 			iv.setFitHeight(150);
 			// iv.setPreserveRatio(true);
 
 			rb = new RadioButton();
 			rb.setGraphic(iv);
-			rb.setUserData(tavoli[i]);
+			rb.setUserData(file);
 
 			// System.out.println(tavoli[i]);
-			if (tavoli[i].equals(Main.settings.getTable())) {
+			if (file.equals(Main.settings.getTable())) {
 				rb.setSelected(true);
 			}
 			// rb.getStyleClass().add("radio-button");
@@ -72,30 +73,25 @@ public class SettingsController implements Initializable {
 
 			tables.getChildren().add(rb);
 		}
-		tgTables.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-				System.out.println(newValue.getUserData());
-				Main.settings.setTable((File) newValue.getUserData());
-
-			}
+		tgTables.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println(newValue.getUserData());
+			Main.settings.setTable((URL) newValue.getUserData());
 		});
 
 		// Immagini
-		File[] carte = new File("resources/cards/").listFiles();
+		File[] carte = new File(Main.class.getResource("assets/cards/").getPath()).listFiles();
 		tgDecks = new ToggleGroup();
-		for (int i = 0; i < carte.length; i++) {
-			if (carte[i].isDirectory()) {
-				iv = new ImageView(new Image("file:" + carte[i].getPath() + File.separator + "1_danaro.png"));
+		for (File file : carte) {
+			if (file.isDirectory()) {
+				iv = new ImageView(new Image("file:" + file.getPath() + File.separator + "1_danaro.png"));
 				iv.setFitWidth(150);
 				iv.setFitHeight(150);
 				iv.setPreserveRatio(true);
 
 				rb = new RadioButton();
 				rb.setGraphic(iv);
-				rb.setUserData(carte[i]);
-				if (carte[i].equals(Main.settings.getDeck())) {
+				rb.setUserData(file);
+				if (file.equals(Main.settings.getDeck())) {
 					rb.setSelected(true);
 				}
 				tgDecks.getToggles().add(rb);
@@ -104,45 +100,27 @@ public class SettingsController implements Initializable {
 			}
 		}
 		// tgDecks.se
-		tgDecks.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-				Main.settings.setDeck((File) newValue.getUserData());
-
-			}
+		tgDecks.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+			Main.settings.setDeck((URL) newValue.getUserData());
 		});
 
 		// Volume
 		mainVolume.setValue(Main.settings.getVolume() * 100);
-		mainVolume.valueProperty().addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-				Main.settings.setVolume(newValue.doubleValue() / 100);
-				Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
-			}
+		mainVolume.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Main.settings.setVolume(newValue.doubleValue() / 100);
+			Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
 		});
 
 		// Blasfemia
 		blasphemy.setSelected(Main.settings.isBlasphemy());
-		blasphemy.selectedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				Main.settings.setBlasphemy(newValue);
-			}
+		blasphemy.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			Main.settings.setBlasphemy(newValue);
 		});
 
 		fullScreen.setSelected(Main.settings.isFullScreen());
-		fullScreen.selectedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				Main.settings.setFullScreen(newValue);
-			}
+		fullScreen.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			Main.settings.setFullScreen(newValue);
 		});
-
 	}
 
 	@FXML
@@ -180,7 +158,7 @@ public class SettingsController implements Initializable {
 	}
 
 	/**
-	 * Torna al menù principale
+	 * Torna al menÃ¹ principale
 	 * 
 	 * @throws IOException
 	 */

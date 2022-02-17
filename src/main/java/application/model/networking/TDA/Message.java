@@ -3,7 +3,7 @@ package application.model.networking.TDA;
 import java.io.Serializable;
 
 /**
- * La classe messaggio è la base per la comunicazione tra terminali. La classe è
+ * La classe messaggio Ã¨ la base per la comunicazione tra terminali. La classe Ã¨
  * dotata di due attributi, un numero identificativo per la tipologia di
  * messaggio e l'oggetto trasmesso
  * 

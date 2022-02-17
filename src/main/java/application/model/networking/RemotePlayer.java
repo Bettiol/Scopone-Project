@@ -12,7 +12,7 @@ import application.model.networking.TDA.State;
 
 /**
  * 
- * La classe rappresenta un'entit‡ player collegata in remoto al tavolo tramite
+ * La classe rappresenta un'entit√† player collegata in remoto al tavolo tramite
  * una connessione TCP
  * 
  * @author Moscatelli
@@ -27,7 +27,7 @@ public class RemotePlayer extends Player {
 	 * Metodo costruttore della classe
 	 * 
 	 * @param host  Connessione TCP all'host
-	 * @param table tavolo a cui il giocatore Ë collegato
+	 * @param table tavolo a cui il giocatore √® collegato
 	 */
 	public RemotePlayer(TCPConnection host, LocalTable table) {
 		this.host = host;

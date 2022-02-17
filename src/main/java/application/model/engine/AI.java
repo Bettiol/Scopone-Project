@@ -9,9 +9,9 @@ import application.model.engine.TDA.Points;
 
 /**
  * La classe AI rappresenta un Player che effettua le scelte senza interagire
- * con utenti. La sua funzione Ë di scegliere la carta migliore da scartare e
+ * con utenti. La sua funzione √® di scegliere la carta migliore da scartare e
  * enventualmente la combos di carte da prendere. La classe per poter attuare la
- * scelta oltre alle carte che possiede in mano ha la possibilit‡ di interagire
+ * scelta oltre alle carte che possiede in mano ha la possibilit√† di interagire
  * con le carte scartate da i vari Player
  * 
  * @author Basei
@@ -37,8 +37,8 @@ public class AI extends Player {
 	/**
 	 * Metodocostruttore della classe
 	 * 
-	 * @param table tavolo a cui il giocatore Ë collegato
-	 * @param sub   se deve sostituire un Player che si Ë disconnesso
+	 * @param table tavolo a cui il giocatore √® collegato
+	 * @param sub   se deve sostituire un Player che si √® disconnesso
 	 */
 	public AI(LocalTable table, boolean sub, boolean assoPiglia, boolean reBello) {
 		super();
@@ -54,7 +54,7 @@ public class AI extends Player {
 	/**
 	 * Metodo costruttore della classe
 	 * 
-	 * @param table tavolo a cui il giocatore Ë collegato
+	 * @param table tavolo a cui il giocatore √® collegato
 	 */
 	public AI(LocalTable table, boolean assoPiglia, boolean reBello) {
 		this(table, false, assoPiglia, reBello);
@@ -109,7 +109,7 @@ public class AI extends Player {
 
 	/**
 	 * Il metodo permette la ricerca della carta con il maggiore tasso di
-	 * giocabilit‡
+	 * giocabilit√†
 	 * 
 	 * @return la carta da scartare
 	 */
@@ -118,12 +118,12 @@ public class AI extends Player {
 		int scarta = 0;
 		int punti = 0;
 		int p = 0;
-		// analizzo ciascuna carta e assegno un punto di giocabilit‡
+		// analizzo ciascuna carta e assegno un punto di giocabilit√†
 		System.out.println("pippo");
 		for (int i = 0; i < dimHand; i++) {
 			punti = 0;
 			// assegno punti fissi all'asso
-			if (handCards[i].getNum() == 1 && assoPiglia==true) {
+			if (handCards[i].getNum() == 1 && assoPiglia) {
 				punti = selezionaPuntiAsso();
 			} else {
 				// visualizzo se poter far scopa
@@ -152,12 +152,12 @@ public class AI extends Player {
 		return handCards[scarta];
 	}
 	/**
-	 * Il metodo analizza se c'Ë la possibilit‡ di fare scopa e assegna un punteggio
-	 * di giocabilit‡: 99 se possibile 100 se possibile con una carta di danari 0 se
+	 * Il metodo analizza se c'√® la possibilit√† di fare scopa e assegna un punteggio
+	 * di giocabilit√†: 99 se possibile 100 se possibile con una carta di danari 0 se
 	 * impossibile
 	 * 
 	 * @param c carta su cui effettuare il controllo
-	 * @return il punteggio di giocabilit‡
+	 * @return il punteggio di giocabilit√†
 	 */
 	public int scopa(Carta c) {
 		int sommaTavolo = contaPuntiTavolo();
@@ -187,14 +187,14 @@ public class AI extends Player {
 	}
 
 	/**
-	 * Il metodo analizza se c'Ë la possibilit‡ di prendere una carta/combos
-	 * presente nel tavolo e assegna un punteggio di giocabilit‡: 80 se Ë un 7 (se
-	 * danari +3) 75 se Ë un 2;3 (se danari +3) 72 se Ë un 10 (se danari +10) 70 se
-	 * Ë un 6 (se danari +3) 60 se Ë un 4;5;8;9 (se danari +3) 1 se sucessivamente
-	 * all'ipotetica presa lascio una possibilt‡ di scopa in tavola
+	 * Il metodo analizza se c'√® la possibilit√† di prendere una carta/combos
+	 * presente nel tavolo e assegna un punteggio di giocabilit√†: 80 se √® un 7 (se
+	 * danari +3) 75 se √® un 2;3 (se danari +3) 72 se √® un 10 (se danari +10) 70 se
+	 * √® un 6 (se danari +3) 60 se √® un 4;5;8;9 (se danari +3) 1 se sucessivamente
+	 * all'ipotetica presa lascio una possibilt√† di scopa in tavola
 	 * 
 	 * @param c carta su cui effettuare il controllo
-	 * @return il punteggio di giocabilit‡
+	 * @return il punteggio di giocabilit√†
 	 */
 	public int prendiCarta(Carta c) {
 		int p = 0;
@@ -218,7 +218,7 @@ public class AI extends Player {
 			}
 			if (c.getSeme().compareTo("danaro") == 0 || tableCards[pos].getSeme().compareTo("danaro") == 0) {
 				p = p + 3;
-				if ((c.getNum() == 10 && c.getSeme().compareTo("danaro") == 0 && reBello==true)
+				if ((c.getNum() == 10 && c.getSeme().compareTo("danaro") == 0 && reBello)
 						|| (tableCards[pos].getNum() == 10 && tableCards[pos].getSeme().compareTo("danaro") == 0)) {
 					p = p + 7;
 				}
@@ -247,7 +247,7 @@ public class AI extends Player {
 							|| posizioni[i][2] == 6) {
 						appP = appP + 70;
 					} else if ((c.getNum() == 10 || posizioni[i][0] == 10 || posizioni[i][1] == 10
-							|| posizioni[i][2] == 10 )&& reBello==true) {
+							|| posizioni[i][2] == 10 )&& reBello) {
 						appP = appP + 72;
 					} else if (c.getNum() == 2 || c.getNum() == 3 || posizioni[i][0] == 2 || posizioni[i][1] == 2
 							|| posizioni[i][2] == 2 || posizioni[i][0] == 3 || posizioni[i][1] == 3
@@ -258,7 +258,7 @@ public class AI extends Player {
 					}
 					if (c.getSeme().compareTo("danaro") == 0) {
 						appP = appP + 3;
-						if (c.getNum() == 10 && reBello==true) {
+						if (c.getNum() == 10 && reBello) {
 							appP = appP + 7;
 						}
 						if (posizioni[i][0] != -1 && tableCards[posizioni[i][0]].getSeme().compareTo("danaro") == 0) {
@@ -288,23 +288,23 @@ public class AI extends Player {
 	}
 
 	/**
-	 * Il metodo analizza la quantit‡ di rischio sucessivamente alla giocata di una
-	 * ipotetica carta che non puÚ effettuare alcuna presa dalla tavola e assegna un
-	 * punteggio di giocabilit‡: 55 se le carte di pari valore rimanenti da giocare
+	 * Il metodo analizza la quantit√† di rischio sucessivamente alla giocata di una
+	 * ipotetica carta che non pu√≤ effettuare alcuna presa dalla tavola e assegna un
+	 * punteggio di giocabilit√†: 55 se le carte di pari valore rimanenti da giocare
 	 * sono 0 45 se le carte di pari valore rimanenti da giocare sono 1 35 se le
 	 * carte di pari valore rimanenti da giocare sono 2 25 se le carte di pari
 	 * valore rimanenti da giocare sono 3 se danari -5 se 7;10;2;3 -20 se
-	 * sucessivamente all'ipotetica giocata lascio una possibilt‡ di scopa in tavola
+	 * sucessivamente all'ipotetica giocata lascio una possibilt√† di scopa in tavola
 	 * -30
 	 * 
 	 * @param c carta su cui effettuare il controllo
-	 * @return il punteggio di giocabilit‡
+	 * @return il punteggio di giocabilit√†
 	 */
 	public int appoggiaCarta(Carta c) {
 		int p = 0;
 		int appP = 0;
 		int rimantenti = this.carteRimaneti(c.getNum());
-		// analizzo quante carte sono gi‡ state giocate
+		// analizzo quante carte sono gi√† state giocate
 		if (rimantenti == 0) {
 			p = 55;
 		} else if (rimantenti == 1) {
@@ -327,7 +327,7 @@ public class AI extends Player {
 		if ((3 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
 				|| (2 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
 				|| (7 == c.getNum() && c.getSeme().compareTo("danaro") == 0)
-				|| (10 == c.getNum() && c.getSeme().compareTo("danaro") == 0 && reBello==true)) {
+				|| (10 == c.getNum() && c.getSeme().compareTo("danaro") == 0 && reBello)) {
 			p = p - 20;
 		}
 		// controllo di non lasciare scopa in tavola
@@ -339,7 +339,7 @@ public class AI extends Player {
 			// analizzo tutte le combinazioni di somme possibli nel mazzo
 			for (int i = 1; i <= sommPossibili[0]; i++) {
 				rimantenti = this.carteRimaneti(sommPossibili[i]);
-				// analizzo quante carte sono gi‡ state giocate
+				// analizzo quante carte sono gi√† state giocate
 				if (rimantenti == 0) {
 					appP = 55;
 				} else if (rimantenti == 1) {
@@ -379,7 +379,7 @@ public class AI extends Player {
 
 	/**
 	 * Il metodo ricerca la posizione nel tavolo di una carta di pari valore
-	 * rispetto a quella indicata nel parametro se non Ë presente torna -1
+	 * rispetto a quella indicata nel parametro se non √® presente torna -1
 	 * 
 	 * @param c carta di cui effettuare la ricerca
 	 * @return la posizione nel tavolo
@@ -420,15 +420,15 @@ public class AI extends Player {
 				// salto tutte le somme con la stessa carta
 				if (i != j) {
 					somma = somma + tableCards[j].getNum();
-					// se la somma che ottengo Ë corretta salvo le posizioni
+					// se la somma che ottengo √® corretta salvo le posizioni
 					if (somma == c.getNum()) {
 						posizioni[l][0] = i;
 						posizioni[l][1] = j;
 						l++;
 					} else if (somma < c.getNum()) {
-						// se la somma Ë minore del valore della carta somma una terza carta
+						// se la somma √® minore del valore della carta somma una terza carta
 						for (int k = j; k < dimTable; k++) {
-							// salto tutte le carte che ho gi‡ sommato
+							// salto tutte le carte che ho gi√† sommato
 							if (k != i && k != j) {
 								somma = somma + tableCards[k].getNum();
 								if (somma == c.getNum()) {
@@ -479,7 +479,7 @@ public class AI extends Player {
 	/**
 	 * Il metodo ricerca tra tutte le carte da lui conosciute (carte prese dalla
 	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) la
-	 * quantit‡ di rimanti di valore num dato
+	 * quantit√† di rimanti di valore num dato
 	 * 
 	 * @param num il valore della carta di cui si vuole calcolare le rimanenti
 	 * @return il numero delle carte dallo stesso valore rimanenti
@@ -513,8 +513,8 @@ public class AI extends Player {
 
 	/**
 	 * Il metodo ricerca tra tutte le carte da lui conosciute (carte prese dalla
-	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se Ë
-	 * gi‡ sceso il re di danari
+	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se √®
+	 * gi√† sceso il re di danari
 	 * 
 	 * @return true sceso, altrimenti false
 	 */
@@ -545,8 +545,8 @@ public class AI extends Player {
 
 	/**
 	 * Il metodo ricerca tra tutte le carte da lui conosciute (carte prese dalla
-	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se Ë
-	 * gi‡ sceso il sette di danari
+	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se √®
+	 * gi√† sceso il sette di danari
 	 * 
 	 * @return true sceso, altrimenti false
 	 */
@@ -577,8 +577,8 @@ public class AI extends Player {
 
 	/**
 	 * Il metodo ricerca tra tutte le carte da lui conosciute (carte prese dalla
-	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se Ë
-	 * gi‡ sceso il due di danari
+	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se √®
+	 * gi√† sceso il due di danari
 	 * 
 	 * @return true sceso, altrimenti false
 	 */
@@ -609,8 +609,8 @@ public class AI extends Player {
 
 	/**
 	 * Il metodo ricerca tra tutte le carte da lui conosciute (carte prese dalla
-	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se Ë
-	 * gi‡ sceso il tre di danari
+	 * squadra 1, carte prese dalla squadra 2, carte in tavola, carte in mano) se √®
+	 * gi√† sceso il tre di danari
 	 * 
 	 * @return true sceso, altrimenti false
 	 */
@@ -640,11 +640,11 @@ public class AI extends Player {
 	}
 
 	/**
-	 * Il metodo analizza unicamente l'asso e assegna un punteggio di giocabilit‡:
+	 * Il metodo analizza unicamente l'asso e assegna un punteggio di giocabilit√†:
 	 * 24 (se 7,10,3,2 sommo 10 e sottraggo la dimensione della mano, se danari
 	 * sommo 5) 81 se 7;10;2;3 di danari
 	 * 
-	 * @return il punteggio di giocabilit‡
+	 * @return il punteggio di giocabilit√†
 	 */
 	public int selezionaPuntiAsso() {
 		int punti = 24;
@@ -654,22 +654,22 @@ public class AI extends Player {
 			if (tableCards[i].getNum() == 7) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 10 && scesoReBello() == false) {
+			if (tableCards[i].getNum() == 10 && !scesoReBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 7 && scesoSetteBello() == false) {
+			if (tableCards[i].getNum() == 7 && !scesoSetteBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 3 && scesoTreBello() == false) {
+			if (tableCards[i].getNum() == 3 && !scesoTreBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 2 && scesoDueBello() == false) {
+			if (tableCards[i].getNum() == 2 && !scesoDueBello()) {
 				punti = punti + 10 - dimHand;
 			}
 			if (tableCards[i].getSeme().compareTo("danaro") == 0) {
 				punti = punti + 5;
 			}
-			// se Ë prensente il re/sette/due/tre bello in tavola aumento i punti
+			// se √® prensente il re/sette/due/tre bello in tavola aumento i punti
 			if (tableCards[i].getSeme().compareTo("danaro") == 0 && tableCards[i].getNum() == 10) {
 				punti = 75 + 6;
 			}
@@ -736,7 +736,7 @@ public class AI extends Player {
 		int punti=0;
 		int puntiMax=0;
 		for(int i=0;i<dimHand;i++) {
-			//calcolo della minore possibilit‡ di lasciare scopa
+			//calcolo della minore possibilit√† di lasciare scopa
 			if(handCards[i].getNum()+contaPuntiTavolo()<11) {
 				if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==0)
 					punti = 25;

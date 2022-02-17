@@ -95,9 +95,9 @@ public class ControllerCardView implements Initializable {
 		ObservableList<Node> ol = pane.getChildren();
 		ImageView iv;
 
-		for (int i = 0; i < ol.size(); i++) {
-			if (ol.get(i) instanceof ImageView) {
-				iv = (ImageView) ol.get(i);
+		for (Node value : ol) {
+			if (value instanceof ImageView) {
+				iv = (ImageView) value;
 
 				if (pane instanceof HBox) {
 					iv.setImage(cd.getRetro());
@@ -128,9 +128,9 @@ public class ControllerCardView implements Initializable {
 				ObservableList<Node> lal = pane.getChildren();
 				ImageView vi;
 
-				for (int i = 0; i < lal.size(); i++) {
-					if (lal.get(i) instanceof ImageView) {
-						vi = (ImageView) lal.get(i);
+				for (Node node : lal) {
+					if (node instanceof ImageView) {
+						vi = (ImageView) node;
 						vi.setFitHeight(newValue.doubleValue() / 5);
 					}
 				}
@@ -139,15 +139,16 @@ public class ControllerCardView implements Initializable {
 	}
 
 	private void inizializeTable() {
+		/*TODO
 		String bg = "-fx-background-image: url(\'file:" + Main.settings.getTable().getPath() + "\');"
 				+ "-fx-background-position: center center;" + "-fx-background-size: stretch;";
 		bg = bg.replace("\\", "/");
-		background.setStyle(bg);
+		background.setStyle(bg);*/
 		ObservableList<Node> ol = table.getChildren();
 		ImageView iv = null;
 
-		for (int i = 0; i < ol.size(); i++) {
-			iv = (ImageView) ol.get(i);
+		for (Node node : ol) {
+			iv = (ImageView) node;
 			iv.fitWidthProperty().bind(table.widthProperty().divide(4));
 			iv.fitHeightProperty().bind(table.heightProperty().divide(3));
 		}
@@ -163,8 +164,8 @@ public class ControllerCardView implements Initializable {
 			ObservableList<Node> ol = scelta.getChildren();
 			HBox pane;
 
-			for (int z = 0; z < ol.size(); z++) {
-				pane = (HBox) ol.get(z);
+			for (Node node : ol) {
+				pane = (HBox) node;
 				pane.setPrefWidth(newValue.doubleValue());
 			}
 		});
@@ -172,22 +173,22 @@ public class ControllerCardView implements Initializable {
 			ObservableList<Node> ol = scelta.getChildren();
 			HBox pane;
 
-			for (int z = 0; z < ol.size(); z++) {
-				pane = (HBox) ol.get(z);
+			for (Node node : ol) {
+				pane = (HBox) node;
 				pane.setPrefHeight(newValue.doubleValue() / 3);
 			}
 
 		});
 
-		for (int z = 0; z < scelte.size(); z++) {
+		for (Node item : scelte) {
 			HBox pane;
 			ImageView iv;
-			pane = (HBox) scelte.get(z);
+			pane = (HBox) item;
 
 			ObservableList<Node> ol = pane.getChildren();
-			for (int i = 0; i < ol.size(); i++) {
-				if (ol.get(i) instanceof ImageView) {
-					iv = (ImageView) ol.get(i);
+			for (Node value : ol) {
+				if (value instanceof ImageView) {
+					iv = (ImageView) value;
 					iv.setImage(cd.getTransparent());
 					iv.fitHeightProperty().bind(pane.heightProperty());
 				}
@@ -198,9 +199,9 @@ public class ControllerCardView implements Initializable {
 				ObservableList<Node> lal = pane.getChildren();
 				ImageView vi;
 
-				for (int i = 0; i < lal.size(); i++) {
-					if (lal.get(i) instanceof ImageView) {
-						vi = (ImageView) lal.get(i);
+				for (Node node : lal) {
+					if (node instanceof ImageView) {
+						vi = (ImageView) node;
 						vi.setFitWidth(newValue.doubleValue() / 4);
 					}
 				}
@@ -270,22 +271,13 @@ public class ControllerCardView implements Initializable {
 	}
 
 	public void removeCard(int player) {
-		Pane g = null;
-
-		switch (player) {
-		case 0:
-			g = g1;
-			break;
-		case 1:
-			g = g2;
-			break;
-		case 2:
-			g = g3;
-			break;
-		case 3:
-			g = g4;
-			break;
-		}
+		Pane g = switch (player) {
+			case 0 -> g1;
+			case 1 -> g2;
+			case 2 -> g3;
+			case 3 -> g4;
+			default -> null;
+		};
 
 		Platform.runLater(new RemoveCard(g, cd.getTransparent()));
 	}
@@ -311,7 +303,7 @@ public class ControllerCardView implements Initializable {
 			key = key.split("_")[1];
 
 			giocata = Integer.valueOf(key);
-			giocata = Integer.valueOf(giocata.intValue() - 1);
+			giocata = giocata - 1;
 
 			clickEvent = false;
 			input.release();
@@ -329,7 +321,7 @@ public class ControllerCardView implements Initializable {
 			// System.out.println(key);
 
 			giocata = Integer.valueOf(key);
-			giocata = Integer.valueOf(giocata.intValue() - 1);
+			giocata = giocata - 1;
 
 			// Reset
 			table.setVisible(true);

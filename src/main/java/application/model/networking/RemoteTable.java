@@ -15,7 +15,7 @@ import javafx.application.Platform;
 /**
  * 
  * La classe gestisce l'interazione remota tra un giocatore e il tavolo alla
- * quale è collegato lo stesso
+ * quale Ã¨ collegato lo stesso
  * 
  * @author Moscatelli
  *
@@ -28,7 +28,7 @@ public class RemoteTable extends Table implements Runnable {
 	/**
 	 * Metodo costruttore della classe
 	 * 
-	 * @param host Terminale alla quale il giocatore è connesso
+	 * @param host Terminale alla quale il giocatore Ã¨ connesso
 	 * @throws IOException
 	 */
 	public RemoteTable(TCPConnection host) throws IOException {

@@ -32,7 +32,7 @@ public class Main extends Application {
 			primaryStages = primaryStage;
 
 			primaryStages.setTitle("AC-130 Death Angel");
-			primaryStages.getIcons().add(new Image("file:resources/ico.png"));
+			primaryStages.getIcons().add(new Image(Main.class.getResourceAsStream("assets/ico.png")));
 
 			primaryStages.setMinWidth(1280);
 			primaryStages.setMinHeight(720);
@@ -60,7 +60,7 @@ public class Main extends Application {
 
 		// Quando la lobby � piena fai partire il tavolo
 		// MainStage = Buono.getPrimaryStage();
-		FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/" + fxml));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
 
@@ -71,19 +71,17 @@ public class Main extends Application {
 
 		primaryStages.show();
 
-		// primaryStages.centerOnScreen();
-
 		return loader.getController();
 	}
 
 	public static void playMainTheme(String sound) {
 		if (mainTheme == null) {
-			File f = new File("src/main/resources/assets/sounds/" + sound);
-			Media media = new Media(f.toURI().toString());
+			Media media = new Media(Main.class.getResource("assets/sounds/" + sound).toString());
 			mainTheme = new MediaPlayer(media);
 			mainTheme.volumeProperty().set(settings.getVolume());
 			mainTheme.play();
 		} else if (!mainTheme.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+			//TODO Filepath
 			File f = new File("resources/sounds/" + sound);
 			Media media = new Media(f.toURI().toString());
 			mainTheme = new MediaPlayer(media);

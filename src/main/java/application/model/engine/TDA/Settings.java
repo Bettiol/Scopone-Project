@@ -1,5 +1,7 @@
 package application.model.engine.TDA;
 
+import application.Main;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,13 +9,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.URL;
 
 public class Settings implements Serializable {
 
 	private static final long serialVersionUID = -6653167206316018113L;
-	private final String path = "resources/settings.cfg";
-	private File table;
-	private File deck;
+	private final URL path = Main.class.getResource("settings.cfg");
+	private URL table;
+	private URL deck;
 	private double volume;
 	private boolean blasphemy;
 	private boolean fullScreen;
@@ -23,7 +26,7 @@ public class Settings implements Serializable {
 		File f;
 
 		try {
-			f = new File(path);
+			f = new File(path.getPath());
 
 			if (f.exists()) {
 				FileInputStream fis = new FileInputStream(f);
@@ -54,7 +57,7 @@ public class Settings implements Serializable {
 		File f;
 
 		try {
-			f = new File(path);
+			f = new File(path.getPath());
 
 			if (f.exists()) {
 				FileOutputStream fos = new FileOutputStream(f);
@@ -73,8 +76,8 @@ public class Settings implements Serializable {
 	}
 
 	public void defaultSettings() {
-		table = new File("resources/tables/table.jpg");
-		deck = new File("resources/cards/trevigiane");
+		table = Main.class.getResource("assets/tables/table.jpg");
+		deck = Main.class.getResource("assets/cards/trevigiane");
 		volume = 1;
 		blasphemy = false;
 		fullScreen = false;
@@ -130,19 +133,19 @@ public class Settings implements Serializable {
 		return true;
 	}
 
-	public File getTable() {
+	public URL getTable() {
 		return table;
 	}
 
-	public void setTable(File table) {
+	public void setTable(URL table) {
 		this.table = table;
 	}
 
-	public File getDeck() {
+	public URL getDeck() {
 		return deck;
 	}
 
-	public void setDeck(File deck) {
+	public void setDeck(URL deck) {
 		this.deck = deck;
 	}
 

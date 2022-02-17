@@ -33,7 +33,7 @@ public class TCPConnection {
 	 * Messaggio
 	 * 
 	 * @return Messaggio in entrata
-	 * @throws IOException            L'host si è scollegato
+	 * @throws IOException            L'host si Ã¨ scollegato
 	 * @throws ClassNotFoundException
 	 */
 	public Message receive() throws IOException, ClassNotFoundException {
@@ -48,7 +48,7 @@ public class TCPConnection {
 	 * Il metodo scrive un oggetto sullo stream
 	 * 
 	 * @param obj Messaggio da scrivere sullo stream
-	 * @throws IOException L'host si è scollegato
+	 * @throws IOException L'host si Ã¨ scollegato
 	 */
 	public void send(Message obj) throws IOException {
 
@@ -68,9 +68,9 @@ public class TCPConnection {
 	}
 
 	/**
-	 * Ritorna se il socket è chiuso o no
+	 * Ritorna se il socket Ã¨ chiuso o no
 	 * 
-	 * @return true se il socket è chiuso
+	 * @return true se il socket Ã¨ chiuso
 	 */
 	public boolean isClosed() {
 		return s.isClosed();

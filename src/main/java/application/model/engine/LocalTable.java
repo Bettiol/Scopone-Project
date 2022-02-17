@@ -119,7 +119,7 @@ public class LocalTable extends Table implements Runnable {
 					// System.out.println("turno 56 :" + turn);
 					allWentOk = myPlayers[j].notifyTableState(table, dimTable);
 					if (allWentOk == -1) {
-						System.out.println("Qualcosa è andato storto nella notifica al player " + j);
+						System.out.println("Qualcosa Ã¨ andato storto nella notifica al player " + j);
 						myPlayers[j] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
 					}
 				}
@@ -144,7 +144,7 @@ public class LocalTable extends Table implements Runnable {
 			for (i = 0; i < 4; i++) {
 				allWentOk = myPlayers[i].showResult(result);
 				if (allWentOk == -1) {
-					System.out.println("Qualcosa è andato storto nella notifica a player " + i);
+					System.out.println("Qualcosa Ã¨ andato storto nella notifica a player " + i);
 				}
 			}
 		}
@@ -195,7 +195,7 @@ public class LocalTable extends Table implements Runnable {
 				if (combos[0][0] != null) {
 					// Ho almeno una combinazione
 					if (combos[1][0] == null) {
-						// Solo una possibilità
+						// Solo una possibilitÃ 
 						assignPick(combos[0]);
 					} else {
 						// L'utente sceglie
@@ -431,16 +431,16 @@ public class LocalTable extends Table implements Runnable {
 				// salto tutte le somme con la stessa carta
 				if (i != j) {
 					somma = somma + table[j].getNum();
-					// se la somma che ottengo è corretta salvo le posizioni
+					// se la somma che ottengo Ã¨ corretta salvo le posizioni
 					if (somma == c.getNum()) {
 						posizioni[l][0] = table[i];
 						posizioni[l][1] = table[j];
 						posizioni[l][2] = null;
 						l++;
 					} else if (somma < c.getNum()) {
-						// se la somma è minore del valore della carta somma una terza carta
+						// se la somma Ã¨ minore del valore della carta somma una terza carta
 						for (int k = j; k < dimTable; k++) {
-							// salto tutte le carte che ho già sommato
+							// salto tutte le carte che ho giÃ  sommato
 							if (k != i && k != j) {
 								somma = somma + table[k].getNum();
 								if (somma == c.getNum()) {
@@ -543,10 +543,10 @@ public class LocalTable extends Table implements Runnable {
 	}
 
 	/**
-	 * Il metodo determina se si è conquistato il sette di danari
+	 * Il metodo determina se si Ã¨ conquistato il sette di danari
 	 * 
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
-	 * @return se è presente il sette di danari
+	 * @return se Ã¨ presente il sette di danari
 	 */
 	private boolean trovaSetteBello(ArrayList<Carta> cartePrese) {
 		boolean trovato = false;
@@ -559,10 +559,10 @@ public class LocalTable extends Table implements Runnable {
 	}
 
 	/**
-	 * Il metodo determina se si è conquistato il re di danari
+	 * Il metodo determina se si Ã¨ conquistato il re di danari
 	 * 
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
-	 * @return se è presente il re di danari
+	 * @return se Ã¨ presente il re di danari
 	 */
 	private boolean trovaReBello(ArrayList<Carta> cartePrese) {
 		boolean trovato = false;
@@ -575,10 +575,10 @@ public class LocalTable extends Table implements Runnable {
 	}
 
 	/**
-	 * Il metodo determina se si è conquistato la maggioranza di danari
+	 * Il metodo determina se si Ã¨ conquistato la maggioranza di danari
 	 * 
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
-	 * @return se è presente la maggioranza di danari
+	 * @return se Ã¨ presente la maggioranza di danari
 	 */
 	private int trovaDanari(ArrayList<Carta> cartePrese) {
 		int trovato = 0;

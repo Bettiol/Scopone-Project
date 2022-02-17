@@ -1,5 +1,6 @@
 package application.model.engine.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -14,7 +15,9 @@ import java.io.Serializable;
 
 public class Carta implements Serializable, Comparable<Carta> {
 
+	@Serial
 	private static final long serialVersionUID = 8223232637933818932L;
+
 	private String seme;
 	private int num;
 

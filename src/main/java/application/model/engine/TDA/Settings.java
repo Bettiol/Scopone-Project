@@ -2,18 +2,14 @@ package application.model.engine.TDA;
 
 import application.Main;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URL;
 
 public class Settings implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -6653167206316018113L;
+
 	private final URL path = Main.class.getResource("settings.cfg");
 	private URL table;
 	private URL deck;

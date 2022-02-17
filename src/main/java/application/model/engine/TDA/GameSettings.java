@@ -1,9 +1,11 @@
 package application.model.engine.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class GameSettings implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -1859116387785651578L;
 
 	private int pointLimit;

@@ -1,5 +1,6 @@
 package application.model.networking.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,7 +12,9 @@ import java.io.Serializable;
  */
 public class Wrapper implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -5627843713201267585L;
+
 	private String cls;
 	private Object obj;
 

@@ -1,5 +1,6 @@
 package application.model.networking.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.net.InetAddress;
 
@@ -7,14 +8,16 @@ import java.net.InetAddress;
  * 
  * @author Moscatelli
  * 
- *         La classe Lobby rappresenta un'entit‡ fornita di nome, ip e porta.
+ *         La classe Lobby rappresenta un'entit√† fornita di nome, ip e porta.
  *         Questa classe serve essenzialmente per la trasmissione di socket tra
  *         terminali
  *
  */
 public class Lobby implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 5206357110128899112L;
+
 	private String name;
 	private InetAddress ip;
 	private int port;
@@ -34,10 +37,10 @@ public class Lobby implements Serializable {
 	 * Metodo costruttore della classe
 	 * 
 	 * @param name      Nome della lobby
-	 * @param lobbyType Tipo della lobby che puÚ essere scelto tra le costanti della
+	 * @param lobbyType Tipo della lobby che pu√≤ essere scelto tra le costanti della
 	 *                  stessa
-	 * @param ip        Ip alla quale Ë situata la lobby
-	 * @param port      Ip alla quale Ë situata la lobby
+	 * @param ip        Ip alla quale √® situata la lobby
+	 * @param port      Ip alla quale √® situata la lobby
 	 */
 	public Lobby(String name, int lobbyType, InetAddress ip, int port) {
 		super();
@@ -53,7 +56,7 @@ public class Lobby implements Serializable {
 	 * localizzazione
 	 * 
 	 * @param name      Nome della lobby
-	 * @param lobbyType Tipo della lobby che puÚ essere scelto tra le costanti della
+	 * @param lobbyType Tipo della lobby che pu√≤ essere scelto tra le costanti della
 	 *                  stessa
 	 */
 	public Lobby(String name, int lobbyType) {

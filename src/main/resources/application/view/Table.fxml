@@ -301,7 +301,7 @@
             </HBox>
             <VBox fx:id="scelta" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="139.0" spacing="5.0" visible="false">
                <children>
-                  <HBox fx:id="sc_1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getChoiche" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                  <HBox fx:id="sc_1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getChoice" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
                         <ImageView fitHeight="167.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -320,7 +320,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox fx:id="sc_2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getChoiche" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                  <HBox fx:id="sc_2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getChoice" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
                         <ImageView fitHeight="167.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -339,7 +339,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox fx:id="sc_3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getChoiche" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                  <HBox fx:id="sc_3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#getChoice" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
                         <ImageView fitHeight="167.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>

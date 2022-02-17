@@ -28,7 +28,7 @@ public class Deck {
 	 * dei 4 semi
 	 */
 	private void generaMazzo() {
-		Carta app = new Carta("", 0);
+		Carta app;
 		int i = 0;
 		for (i = 1; i < 41; i++) {
 			if (i < 11) {
@@ -48,7 +48,7 @@ public class Deck {
 	 * Il metodo mette in disordine il mazzo
 	 */
 	private void mischiaMazzo() {
-		Carta app = new Carta("", 0);
+		Carta app;
 		int rand;
 		for (int i = 0; i < 40; i++) {
 			rand = (int) (Math.random() * 40);

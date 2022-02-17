@@ -1,5 +1,6 @@
 package application.model.networking.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import application.model.engine.TDA.Carta;
@@ -13,7 +14,9 @@ import application.model.engine.TDA.Carta;
  */
 public class State implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -2757221931344674554L;
+
 	private Carta[] arr;
 	private int dim;
 

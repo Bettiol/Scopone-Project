@@ -1,5 +1,6 @@
 package application.model.engine.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,7 +13,9 @@ import java.io.Serializable;
  */
 public class Initialization implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 4493340833434233188L;
+
 	private int whoAmI;
 	private int turn;
 	private Carta[] hand;
@@ -21,8 +24,8 @@ public class Initialization implements Serializable {
 	/**
 	 * Metodo costruttore della classe
 	 * 
-	 * @param whoAmI      Chi è il giocatore rispetto al tavolo
-	 * @param turn        Chi è il primo di mano
+	 * @param whoAmI      Chi Ã¨ il giocatore rispetto al tavolo
+	 * @param turn        Chi Ã¨ il primo di mano
 	 * @param hand        Mano iniziale del giocatore
 	 * @param playerNames Nomi degli altri giocatori
 	 */

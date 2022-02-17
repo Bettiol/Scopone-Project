@@ -1,5 +1,6 @@
 package application.model.networking.TDA;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -13,7 +14,9 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -2723363051271966964L;
+
 	private int type;
 	private Wrapper msg;
 

@@ -37,18 +37,18 @@ public class Points implements Serializable {
 	}
 
 	/**
-	 * Il metodo ritorna la quantit‡ di scope
+	 * Il metodo ritorna la quantit√† di scope
 	 * 
-	 * @return l'intero rappresentante la quantit‡ di scope
+	 * @return l'intero rappresentante la quantit√† di scope
 	 */
 	public int getScope() {
 		return scope;
 	}
 
 	/**
-	 * Il metodo setta la quantit‡ di scope
+	 * Il metodo setta la quantit√† di scope
 	 * 
-	 * @param scope Quantit‡ di scope
+	 * @param scope Quantit√† di scope
 	 */
 	public void setScope(int scope) {
 		this.scope = scope;

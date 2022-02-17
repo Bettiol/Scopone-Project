@@ -23,9 +23,9 @@ public abstract class Player {
 	 * giocata
 	 * 
 	 * @param hand     il vettore di carte che il giocatore ha in mano
-	 * @param dimHand  la quantit‡ di carte che ho in mano
+	 * @param dimHand  la quantit√† di carte che ho in mano
 	 * @param table    il vettore contente le carte presenti in tavola
-	 * @param dimTable la quantit‡ di carte presenti in tavola
+	 * @param dimTable la quantit√† di carte presenti in tavola
 	 * @return il risultato della giocata della carta selezionata
 	 */
 	public abstract int setPlayerTurn(Carta[] hand, int dimHand, Carta[] table, int dimTable);
@@ -50,7 +50,7 @@ public abstract class Player {
 	 * Il metodo aggiorna il tavolo e il turno di gioco
 	 * 
 	 * @param tableCards il vettore contenete le carte in tavola
-	 * @param dimTable   la quantit‡ di carte in tavola
+	 * @param dimTable   la quantit√† di carte in tavola
 	 * @return 1 per verificare la giusta esecuzione del metodo
 	 */
 	public abstract int notifyTableState(Carta[] tableCards, int dimTable);

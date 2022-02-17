@@ -32,7 +32,7 @@ public abstract class Table {
 	public abstract int playCard(Carta giocata);
 
 	/**
-	 * Il metodo effettua la presa se in presenza di più combos di carte
+	 * Il metodo effettua la presa se in presenza di piÃ¹ combos di carte
 	 * 
 	 * @param presa vettore di carte da prendere dal tavolo
 	 * @return 0 per verificare la giusta esecuzione del metodo

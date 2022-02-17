@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
-import application.Main;
 import application.model.engine.TDA.CardDictionary;
 import application.model.engine.TDA.Carta;
 import application.model.engine.subrutines.RefreshCards;
@@ -311,7 +310,7 @@ public class ControllerCardView implements Initializable {
 	}
 
 	@FXML
-	public void getChoiche(Event e) {
+	public void getChoice(Event e) {
 		if (choiceEvent) {
 			HBox hb = (HBox) e.getSource();
 

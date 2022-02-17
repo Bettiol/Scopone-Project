@@ -1,0 +1,61 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#pane {
+
+	-fx-background-image: url("file:resources/bg.jpg");
+	-fx-background-size: stretch; 
+	-fx-background-position: center center;
+
+}
+
+/* #tableBackground {
+
+	-fx-background-image: url("file:resources/tables/table.jpg");
+    -fx-background-position: center center;
+    -fx-background-size: stretch;
+
+}*/
+
+#loadingPage {
+
+    -fx-background-image: url("file:resources/load.gif");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center center;
+
+}
+
+.turn {
+	
+	-fx-text-fill: white;
+	
+}
+
+.activeTurn {
+	
+	-fx-text-fill: white;
+	-fx-background-color: red;
+	
+}
+
+.radio-button > .radio {
+	-fx-background-insets: 0;
+	-fx-background-radius: 0px;
+	-fx-padding: 0;
+  
+	visibility: hidden;
+}
+
+.radio-button:selected {
+    -fx-border-color: red;
+    -fx-border-width: 5;
+    -fx-border-radius: 1%;
+    
+    -fx-padding: 0 0 0 0;
+}
+
+
+.radio-button > .radio > .dot {
+	 visibility: hidden;
+	 -fx-background-radius: 0px;
+     -fx-padding: 0px;
+}

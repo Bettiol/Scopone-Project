@@ -2,7 +2,7 @@ package application.model.engine.subrutines;
 
 import java.io.IOException;
 
-import application.Main;
+import application.Root;
 import application.control.MatchEndController;
 import application.model.engine.types.Points;
 
@@ -35,7 +35,7 @@ public class LoadMatchEnd implements Runnable {
 	@Override
 	public void run() {
 		try {
-			MatchEndController mec = (MatchEndController) Main.changeStage("MatchEnd.fxml");
+			MatchEndController mec = (MatchEndController) Root.changeStage("MatchEnd.fxml");
 			mec.endMatch(squadre);
 		} catch (IOException e) {
 			e.printStackTrace();

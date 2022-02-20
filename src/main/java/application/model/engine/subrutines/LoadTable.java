@@ -2,7 +2,7 @@ package application.model.engine.subrutines;
 
 import java.io.IOException;
 
-import application.Main;
+import application.Root;
 import application.control.ControllerCardView;
 import application.model.engine.AI;
 import application.model.engine.HumanPlayer;
@@ -57,11 +57,11 @@ public class LoadTable implements Runnable {
 	 */
 	@Override
 	public void run() {
-		Main.stopMainTheme();
+		Root.stopMainTheme();
 
 		ControllerCardView c = null;
 		try {
-			c = (ControllerCardView) Main.changeStage("Table.fxml");
+			c = (ControllerCardView) Root.changeStage("Table.fxml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

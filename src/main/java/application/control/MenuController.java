@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.Main;
+import application.Root;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -21,7 +21,7 @@ public class MenuController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		Main.playMainTheme("MainMenuTheme.mp3");
+		Root.playMainTheme("MainMenuTheme.mp3");
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	public void singlePlayerMode() throws IOException {
-		Main.changeStage("GameSettingsPage.fxml");
+		Root.changeStage("GameSettingsPage.fxml");
 
 		// new LoadTable(null).run();
 	}
@@ -43,7 +43,7 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	public void multiPlayerMode() throws IOException {
-		Main.changeStage("MultiPlayerHub.fxml");
+		Root.changeStage("MultiPlayerHub.fxml");
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	public void rulesPage() throws IOException {
-		Main.changeStage("RulesPage.fxml");
+		Root.changeStage("RulesPage.fxml");
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	public void settingsPage() throws IOException {
-		Main.changeStage("SettingsPage.fxml");
+		Root.changeStage("SettingsPage.fxml");
 	}
 
 	/**
@@ -83,6 +83,6 @@ public class MenuController implements Initializable {
 	 */
 	@FXML
 	public void returnButton() throws IOException {
-		Main.changeStage("MainMenu.fxml");
+		Root.changeStage("MainMenu.fxml");
 	}
 }

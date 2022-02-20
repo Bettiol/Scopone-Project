@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.Main;
+import application.Root;
 import application.model.engine.types.GameSettings;
 import application.model.engine.subrutines.LoadTable;
 import javafx.fxml.FXML;
@@ -50,7 +50,7 @@ public class GameSettingsController implements Initializable {
 	@FXML
 	public void returnButton() {
 		try {
-			Main.changeStage("MainMenu.fxml");
+			Root.changeStage("MainMenu.fxml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

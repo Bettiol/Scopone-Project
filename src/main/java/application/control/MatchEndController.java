@@ -2,7 +2,7 @@ package application.control;
 
 import java.io.IOException;
 
-import application.Main;
+import application.Root;
 import application.model.engine.types.Points;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -92,7 +92,7 @@ public class MatchEndController {
 			winner.setText("La squadra uno vince!");
 		} else if (tot_s1 < tot_s2) {
 			winner.setText("La squadra due vince!");
-			Main.playSound("MissionFailed.mp3");
+			Root.playSound("MissionFailed.mp3");
 		} else {
 			winner.setText("Le squadre pareggiano");
 		}
@@ -130,7 +130,7 @@ public class MatchEndController {
 	 */
 	@FXML
 	public void returnButton() throws IOException {
-		Main.changeStage("MainMenu.fxml");
+		Root.changeStage("MainMenu.fxml");
 	}
 
 }

@@ -2,7 +2,7 @@ package application.model.engine.subrutines;
 
 import java.io.IOException;
 
-import application.Main;
+import application.Root;
 
 /**
  * 
@@ -31,7 +31,7 @@ public class LoadScene implements Runnable {
 	@Override
 	public void run() {
 		try {
-			Main.changeStage(fxml);
+			Root.changeStage(fxml);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

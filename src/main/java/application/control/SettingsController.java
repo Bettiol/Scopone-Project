@@ -2,13 +2,11 @@ package application.control;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import application.Main;
+import application.Root;
 import application.model.engine.types.Settings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,7 +44,7 @@ public class SettingsController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		oldSettings = Main.settings.copy();
+		oldSettings = Root.settings.copy();
 
 		// Tavoli
 		ImageView iv;
@@ -54,12 +52,7 @@ public class SettingsController implements Initializable {
 		tgTables = new ToggleGroup();
 
 		File[] tavoli = new File[0];
-		try {
-			tavoli = Paths.get(Main.class.getResource("assets/tables/").toURI()).toFile().listFiles();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-
+		tavoli = new File("assets/tables/").listFiles();
 		if (tavoli != null) {
 			for (File file : tavoli) {
 				iv = new ImageView(new Image("file:" + file.getPath()));
@@ -72,7 +65,7 @@ public class SettingsController implements Initializable {
 				rb.setUserData(file);
 
 				// System.out.println(tavoli[i]);
-				if (file.equals(Main.settings.getTable())) {
+				if (file.equals(Root.settings.getTable())) {
 					rb.setSelected(true);
 				}
 				// rb.getStyleClass().add("radio-button");
@@ -82,18 +75,13 @@ public class SettingsController implements Initializable {
 			}
 			tgTables.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
 				System.out.println(newValue.getUserData());
-				Main.settings.setTable((URL) newValue.getUserData());
+				Root.settings.setTable((File) newValue.getUserData());
 			});
 		}
 
 		// Immagini
 		File[] carte = new File[0];
-		try {
-			carte = Paths.get(Main.class.getResource("assets/cards/").toURI()).toFile().listFiles();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-
+		carte = new File("assets/cards/").listFiles();
 		tgDecks = new ToggleGroup();
 		if (carte != null) {
 			for (File file : carte) {
@@ -106,7 +94,7 @@ public class SettingsController implements Initializable {
 					rb = new RadioButton();
 					rb.setGraphic(iv);
 					rb.setUserData(file);
-					if (file.equals(Main.settings.getDeck())) {
+					if (file.equals(Root.settings.getDeck())) {
 						rb.setSelected(true);
 					}
 					tgDecks.getToggles().add(rb);
@@ -116,46 +104,46 @@ public class SettingsController implements Initializable {
 			}
 			// tgDecks.se
 			tgDecks.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-				Main.settings.setDeck((URL) newValue.getUserData());
+				Root.settings.setDeck((File) newValue.getUserData());
 			});
 		}
 
 		// Volume
-		mainVolume.setValue(Main.settings.getVolume() * 100);
+		mainVolume.setValue(Root.settings.getVolume() * 100);
 		mainVolume.valueProperty().addListener((observable, oldValue, newValue) -> {
-			Main.settings.setVolume(newValue.doubleValue() / 100);
-			Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
+			Root.settings.setVolume(newValue.doubleValue() / 100);
+			Root.mainTheme.volumeProperty().set(Root.settings.getVolume());
 		});
 
 		// Blasfemia
-		blasphemy.setSelected(Main.settings.isBlasphemy());
+		blasphemy.setSelected(Root.settings.isBlasphemy());
 		blasphemy.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Main.settings.setBlasphemy(newValue);
+			Root.settings.setBlasphemy(newValue);
 		});
 
-		fullScreen.setSelected(Main.settings.isFullScreen());
+		fullScreen.setSelected(Root.settings.isFullScreen());
 		fullScreen.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Main.settings.setFullScreen(newValue);
+			Root.settings.setFullScreen(newValue);
 		});
 	}
 
 	@FXML
 	public void applyChanges() {
-		oldSettings = Main.settings.copy();
-		Main.settings.save(Main.settingsPath);
+		oldSettings = Root.settings.copy();
+		Root.settings.save(Root.settingsPath);
 	}
 
 	@FXML
 	public void restoreDefaults() {
-		Main.settings.defaultSettings();
-		oldSettings = Main.settings.copy();
+		Root.settings.defaultSettings();
+		oldSettings = Root.settings.copy();
 
 		ObservableList<Toggle> ol;
 		RadioButton rb;
 		ol = tgTables.getToggles();
 		for (Toggle toggle : ol) {
 			rb = (RadioButton) toggle;
-			if (rb.getUserData().equals(Main.settings.getTable())) {
+			if (rb.getUserData().equals(Root.settings.getTable())) {
 				rb.setSelected(true);
 				break;
 			}
@@ -163,14 +151,14 @@ public class SettingsController implements Initializable {
 		ol = tgDecks.getToggles();
 		for (Toggle toggle : ol) {
 			rb = (RadioButton) toggle;
-			if (rb.getUserData().equals(Main.settings.getDeck())) {
+			if (rb.getUserData().equals(Root.settings.getDeck())) {
 				rb.setSelected(true);
 				break;
 			}
 		}
 
-		mainVolume.setValue(Main.settings.getVolume() * 100);
-		blasphemy.setSelected(Main.settings.isBlasphemy());
+		mainVolume.setValue(Root.settings.getVolume() * 100);
+		blasphemy.setSelected(Root.settings.isBlasphemy());
 	}
 
 	/**
@@ -181,7 +169,7 @@ public class SettingsController implements Initializable {
 	@FXML
 	public void returnButton() throws IOException {
 
-		if (!Main.settings.equals(oldSettings)) {
+		if (!Root.settings.equals(oldSettings)) {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setHeaderText("Ci sono delle modifiche non salvate. Vuoi salvarle?");
 
@@ -189,13 +177,13 @@ public class SettingsController implements Initializable {
 			if (result.get() == ButtonType.OK) {
 				applyChanges();
 			} else {
-				Main.settings = oldSettings;
-				Main.mainTheme.volumeProperty().set(Main.settings.getVolume());
+				Root.settings = oldSettings;
+				Root.mainTheme.volumeProperty().set(Root.settings.getVolume());
 			}
 
 		}
 
-		Main.changeStage("MainMenu.fxml");
+		Root.changeStage("MainMenu.fxml");
 
 	}
 

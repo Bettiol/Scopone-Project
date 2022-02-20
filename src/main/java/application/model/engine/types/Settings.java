@@ -1,18 +1,16 @@
 package application.model.engine.types;
 
-import application.Main;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public class Settings {
 
-	private URL table;
-	private URL deck;
+	private File table;
+	private File deck;
 	private double volume;
 	private boolean blasphemy;
 
@@ -20,20 +18,18 @@ public class Settings {
 	private int screenHeight;
 	private boolean fullScreen;
 
-	public void load(URL path) {
+	public void load(File path) {
 		Settings cfg = new Settings();
-		File f;
 
 		try {
 			//TODO Se il file non esiste esplode
-			f = new File(path.getPath());
-			if (f.exists()) {
+			if (path.exists()) {
 				try {
-					String savedJson = new String(Files.readAllBytes(f.toPath()));
+					String savedJson = new String(Files.readAllBytes(path.toPath()));
 					JSONObject root = new JSONObject(savedJson);
 
-					table = new URL(root.getString("table"));
-					deck = new URL(root.getString("deck"));
+					table = new File(root.getString("table"));
+					deck = new File(root.getString("deck"));
 					volume = root.getDouble("volume");
 					blasphemy = root.getBoolean("blasphemy");
 					fullScreen = root.getBoolean("fullscreen");
@@ -43,7 +39,7 @@ public class Settings {
 					defaultSettings();
 					save(path);
 				}
-			} else if (f.createNewFile()) {
+			} else if (path.createNewFile()) {
 				defaultSettings();
 				save(path);
 			} else {
@@ -56,14 +52,13 @@ public class Settings {
 
 	}
 
-	public void save(URL path) {
-		File f;
+	public void save(File path) {
 
 		try {
-			f = new File(path.getPath());
+			path = new File(path.getPath());
 
-			if (f.exists()) {
-				FileOutputStream fos = new FileOutputStream(f);
+			if (path.exists()) {
+				FileOutputStream fos = new FileOutputStream(path);
 
 				JSONObject root = new JSONObject();
 				root.put("table", table);
@@ -87,8 +82,8 @@ public class Settings {
 	}
 
 	public void defaultSettings() {
-		table = Main.class.getResource("assets/tables/table.jpg");
-		deck = Main.class.getResource("assets/cards/trevigiane");
+		table = new File("assets/tables/table.jpg");
+		deck = new File("assets/cards/trevigiane");
 		volume = 1;
 		blasphemy = false;
 		fullScreen = false;
@@ -141,19 +136,19 @@ public class Settings {
 		return result;
 	}
 
-	public URL getTable() {
+	public File getTable() {
 		return table;
 	}
 
-	public void setTable(URL table) {
+	public void setTable(File table) {
 		this.table = table;
 	}
 
-	public URL getDeck() {
+	public File getDeck() {
 		return deck;
 	}
 
-	public void setDeck(URL deck) {
+	public void setDeck(File deck) {
 		this.deck = deck;
 	}
 

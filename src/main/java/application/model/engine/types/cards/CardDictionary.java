@@ -2,7 +2,6 @@ package application.model.engine.types.cards;
 
 import java.util.HashMap;
 
-import application.Main;
 import javafx.scene.image.Image;
 
 /**
@@ -26,9 +25,9 @@ public class CardDictionary {
 	public CardDictionary() {
 		super();
 		this.cards = new HashMap<>(40);
-		this.transparent = new Image(Main.class.getResourceAsStream("assets/cards/trevigiane/transparent.png"));
-		this.retro = new Image(Main.class.getResourceAsStream("assets/cards/trevigiane/retro.png"));
-		this.retro90 = new Image(Main.class.getResourceAsStream("assets/cards/trevigiane/retro90.png"));
+		this.transparent = new Image("file:assets/cards/trevigiane/transparent.png");
+		this.retro = new Image("file:assets/cards/trevigiane/retro.png");
+		this.retro90 = new Image("file:assets/cards/trevigiane/retro90.png");
 
 		this.initialize();
 	}
@@ -43,7 +42,7 @@ public class CardDictionary {
 			for (int j = 1; j <= 10; ++j) {
 				key = j + "_" + seme;
 				//TODO Settings
-				cards.put(key, new Image(Main.class.getResourceAsStream("assets/cards/trevigiane/" + key + ".png")));
+				cards.put(key, new Image("file:assets/cards/trevigiane/" + key + ".png"));
 			}
 		}
 	}

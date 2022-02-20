@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import application.Main;
+import application.Root;
 import application.model.networking.TDA.Lobby;
 import application.model.networking.subrutines.ConnectionServer;
 import application.model.networking.subrutines.GetLobby;
@@ -70,7 +70,7 @@ public class MultiPlayerHubController implements Initializable {
 	@FXML
 	public void create2v2lobby() throws IOException {
 
-		String lobbyName = showLobbyDialog("Inserisci nome della lobby", Main.getPrimaryStage());
+		String lobbyName = showLobbyDialog("Inserisci nome della lobby", Root.getPrimaryStage());
 
 		if (lobbyName != null) {
 			Lobby l = new Lobby(lobbyName, Lobby.people2);
@@ -78,7 +78,7 @@ public class MultiPlayerHubController implements Initializable {
 			rs = new ResponseServer(l);
 			cs = new ConnectionServer(rs, 1);
 
-			Main.changeStage("LoadingPage.fxml");
+			Root.changeStage("LoadingPage.fxml");
 
 			new Thread(rs, "ResponseServer").start();
 			new Thread(cs, "ConnectionsServer").start();
@@ -89,10 +89,10 @@ public class MultiPlayerHubController implements Initializable {
 	@FXML
 	public void create4lobby() throws IOException {
 
-		String lobbyName = showLobbyDialog("Inserisci nome della lobby", Main.getPrimaryStage());
+		String lobbyName = showLobbyDialog("Inserisci nome della lobby", Root.getPrimaryStage());
 
 		if (lobbyName != null) {
-			Main.changeStage("LoadingPage.fxml");
+			Root.changeStage("LoadingPage.fxml");
 			Lobby l = new Lobby(lobbyName, Lobby.people4);
 
 			rs = new ResponseServer(l);
@@ -108,7 +108,7 @@ public class MultiPlayerHubController implements Initializable {
 	public void join2v2Lobby() throws IOException {
 
 		if (tg2v2.getSelectedToggle() != null) {
-			Main.changeStage("LoadingPage.fxml");
+			Root.changeStage("LoadingPage.fxml");
 			Lobby l = (Lobby) tg2v2.getSelectedToggle().getUserData();
 			jl = new JoinLobby(l);
 			new Thread(jl, "JoinLobby").start();
@@ -120,7 +120,7 @@ public class MultiPlayerHubController implements Initializable {
 	public void join4Lobby() throws IOException {
 
 		if (tg4.getSelectedToggle() != null) {
-			Main.changeStage("LoadingPage.fxml");
+			Root.changeStage("LoadingPage.fxml");
 			Lobby l = (Lobby) tg4.getSelectedToggle().getUserData();
 			jl = new JoinLobby(l);
 			new Thread(jl, "JoinLobby").start();
@@ -141,13 +141,13 @@ public class MultiPlayerHubController implements Initializable {
 			jl.disconnect();
 		}
 
-		Main.changeStage("MultiPlayerHub.fxml");
+		Root.changeStage("MultiPlayerHub.fxml");
 
 	}
 
 	@FXML
 	public void returnButton() throws IOException {
-		Main.changeStage("MainMenu.fxml");
+		Root.changeStage("MainMenu.fxml");
 	}
 
 }

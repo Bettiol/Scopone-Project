@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="tableBackground" fx:id="background" maxHeight="1080.0" maxWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.ControllerCardView">
+<BorderPane id="tableBackground" fx:id="background" maxHeight="1080.0" maxWidth="1920.0" stylesheets="@../stylesheets/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.ControllerCardView">
    <left>
       <VBox fx:id="g4" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>

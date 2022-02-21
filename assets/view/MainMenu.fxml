@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" stylesheets="@../stylesheets/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.control.MenuController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1200.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets/>
+         </BorderPane.margin>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="UN GRAN BELLO SCOPONE" textAlignment="CENTER"
+               wrappingWidth="400.046875">
+            <font>
+               <Font name="Playbill" size="64.0"/>
+            </font>
+         </Text>
+         <Button mnemonicParsing="false" onAction="#singlePlayerMode" prefHeight="50.0" prefWidth="400.0"
+                 text="Singleplayer">
+            <font>
+               <Font name="Bodoni MT" size="24.0"/>
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#multiPlayerMode" prefHeight="50.0" prefWidth="400.0"
+                 text="Multiplayer">
+            <font>
+               <Font name="Bodoni MT" size="24.0"/>
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#rulesPage" prefHeight="50.0" prefWidth="400.0" text="Rules">
+            <font>
+               <Font name="Bodoni MT" size="24.0"/>
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#settingsPage" prefHeight="50.0" prefWidth="400.0" text="Settings">
+            <font>
+               <Font name="Bodoni MT" size="24.0"/>
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onAction="#exitButton" prefHeight="50.0" prefWidth="400.0" text="Exit">
+            <font>
+               <Font name="Bodoni MT" size="24.0"/>
+            </font>
+         </Button>
+      </VBox>
+   </center>
+</BorderPane>

@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URL;
 
 import application.model.engine.types.Settings;
 import javafx.application.Application;
@@ -58,7 +59,7 @@ public class Root extends Application {
 	public static Object changeStage(String fxml) throws IOException {
 		// setUserAgentStylesheet();
 
-		FXMLLoader loader = new FXMLLoader(Root.class.getResource(fxml));
+		FXMLLoader loader = new FXMLLoader(new URL("file:assets/view/" + fxml));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
 
@@ -81,7 +82,7 @@ public class Root extends Application {
 			mainTheme.play();
 		} else if (!mainTheme.getStatus().equals(MediaPlayer.Status.PLAYING)) {
 			//TODO Filepath
-			File f = new File("resources/sounds/" + sound);
+			File f = new File("assets/sounds/" + sound);
 			Media media = new Media(f.toURI().toString());
 			mainTheme = new MediaPlayer(media);
 			mainTheme.volumeProperty().set(settings.getVolume());
@@ -90,13 +91,13 @@ public class Root extends Application {
 	}
 
 	public static void stopMainTheme() {
-		if (mainTheme.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+		if (mainTheme.getStatus() == MediaPlayer.Status.PLAYING) {
 			mainTheme.stop();
 		}
 	}
 
 	public static void playSound(String sound) {
-		File f = new File("resources/sounds/" + sound);
+		File f = new File("assets/sounds/" + sound);
 
 		Media media = new Media(f.toURI().toString());
 		MediaPlayer mp = new MediaPlayer(media);

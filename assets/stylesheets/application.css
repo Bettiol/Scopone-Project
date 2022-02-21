@@ -2,23 +2,23 @@
 
 #pane {
 
-	-fx-background-image: url("../../resources/assets/bg.jpg");
+	-fx-background-image: url("../bg.jpg");
 	-fx-background-size: stretch; 
 	-fx-background-position: center center;
 
 }
 
-/* #tableBackground {
+#tableBackground {
 
-	-fx-background-image: url("file:resources/assets/tables/table.jpg");
+	-fx-background-image: url("../tables/table.jpg");
     -fx-background-position: center center;
     -fx-background-size: stretch;
 
-}*/
+}
 
 #loadingPage {
 
-    -fx-background-image: url("file:resources/assets/load.gif");
+    -fx-background-image: url("../assets/load.gif");
     -fx-background-repeat: stretch;
     -fx-background-position: center center;
 

@@ -1,0 +1,9 @@
+{
+  "volume": 0.25,
+  "screenWidth": 1280,
+  "fullscreen": false,
+  "deck": "assets\\cards\\trevigiane",
+  "screenHeight": 720,
+  "blasphemy": false,
+  "table": "assets\\tables\\pgiallo.jpg"
+}

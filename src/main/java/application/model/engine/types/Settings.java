@@ -19,10 +19,8 @@ public class Settings {
 	private boolean fullScreen;
 
 	public void load(File path) {
-		Settings cfg = new Settings();
 
 		try {
-			//TODO Se il file non esiste esplode
 			if (path.exists()) {
 				try {
 					String savedJson = new String(Files.readAllBytes(path.toPath()));
@@ -39,11 +37,9 @@ public class Settings {
 					defaultSettings();
 					save(path);
 				}
-			} else if (path.createNewFile()) {
+			} else {
 				defaultSettings();
 				save(path);
-			} else {
-				System.err.println("Error in file creation");
 			}
 
 		} catch (IOException e) {
@@ -55,26 +51,25 @@ public class Settings {
 	public void save(File path) {
 
 		try {
-			path = new File(path.getPath());
-
-			if (path.exists()) {
-				FileOutputStream fos = new FileOutputStream(path);
-
-				JSONObject root = new JSONObject();
-				root.put("table", table);
-				root.put("deck", deck);
-				root.put("volume", volume);
-				root.put("blasphemy", blasphemy);
-				root.put("fullscreen", fullScreen);
-				root.put("screenWidth", screenWidth);
-				root.put("screenHeight", screenHeight);
-
-				fos.write(root.toString(2).getBytes(StandardCharsets.UTF_8));
-
-				fos.close();
-			} else {
-				System.err.println("Error");
+			if(!path.exists()){
+				path.getParentFile().mkdir();
+				path.createNewFile();
 			}
+
+			FileOutputStream fos = new FileOutputStream(path);
+
+			JSONObject root = new JSONObject();
+			root.put("table", table);
+			root.put("deck", deck);
+			root.put("volume", volume);
+			root.put("blasphemy", blasphemy);
+			root.put("fullscreen", fullScreen);
+			root.put("screenWidth", screenWidth);
+			root.put("screenHeight", screenHeight);
+
+			fos.write(root.toString(2).getBytes(StandardCharsets.UTF_8));
+
+			fos.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();

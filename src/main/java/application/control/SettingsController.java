@@ -51,7 +51,7 @@ public class SettingsController implements Initializable {
 		RadioButton rb;
 		tgTables = new ToggleGroup();
 
-		File[] tavoli = new File[0];
+		File[] tavoli;
 		tavoli = new File("assets/tables/").listFiles();
 		if (tavoli != null) {
 			for (File file : tavoli) {

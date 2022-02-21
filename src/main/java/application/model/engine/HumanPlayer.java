@@ -78,7 +78,7 @@ public class HumanPlayer extends Player {
 			e.printStackTrace();
 		}
 
-		int card = ccv.getGiocata().intValue();
+		int card = ccv.getGiocata();
 
 		Carta[] newHand = scarta(hand, dimHand, card);
 		ccv.refreshHand(newHand, (dimHand - 1));

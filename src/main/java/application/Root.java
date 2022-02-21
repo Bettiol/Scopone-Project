@@ -40,6 +40,9 @@ public class Root extends Application {
 			primaryStages.setMinWidth(1280);
 			primaryStages.setMinHeight(720);
 
+			primaryStages.setWidth(settings.getScreenWidth());
+			primaryStages.setHeight(settings.getScreenHeight());
+
 			primaryStages.setFullScreen(Root.settings.isFullScreen());
 
 			Root.changeStage("MainMenu.fxml");

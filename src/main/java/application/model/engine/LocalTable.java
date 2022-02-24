@@ -30,8 +30,7 @@ public class LocalTable extends Table implements Runnable {
 	private int turn;
 
 	// Giocatori
-	private Player[] myPlayers; // 4
-	private int players;
+	private ArrayList<Player> myPlayers;
 
 	// Carte e punti dei giocatori
 	private Carta[][] playersHands; // 4;10
@@ -55,13 +54,12 @@ public class LocalTable extends Table implements Runnable {
 		dimTable = 0;
 		turn = 0;
 
-		myPlayers = new Player[4];
-		players = 0;
+		myPlayers = new ArrayList<>();
 
 		playersHands = new Carta[4][10];
 		handSizes = new int[4];
-		teamOnePicks = new ArrayList<Carta>(40);
-		teamTwoPicks = new ArrayList<Carta>(40);
+		teamOnePicks = new ArrayList<>(40);
+		teamTwoPicks = new ArrayList<>(40);
 		lastPick = null;
 		teamOnePoints = 0;
 		teamTwoPoints = 0;
@@ -94,11 +92,11 @@ public class LocalTable extends Table implements Runnable {
 			Initialization pippo = null;
 			for (int i = 0; i < 4; i++) {
 				pippo = new Initialization(i, app, playersHands[i], null);
-				allWentOk = myPlayers[i].init(pippo);
+				allWentOk = myPlayers.get(i).init(pippo);
 				// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
 				// System.out.println("Player(" + i + ") + turno " + app);
 				if (allWentOk == -1) {
-					myPlayers[i] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+					myPlayers.set(i, new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello()));
 					System.out.println("Non una bella partenza per player(" + i + ")");
 				}
 
@@ -114,14 +112,14 @@ public class LocalTable extends Table implements Runnable {
 				 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
 				 * System.out.println(" (" + turn + ")");
 				 */
-				allWentOk = myPlayers[turn].setPlayerTurn(playersHands[turn], handSizes[turn], table, dimTable);
+				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands[turn], handSizes[turn], table, dimTable);
 				if (allWentOk != -1) {
 					for (int j = 0; j < 4; j++) {
 						// System.out.println("turno 56 :" + turn);
-						allWentOk = myPlayers[j].notifyTableState(table, dimTable);
+						allWentOk = myPlayers.get(j).notifyTableState(table, dimTable);
 						if (allWentOk == -1) {
 							System.out.println("Qualcosa è andato storto nella notifica al player " + j);
-							myPlayers[j] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+							myPlayers.set(j, new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello()));
 						}
 					}
 
@@ -129,11 +127,10 @@ public class LocalTable extends Table implements Runnable {
 					i++;
 				} else {
 					System.out.println("Player " + turn + " non ha fatto nulla");
-					myPlayers[turn] = new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello());
+					myPlayers.set(turn, new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello()));
 				}
 
 			}
-
 			assignLastPick();
 
 			Points[] result = stampaPunti();
@@ -141,26 +138,29 @@ public class LocalTable extends Table implements Runnable {
 			teamTwoPoints=result[1].calcolaTotale();
 
 			// Notifico a tutti la fine del match
-			if(cfg.getPointLimit()==0) {
+			//TODO Provare a mettere questo controllo fuori
+			if(cfg.getPointLimit() == 0) {
 				for (i = 0; i < 4; i++) {
-					allWentOk = myPlayers[i].showResult(result);
+					allWentOk = myPlayers.get(i).showResult(result);
 					if (allWentOk == -1) {
 						System.out.println("Qualcosa è andato storto nella notifica a player " + i);
 					}
 				}
-			}
-			else {
+			} else {
 				//da finire con le schermate di caricamento
 			}
-			turn=(turn+1)%4;
-		}while(cfg.getPointLimit()<teamOneTotal && cfg.getPointLimit()<teamTwoTotal);
+
+			//Quello che inizia la prossima partita è quello dopo a chi l'ha finita
+			turn = (turn + 1) % 4;
+
+			//TODO Penso che la condizione di uscita sia sbagliata
+		} while((cfg.getPointLimit() < teamOneTotal && cfg.getPointLimit() < teamTwoTotal));
 		// System.out.println(result);
 	}
 
 	@Override
 	public void addPlayer(Player p) {
-		myPlayers[players] = p;
-		players++;
+		myPlayers.add(p);
 	}
 
 	@Override
@@ -170,8 +170,8 @@ public class LocalTable extends Table implements Runnable {
 		// Tolgo la carta dalla mano del giocatore e me la prendo
 		Carta c = scarta(giocata);
 		// Ciclo tutti i giocatori per comunicare quale carto ho giocato
-		for (int i = 0; i < players; i++) {
-			myPlayers[i].setPlayedCard(c);
+		for (Player player : myPlayers) {
+			player.setPlayedCard(c);
 		}
 
 		// i giocatori vedono la carta che ho giocato
@@ -201,7 +201,7 @@ public class LocalTable extends Table implements Runnable {
 						assignPick(combos[0]);
 					} else {
 						// L'utente sceglie
-						return myPlayers[turn].pickChoice(combos);
+						return myPlayers.get(turn).pickChoice(combos);
 					}
 					lastPick.add(c);
 				} else {

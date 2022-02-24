@@ -33,8 +33,7 @@ public class LocalTable extends Table implements Runnable {
 	private ArrayList<Player> myPlayers;
 
 	// Carte e punti dei giocatori
-	private Carta[][] playersHands; // 4;10
-	private int[] handSizes; // 4
+	private ArrayList<ArrayList<Carta>> playersHands;
 	private ArrayList<Carta> teamOnePicks;
 	private ArrayList<Carta> teamTwoPicks;
 	private int teamOnePoints;
@@ -54,10 +53,13 @@ public class LocalTable extends Table implements Runnable {
 		dimTable = 0;
 		turn = 0;
 
-		myPlayers = new ArrayList<>();
+		myPlayers = new ArrayList<>(4);
 
-		playersHands = new Carta[4][10];
-		handSizes = new int[4];
+		playersHands = new ArrayList<>(4);
+		for (int i = 0; i < 4; ++i) {
+			playersHands.add(new ArrayList<>(10));
+		}
+
 		teamOnePicks = new ArrayList<>(40);
 		teamTwoPicks = new ArrayList<>(40);
 		lastPick = null;
@@ -81,17 +83,16 @@ public class LocalTable extends Table implements Runnable {
 			//Genera il mazzo
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 10; j++) {
-					playersHands[i][j] = m.pescaCarta();
+					playersHands.get(i).add(m.pescaCarta());
 				}
-				Arrays.sort(playersHands[i]);
-				handSizes[i] = 10;
+				playersHands.get(i).sort(null);
 			}
 
 			// Dico ai player chi sono
 			int app = turn;
 			Initialization pippo = null;
 			for (int i = 0; i < 4; i++) {
-				pippo = new Initialization(i, app, playersHands[i], null);
+				pippo = new Initialization(i, app, playersHands.get(i).toArray(new Carta[0]), null);
 				allWentOk = myPlayers.get(i).init(pippo);
 				// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
 				// System.out.println("Player(" + i + ") + turno " + app);
@@ -112,7 +113,7 @@ public class LocalTable extends Table implements Runnable {
 				 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
 				 * System.out.println(" (" + turn + ")");
 				 */
-				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands[turn], handSizes[turn], table, dimTable);
+				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn).toArray(new Carta[0]), playersHands.get(turn).size(), table, dimTable);
 				if (allWentOk != -1) {
 					for (int j = 0; j < 4; j++) {
 						// System.out.println("turno 56 :" + turn);
@@ -281,17 +282,9 @@ public class LocalTable extends Table implements Runnable {
 	 * @return carta scartata
 	 */
 	private Carta scarta(Carta c) {
-		int i;
-		int pos = cardToIndex(playersHands[turn], handSizes[turn], c);
+		playersHands.get(turn).remove(c);
 
-		Carta app = playersHands[turn][pos];
-
-		for (i = pos; i < handSizes[turn] - 1; i++) {
-			playersHands[turn][i] = playersHands[turn][i + 1];
-		}
-		handSizes[turn]--;
-
-		return app;
+		return c;
 	}
 
 	/**

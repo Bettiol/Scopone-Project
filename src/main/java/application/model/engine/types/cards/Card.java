@@ -13,7 +13,7 @@ import java.io.Serializable;
  *
  */
 
-public class Carta implements Serializable, Comparable<Carta> {
+public class Card implements Serializable, Comparable<Card> {
 
 	@Serial
 	private static final long serialVersionUID = 8223232637933818932L;
@@ -27,7 +27,7 @@ public class Carta implements Serializable, Comparable<Carta> {
 	 * @param seme il seme a cui appartiene la carta
 	 * @param num  il valore della carta
 	 */
-	public Carta(Suit seme, int num) {
+	public Card(Suit seme, int num) {
 		super();
 		this.suit = seme;
 		this.rank = num;
@@ -67,7 +67,7 @@ public class Carta implements Serializable, Comparable<Carta> {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Carta other = (Carta) obj;
+		Card other = (Card) obj;
 		if (rank != other.rank) {
 			return false;
 		}
@@ -82,7 +82,7 @@ public class Carta implements Serializable, Comparable<Carta> {
 	}
 
 	@Override
-	public int compareTo(Carta o) {
+	public int compareTo(Card o) {
 
 		if (this.getRank() != o.getRank()) {
 			return this.getRank() - o.getRank();

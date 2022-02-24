@@ -1,6 +1,6 @@
 package application.model.engine.types;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 
 /**
  * La classe rappresenta le funzione obbligatorie che ogni tavolo deve
@@ -31,7 +31,7 @@ public abstract class Table {
 	 * @param giocata la carta scartata dal giocatore
 	 * @return 1 per verificare la giusta esecuzione del metodo
 	 */
-	public abstract int playCard(Carta giocata);
+	public abstract int playCard(Card giocata);
 
 	/**
 	 * Il metodo effettua la presa se in presenza di più combos di carte
@@ -39,6 +39,6 @@ public abstract class Table {
 	 * @param presa vettore di carte da prendere dal tavolo
 	 * @return 0 per verificare la giusta esecuzione del metodo
 	 */
-	public abstract int choiceCapture(Carta[] presa);
+	public abstract int choiceCapture(Card[] presa);
 
 }

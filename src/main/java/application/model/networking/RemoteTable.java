@@ -2,7 +2,7 @@ package application.model.networking;
 
 import java.io.IOException;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import application.model.engine.types.Initialization;
 import application.model.engine.types.Player;
 import application.model.engine.types.Points;
@@ -61,7 +61,7 @@ public class RemoteTable extends Table implements Runnable {
 
 				switch (m.getType()) {
 				case Message.CARD_PLAYED:
-					Carta card = (Carta) m.getMsg().getObj();
+					Card card = (Card) m.getMsg().getObj();
 					myPlayer.setPlayedCard(card);
 					break;
 				case Message.SET_TURN:
@@ -74,7 +74,7 @@ public class RemoteTable extends Table implements Runnable {
 					myPlayer.notifyTableState(table.getArr(), table.getDim());
 					break;
 				case Message.CHOICE:
-					Carta[][] combos = (Carta[][]) m.getMsg().getObj();
+					Card[][] combos = (Card[][]) m.getMsg().getObj();
 					myPlayer.pickChoice(combos);
 				case Message.HELLO_THERE:
 					Initialization init = (Initialization) m.getMsg().getObj();
@@ -99,7 +99,7 @@ public class RemoteTable extends Table implements Runnable {
 	}
 
 	@Override
-	public int playCard(Carta card) {
+	public int playCard(Card card) {
 		Message send = new Message(Message.CHOICE, card);
 		try {
 			host.send(send);
@@ -111,7 +111,7 @@ public class RemoteTable extends Table implements Runnable {
 	}
 
 	@Override
-	public int choiceCapture(Carta[] combos) {
+	public int choiceCapture(Card[] combos) {
 		Message send = new Message(Message.CHOICE, combos);
 		try {
 			host.send(send);

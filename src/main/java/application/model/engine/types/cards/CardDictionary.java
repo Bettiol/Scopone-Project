@@ -54,7 +54,7 @@ public class CardDictionary {
 	 * @param c Carta
 	 * @return Immagine rappresentativa della carta
 	 */
-	public Image cardToImage(Carta c) {
+	public Image cardToImage(Card c) {
 		Image i;
 		if (c != null) {
 			String key = c.getRank() + "_" + c.getSuit();

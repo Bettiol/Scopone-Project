@@ -3,7 +3,7 @@ package application.model.engine;
 import java.util.concurrent.Semaphore;
 
 import application.control.ControllerCardView;
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import application.model.engine.types.Initialization;
 import application.model.engine.types.Player;
 import application.model.engine.types.Points;
@@ -28,7 +28,7 @@ public class HumanPlayer extends Player {
 	private int whoAmI;
 	private int turn;
 
-	private Carta lastPlayed;
+	private Card lastPlayed;
 	private int scopeS1;
 	private int scopeS2;
 
@@ -63,7 +63,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public int setPlayerTurn(Carta[] hand, int dimHand, Carta[] tableCards, int dimTable) {
+	public int setPlayerTurn(Card[] hand, int dimHand, Card[] tableCards, int dimTable) {
 		// Aggiorno il view
 		ccv.refreshHand(hand, dimHand);
 		ccv.refreshTable(tableCards, dimTable);
@@ -80,14 +80,14 @@ public class HumanPlayer extends Player {
 
 		int card = ccv.getGiocata();
 
-		Carta[] newHand = scarta(hand, dimHand, card);
+		Card[] newHand = scarta(hand, dimHand, card);
 		ccv.refreshHand(newHand, (dimHand - 1));
 
 		return table.playCard(hand[card]);
 	}
 
 	@Override
-	public int setPlayedCard(Carta c) {
+	public int setPlayedCard(Card c) {
 		lastPlayed = c;
 
 		ccv.refreshPlayed(lastPlayed);
@@ -96,7 +96,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public int pickChoice(Carta[][] combos) {
+	public int pickChoice(Card[][] combos) {
 		// Viasulizzo a schermo il vettore di scelte come mi pare
 		ccv.refreshCombos(combos);
 
@@ -114,7 +114,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public int notifyTableState(Carta[] tableCards, int dimTable) {
+	public int notifyTableState(Card[] tableCards, int dimTable) {
 		//System.out.println("Turno enrico 2:"+turn);
 		if (lastPlayed.getRank() != 1 && dimTable == 0) {
 			if (turn == 0 || turn == 2) {
@@ -155,8 +155,8 @@ public class HumanPlayer extends Player {
 	 * @param index indice da eliminare
 	 * @return il vettore modificato
 	 */
-	private Carta[] scarta(Carta[] arr, int dim, int index) {
-		Carta[] app = new Carta[dim];
+	private Card[] scarta(Card[] arr, int dim, int index) {
+		Card[] app = new Card[dim];
 		for (int i = 0; i < dim; i++) {
 			app[i] = arr[i];
 		}

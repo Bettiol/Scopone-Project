@@ -13,7 +13,7 @@ import java.util.Collections;
 
 public class Deck {
 
-	private ArrayList<Carta> deck;
+	private ArrayList<Card> deck;
 	/**
 	 * Metodo costruttore della classe
 	 */
@@ -31,7 +31,7 @@ public class Deck {
 	private void generaMazzo() {
 		for(Suit seme : Suit.values()) {
 			for (int i = 1; i <= 10; ++i) {
-				deck.add(new Carta(seme, i));
+				deck.add(new Card(seme, i));
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public class Deck {
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder("mazzo:\n");
-		for (Carta carta : deck) {
+		for (Card carta : deck) {
 			s.append(carta).append("\n");
 		}
 		return s.toString();
@@ -50,7 +50,7 @@ public class Deck {
 	 * 
 	 * @return la carta eliminata dal mazzo
 	 */
-	public Carta pescaCarta() {
+	public Card pescaCarta() {
 		return deck.remove(deck.size() - 1);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
 import application.model.engine.types.cards.CardDictionary;
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import application.model.engine.subrutines.RefreshCards;
 import application.model.engine.subrutines.RefreshCombos;
 import application.model.engine.subrutines.RefreshPlayed;
@@ -253,19 +253,19 @@ public class ControllerCardView implements Initializable {
 		played.setImage(cd.getTransparent());
 	}
 
-	public void refreshHand(Carta arr[], int dim) {
+	public void refreshHand(Card arr[], int dim) {
 		Platform.runLater(new RefreshCards(g1, arr, dim, cd));
 	}
 
-	public void refreshTable(Carta arr[], int dim) {
+	public void refreshTable(Card arr[], int dim) {
 		Platform.runLater(new RefreshCards(table, arr, dim, cd));
 	}
 
-	public void refreshCombos(Carta[][] combos) {
+	public void refreshCombos(Card[][] combos) {
 		Platform.runLater(new RefreshCombos(table, scelta, combos, cd));
 	}
 
-	public void refreshPlayed(Carta c) {
+	public void refreshPlayed(Card c) {
 		Platform.runLater(new RefreshPlayed(played, c, cd));
 	}
 

@@ -1,7 +1,7 @@
 package application.model.engine.subrutines;
 
 import application.model.engine.types.cards.CardDictionary;
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import javafx.scene.image.ImageView;
 
 /**
@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 public class RefreshPlayed implements Runnable {
 
 	private ImageView iv;
-	private Carta c;
+	private Card c;
 	private CardDictionary cd;
 
 	/**
@@ -23,7 +23,7 @@ public class RefreshPlayed implements Runnable {
 	 * @param c  Carta
 	 * @param cd Dizionario delle carte
 	 */
-	public RefreshPlayed(ImageView iv, Carta c, CardDictionary cd) {
+	public RefreshPlayed(ImageView iv, Card c, CardDictionary cd) {
 		super();
 		this.iv = iv;
 		this.c = c;

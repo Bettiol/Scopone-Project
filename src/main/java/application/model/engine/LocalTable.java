@@ -1,9 +1,8 @@
 package application.model.engine;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import application.model.engine.types.cards.Deck;
 import application.model.engine.types.GameSettings;
 import application.model.engine.types.Initialization;
@@ -25,19 +24,19 @@ import application.model.engine.types.cards.Suit;
 
 public class LocalTable extends Table implements Runnable {
 	// Carte in tavola
-	private ArrayList<Carta> table;
+	private ArrayList<Card> table;
 	private int turn;
 
 	// Giocatori
 	private ArrayList<Player> myPlayers;
 
 	// Carte e punti dei giocatori
-	private ArrayList<ArrayList<Carta>> playersHands;
-	private ArrayList<Carta> teamOnePicks;
-	private ArrayList<Carta> teamTwoPicks;
+	private ArrayList<ArrayList<Card>> playersHands;
+	private ArrayList<Card> teamOnePicks;
+	private ArrayList<Card> teamTwoPicks;
 	private int teamOnePoints;
 	private int teamTwoPoints;
-	private ArrayList<Carta> lastPick; // Puntatore all'array con l'ultima presa
+	private ArrayList<Card> lastPick; // Puntatore all'array con l'ultima presa
 	private int teamOneTotal;
 	private int teamTwoTotal;
 
@@ -90,7 +89,7 @@ public class LocalTable extends Table implements Runnable {
 			int app = turn;
 			Initialization pippo = null;
 			for (int i = 0; i < 4; i++) {
-				pippo = new Initialization(i, app, playersHands.get(i).toArray(new Carta[0]), null);
+				pippo = new Initialization(i, app, playersHands.get(i).toArray(new Card[0]), null);
 				allWentOk = myPlayers.get(i).init(pippo);
 				// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
 				// System.out.println("Player(" + i + ") + turno " + app);
@@ -111,12 +110,12 @@ public class LocalTable extends Table implements Runnable {
 				 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
 				 * System.out.println(" (" + turn + ")");
 				 */
-				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn).toArray(new Carta[0]), playersHands.get(turn).size(), table.toArray(new Carta[0]), table.size());
+				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn).toArray(new Card[0]), playersHands.get(turn).size(), table.toArray(new Card[0]), table.size());
 				if (allWentOk != -1) {
 					for (int j = 0; j < 4; j++) {
 						// System.out.println("turno 56 :" + turn);
-						Carta[] debug = table.toArray(new Carta[0]);
-						allWentOk = myPlayers.get(j).notifyTableState(table.toArray(new Carta[0]), table.size());
+						Card[] debug = table.toArray(new Card[0]);
+						allWentOk = myPlayers.get(j).notifyTableState(table.toArray(new Card[0]), table.size());
 						if (allWentOk == -1) {
 							System.out.println("Qualcosa è andato storto nella notifica al player " + j);
 							myPlayers.set(j, new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello()));
@@ -164,11 +163,11 @@ public class LocalTable extends Table implements Runnable {
 	}
 
 	@Override
-	public int playCard(Carta giocata) {
+	public int playCard(Card giocata) {
 		// Faccio i conti delle combo;
 
 		// Tolgo la carta dalla mano del giocatore e me la prendo
-		Carta c = scarta(giocata);
+		Card c = scarta(giocata);
 		// Ciclo tutti i giocatori per comunicare quale carto ho giocato
 		for (Player player : myPlayers) {
 			player.setPlayedCard(c);
@@ -187,12 +186,12 @@ public class LocalTable extends Table implements Runnable {
 			assignPick(c, null);
 			lastPick.add(c);
 		} else {
-			Carta res = ricercaCartaT(c);
+			Card res = ricercaCartaT(c);
 			if (res != null) {
 				assignPick(c, res);
 				lastPick.add(c);
 			} else {
-				Carta[][] combos = ricercaCombinazioni(c);
+				Card[][] combos = ricercaCombinazioni(c);
 
 				if (combos[0][0] != null) {
 					// Ho almeno una combinazione
@@ -217,7 +216,7 @@ public class LocalTable extends Table implements Runnable {
 	}
 
 	@Override
-	public int choiceCapture(Carta[] combos) {
+	public int choiceCapture(Card[] combos) {
 		// Ok faccio cose col la tua scelta e aggiorno il tavolo
 		assignPick(combos);
 		// Muoio e faccio tornare alla funzione precedente?
@@ -230,7 +229,7 @@ public class LocalTable extends Table implements Runnable {
 	 * 
 	 * @return il vettore contenente le carte prese dalla squadra 1
 	 */
-	public ArrayList<Carta> getTeamOnePicks() {
+	public ArrayList<Card> getTeamOnePicks() {
 		return teamOnePicks;
 	}
 
@@ -239,7 +238,7 @@ public class LocalTable extends Table implements Runnable {
 	 * 
 	 * @return il vettore contenente le carte prese dalla squadra 2
 	 */
-	public ArrayList<Carta> getTeamTwoPicks() {
+	public ArrayList<Card> getTeamTwoPicks() {
 		return teamTwoPicks;
 	}
 
@@ -250,7 +249,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param c carta da scartare
 	 * @return carta scartata
 	 */
-	private Carta scarta(Carta c) {
+	private Card scarta(Card c) {
 		playersHands.get(turn).remove(c);
 
 		return c;
@@ -262,7 +261,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param c carta da eliminare
 	 * @return carta eliminata
 	 */
-	private Carta scartaTavolo(Carta c) {
+	private Card scartaTavolo(Card c) {
 		table.remove(c);
 
 		return c;
@@ -275,7 +274,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param calata carta calata in tavola
 	 * @param presa  carta presa dalla tavola
 	 */
-	private void assignPick(Carta calata, Carta presa) {
+	private void assignPick(Card calata, Card presa) {
 		if (turn == 0 || turn == 2) {
 			if (calata.getRank() == 1 && cfg.isAssoPigliatutto()) {
 				for (int i = table.size() - 1; i >= 0; i--) {
@@ -313,7 +312,7 @@ public class LocalTable extends Table implements Runnable {
 	 * 
 	 * @param prese vettore di carte da aggiungere
 	 */
-	private void assignPick(Carta[] prese) {
+	private void assignPick(Card[] prese) {
 		int i = 0;
 		if (turn == 0 || turn == 2) {
 			while (i < 3 && prese[i] != null) {
@@ -347,9 +346,9 @@ public class LocalTable extends Table implements Runnable {
 	 * @param c carta di cui effettuare la ricerca
 	 * @return la carta del tavolo
 	 */
-	private Carta ricercaCartaT(Carta c) {
+	private Card ricercaCartaT(Card c) {
 		int pos = -1;
-		Carta app = null;
+		Card app = null;
 		for (int i = 0; i < table.size(); i++) {
 			if (table.get(i).getRank() == c.getRank()) {
 				pos = i;
@@ -373,9 +372,9 @@ public class LocalTable extends Table implements Runnable {
 	 * @param c carta di cui effettuare la ricerca
 	 * @return matrice contenete le combos delle carte
 	 */
-	private Carta[][] ricercaCombinazioni(Carta c) {
+	private Card[][] ricercaCombinazioni(Card c) {
 		// il vettore contiene le posizione della somma posssibile
-		Carta[][] posizioni = new Carta[5][3];
+		Card[][] posizioni = new Card[5][3];
 		// da finire
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -509,7 +508,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
 	 * @return se è presente il sette di danari
 	 */
-	private boolean trovaSetteBello(ArrayList<Carta> cartePrese) {
+	private boolean trovaSetteBello(ArrayList<Card> cartePrese) {
 		boolean trovato = false;
 		for (int i = 0; i < cartePrese.size(); i++) {
 			if (cartePrese.get(i).getRank() == 7 && cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
@@ -525,7 +524,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
 	 * @return se è presente il re di danari
 	 */
-	private boolean trovaReBello(ArrayList<Carta> cartePrese) {
+	private boolean trovaReBello(ArrayList<Card> cartePrese) {
 		boolean trovato = false;
 		for (int i = 0; i < cartePrese.size(); i++) {
 			if (cartePrese.get(i).getRank() == 10 && cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
@@ -541,7 +540,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
 	 * @return se è presente la maggioranza di danari
 	 */
-	private int trovaDanari(ArrayList<Carta> cartePrese) {
+	private int trovaDanari(ArrayList<Card> cartePrese) {
 		int trovato = 0;
 		for (int i = 0; i < cartePrese.size(); i++) {
 			if (cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
@@ -557,25 +556,25 @@ public class LocalTable extends Table implements Runnable {
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
 	 * @return il punteggio della napoli
 	 */
-	private int trovaNapoli(ArrayList<Carta> cartePrese) {
+	private int trovaNapoli(ArrayList<Card> cartePrese) {
 		int punti = 0;
-		if (cartePrese.contains(new Carta(Suit.DENARI, 1))) {
-			if (cartePrese.contains(new Carta(Suit.DENARI, 2))) {
-				if (cartePrese.contains(new Carta(Suit.DENARI, 3))) {
+		if (cartePrese.contains(new Card(Suit.DENARI, 1))) {
+			if (cartePrese.contains(new Card(Suit.DENARI, 2))) {
+				if (cartePrese.contains(new Card(Suit.DENARI, 3))) {
 					punti = 3;
-					if (cartePrese.contains(new Carta(Suit.DENARI, 4))) {
+					if (cartePrese.contains(new Card(Suit.DENARI, 4))) {
 						punti++;
-						if (cartePrese.contains(new Carta(Suit.DENARI, 5))) {
+						if (cartePrese.contains(new Card(Suit.DENARI, 5))) {
 							punti++;
-							if (cartePrese.contains(new Carta(Suit.DENARI, 6))) {
+							if (cartePrese.contains(new Card(Suit.DENARI, 6))) {
 								punti++;
-								if (cartePrese.contains(new Carta(Suit.DENARI, 7))) {
+								if (cartePrese.contains(new Card(Suit.DENARI, 7))) {
 									punti++;
-									if (cartePrese.contains(new Carta(Suit.DENARI, 8))) {
+									if (cartePrese.contains(new Card(Suit.DENARI, 8))) {
 										punti++;
-										if (cartePrese.contains(new Carta(Suit.DENARI, 9))) {
+										if (cartePrese.contains(new Card(Suit.DENARI, 9))) {
 											punti++;
-											if (cartePrese.contains(new Carta(Suit.DENARI, 10))) {
+											if (cartePrese.contains(new Card(Suit.DENARI, 10))) {
 												punti++;
 											}
 										}
@@ -596,7 +595,7 @@ public class LocalTable extends Table implements Runnable {
 	 * @param cartePrese il puntatore alle carte prese della squadra analizzata
 	 * @return il punteggio della premiera
 	 */
-	private int calcolaPremiera(ArrayList<Carta> cartePrese) {
+	private int calcolaPremiera(ArrayList<Card> cartePrese) {
 		//TODO Se mi manca un seme devo incularmi
 		int tot = 0;
 		int pDanari = 0;
@@ -604,7 +603,7 @@ public class LocalTable extends Table implements Runnable {
 		int pSpade = 0;
 		int pBastoni = 0;
 		int app = 0;
-		for (Carta carta : cartePrese) {
+		for (Card carta : cartePrese) {
 			if (carta.getRank() == 7) {
 				app = 21;
 			} else if (carta.getRank() == 6) {

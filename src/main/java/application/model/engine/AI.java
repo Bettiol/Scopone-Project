@@ -2,7 +2,7 @@ package application.model.engine;
 
 import java.util.ArrayList;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import application.model.engine.types.Initialization;
 import application.model.engine.types.Player;
 import application.model.engine.types.Points;
@@ -23,14 +23,14 @@ public class AI extends Player {
 
 	private LocalTable table;
 
-	private Carta[] tableCards; // 40
+	private Card[] tableCards; // 40
 	private int dimTable;
 
-	private Carta[] handCards;
+	private Card[] handCards;
 	private int dimHand;
 
-	private ArrayList<Carta> teamOnePicks;
-	private ArrayList<Carta> teamTwoPicks;
+	private ArrayList<Card> teamOnePicks;
+	private ArrayList<Card> teamTwoPicks;
 	
 	private boolean assoPiglia=true;
 	private boolean reBello=true;
@@ -67,7 +67,7 @@ public class AI extends Player {
 	}
 
 	@Override
-	public int setPlayerTurn(Carta[] handCards, int dimHand, Carta[] tableCards, int dimTable) {
+	public int setPlayerTurn(Card[] handCards, int dimHand, Card[] tableCards, int dimTable) {
 		this.tableCards = tableCards;
 		this.dimTable = dimTable;
 		this.handCards = handCards;
@@ -76,19 +76,19 @@ public class AI extends Player {
 		teamOnePicks = table.getTeamOnePicks();
 		teamTwoPicks = table.getTeamTwoPicks();
 
-		Carta c = this.pensa();
+		Card c = this.pensa();
 
 		return table.playCard(c);
 	}
 
 	@Override
-	public int setPlayedCard(Carta c) {
+	public int setPlayedCard(Card c) {
 
 		return 1;
 	}
 
 	@Override
-	public int pickChoice(Carta[][] combos) {
+	public int pickChoice(Card[][] combos) {
 		int index = 0;
 
 		index = choiceCombos(combos);
@@ -97,7 +97,7 @@ public class AI extends Player {
 	}
 
 	@Override
-	public int notifyTableState(Carta[] tableCards, int dimTable) {
+	public int notifyTableState(Card[] tableCards, int dimTable) {
 
 		return 1;
 
@@ -114,7 +114,7 @@ public class AI extends Player {
 	 * 
 	 * @return la carta da scartare
 	 */
-	public Carta pensa() {
+	public Card pensa() {
 		int puntiMax = -1;
 		int scarta = 0;
 		int punti = 0;
@@ -160,7 +160,7 @@ public class AI extends Player {
 	 * @param c carta su cui effettuare il controllo
 	 * @return il punteggio di giocabilità
 	 */
-	public int scopa(Carta c) {
+	public int scopa(Card c) {
 		int sommaTavolo = contaPuntiTavolo();
 		int p = 0;
 		// scopa
@@ -197,7 +197,7 @@ public class AI extends Player {
 	 * @param c carta su cui effettuare il controllo
 	 * @return il punteggio di giocabilità
 	 */
-	public int prendiCarta(Carta c) {
+	public int prendiCarta(Card c) {
 		int p = 0;
 		int pos;
 		int i = 0;
@@ -301,7 +301,7 @@ public class AI extends Player {
 	 * @param c carta su cui effettuare il controllo
 	 * @return il punteggio di giocabilità
 	 */
-	public int appoggiaCarta(Carta c) {
+	public int appoggiaCarta(Card c) {
 		int p = 0;
 		int appP = 0;
 		int rimantenti = this.carteRimaneti(c.getRank());
@@ -385,7 +385,7 @@ public class AI extends Player {
 	 * @param c carta di cui effettuare la ricerca
 	 * @return la posizione nel tavolo
 	 */
-	public int ricercaCartaT(Carta c) {
+	public int ricercaCartaT(Card c) {
 		int pos = -1;
 		for (int i = 0; i < dimTable; i++) {
 			if (tableCards[i].getRank() == c.getRank()) {
@@ -403,7 +403,7 @@ public class AI extends Player {
 	 * @param c carta di cui effettuare la ricerca
 	 * @return matrice contenete le combos delle posizioni delle carte
 	 */
-	public int[][] ricercaCombinazioni(Carta c) {
+	public int[][] ricercaCombinazioni(Card c) {
 		// il vettore contiene le posizione della somma posssibile
 		int posizioni[][] = new int[5][3];
 		int l = 0;
@@ -459,7 +459,7 @@ public class AI extends Player {
 	 *          presenti in tavola
 	 * @return il vettore conteneti tutte le somme posibili
 	 */
-	public int[] ricercaSommePossibili(Carta c) {
+	public int[] ricercaSommePossibili(Card c) {
 		// il vettore contiene nella prima cella la dimensione del vettore, nel resto le
 		// somme possibili che posso ottenere
 		int somme[] = new int[30];
@@ -497,13 +497,13 @@ public class AI extends Player {
 				somma--;
 			}
 		}
-		ArrayList<Carta> app = teamOnePicks;
+		ArrayList<Card> app = teamOnePicks;
 		for (int i = 0; i < app.size(); i++) {
 			if (num == app.get(i).getRank()) {
 				somma--;
 			}
 		}
-		ArrayList<Carta> app1 = teamTwoPicks;
+		ArrayList<Card> app1 = teamTwoPicks;
 		for (int i = 0; i < app1.size(); i++) {
 			if (num == app1.get(i).getRank()) {
 				somma--;
@@ -695,7 +695,7 @@ public class AI extends Player {
 	 * @param combos la matrice contenete le combos possibili in tavola
 	 * @return l'indice della matrice della scelta tra le combos
 	 */
-	public int choiceCombos(Carta[][] combos) {
+	public int choiceCombos(Card[][] combos) {
 		int index = 0;
 		int pMax = -1;
 		int p = 0;

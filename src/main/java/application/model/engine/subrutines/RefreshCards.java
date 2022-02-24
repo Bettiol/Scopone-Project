@@ -1,7 +1,7 @@
 package application.model.engine.subrutines;
 
 import application.model.engine.types.cards.CardDictionary;
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 public class RefreshCards implements Runnable {
 
     private Pane target;
-    private Carta[] arr;
+    private Card[] arr;
     private int dim;
 
     private CardDictionary cd;
@@ -32,7 +32,7 @@ public class RefreshCards implements Runnable {
      * @param dim    Dimensione dell'array
      * @param cd     Dizionario delle carte
      */
-    public RefreshCards(Pane target, Carta[] arr, int dim, CardDictionary cd) {
+    public RefreshCards(Pane target, Card[] arr, int dim, CardDictionary cd) {
         super();
         this.target = target;
         this.arr = arr;

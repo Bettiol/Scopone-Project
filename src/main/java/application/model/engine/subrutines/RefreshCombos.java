@@ -1,7 +1,7 @@
 package application.model.engine.subrutines;
 
 import application.model.engine.types.cards.CardDictionary;
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -19,7 +19,7 @@ public class RefreshCombos implements Runnable {
 	private Pane table;
 	private Pane scelte;
 
-	private Carta[][] combos;
+	private Card[][] combos;
 	private CardDictionary cd;
 
 	/**
@@ -31,7 +31,7 @@ public class RefreshCombos implements Runnable {
 	 * @param combos Matrice con le varie possibilità
 	 * @param cd     Dizionario delle carte
 	 */
-	public RefreshCombos(Pane table, Pane scelte, Carta[][] combos, CardDictionary cd) {
+	public RefreshCombos(Pane table, Pane scelte, Card[][] combos, CardDictionary cd) {
 		super();
 		this.table = table;
 		this.scelte = scelte;

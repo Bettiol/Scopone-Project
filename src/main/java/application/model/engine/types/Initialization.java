@@ -1,6 +1,6 @@
 package application.model.engine.types;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ public class Initialization implements Serializable {
 
 	private int whoAmI;
 	private int turn;
-	private Carta[] hand;
+	private Card[] hand;
 	private String[] playerNames;
 
 	/**
@@ -31,7 +31,7 @@ public class Initialization implements Serializable {
 	 * @param hand        Mano iniziale del giocatore
 	 * @param playerNames Nomi degli altri giocatori
 	 */
-	public Initialization(int whoAmI, int turn, Carta[] hand, String[] playerNames) {
+	public Initialization(int whoAmI, int turn, Card[] hand, String[] playerNames) {
 		super();
 		this.whoAmI = whoAmI;
 		this.turn = turn;
@@ -47,7 +47,7 @@ public class Initialization implements Serializable {
 		return turn;
 	}
 
-	public Carta[] getHand() {
+	public Card[] getHand() {
 		return hand;
 	}
 

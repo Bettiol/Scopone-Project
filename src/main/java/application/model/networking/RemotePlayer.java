@@ -3,7 +3,7 @@ package application.model.networking;
 import java.io.IOException;
 
 import application.model.engine.LocalTable;
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 import application.model.engine.types.Initialization;
 import application.model.engine.types.Player;
 import application.model.engine.types.Points;
@@ -48,7 +48,7 @@ public class RemotePlayer extends Player {
 	}
 
 	@Override
-	public int setPlayerTurn(Carta[] hand, int dimHand, Carta[] tableCards, int dimTable) {
+	public int setPlayerTurn(Card[] hand, int dimHand, Card[] tableCards, int dimTable) {
 		Message send;
 		State[] state = new State[2];
 		state[0] = new State(hand, dimHand);
@@ -61,7 +61,7 @@ public class RemotePlayer extends Player {
 			return -1;
 		}
 
-		Carta giocata = null;
+		Card giocata = null;
 		Message m = null;
 		try {
 			m = host.receive();
@@ -74,14 +74,14 @@ public class RemotePlayer extends Player {
 		}
 
 		if (m.getType() == Message.CHOICE) {
-			giocata = (Carta) m.getMsg().getObj();
+			giocata = (Card) m.getMsg().getObj();
 		}
 
 		return table.playCard(giocata);
 	}
 
 	@Override
-	public int pickChoice(Carta[][] combos) {
+	public int pickChoice(Card[][] combos) {
 		Message send = new Message(Message.CHOICE, combos);
 		try {
 			host.send(send);
@@ -90,7 +90,7 @@ public class RemotePlayer extends Player {
 		}
 
 		Message m = null;
-		Carta[] risp = null;
+		Card[] risp = null;
 		try {
 			m = host.receive();
 		} catch (ClassNotFoundException | IOException e) {
@@ -102,14 +102,14 @@ public class RemotePlayer extends Player {
 		}
 
 		if (m.getType() == Message.CHOICE) {
-			risp = (Carta[]) m.getMsg().getObj();
+			risp = (Card[]) m.getMsg().getObj();
 		}
 
 		return table.choiceCapture(risp);
 	}
 
 	@Override
-	public int notifyTableState(Carta[] tableCards, int dimTable) {
+	public int notifyTableState(Card[] tableCards, int dimTable) {
 		Message send = new Message(Message.STATE, new State(tableCards, dimTable));
 		try {
 			host.send(send);
@@ -121,7 +121,7 @@ public class RemotePlayer extends Player {
 	}
 
 	@Override
-	public int setPlayedCard(Carta c) {
+	public int setPlayedCard(Card c) {
 		Message send = new Message(Message.CARD_PLAYED, c);
 		try {
 			host.send(send);

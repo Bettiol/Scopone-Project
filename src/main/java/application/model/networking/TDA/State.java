@@ -3,7 +3,7 @@ package application.model.networking.TDA;
 import java.io.Serial;
 import java.io.Serializable;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class State implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -2757221931344674554L;
 
-	private Carta[] arr;
+	private Card[] arr;
 	private int dim;
 
 	/**
@@ -26,13 +26,13 @@ public class State implements Serializable {
 	 * @param arr Array
 	 * @param dim Dimensione
 	 */
-	public State(Carta[] arr, int dim) {
+	public State(Card[] arr, int dim) {
 		super();
 		this.arr = arr;
 		this.dim = dim;
 	}
 
-	public Carta[] getArr() {
+	public Card[] getArr() {
 		return arr;
 	}
 

@@ -1,6 +1,6 @@
 package application.model.engine.types;
 
-import application.model.engine.types.cards.Carta;
+import application.model.engine.types.cards.Card;
 
 /**
  * La classe rappresenta le funzione obbligatorie che ogni Player deve
@@ -30,7 +30,7 @@ public abstract class Player {
 	 * @param dimTable la quantità di carte presenti in tavola
 	 * @return il risultato della giocata della carta selezionata
 	 */
-	public abstract int setPlayerTurn(Carta[] hand, int dimHand, Carta[] table, int dimTable);
+	public abstract int setPlayerTurn(Card[] hand, int dimHand, Card[] table, int dimTable);
 
 	/**
 	 * Il metodo aggiorna le carte che il giocatore possiede
@@ -38,7 +38,7 @@ public abstract class Player {
 	 * @param c la carta giocata
 	 * @return 1 per verificare la giusta esecuzione del metodo
 	 */
-	public abstract int setPlayedCard(Carta c);
+	public abstract int setPlayedCard(Card c);
 
 	/**
 	 * Il metodo seleziona una combos da giocare e ne effettua la presa
@@ -46,7 +46,7 @@ public abstract class Player {
 	 * @param combos la matrice contenente le combos di carte da prendere in tavola
 	 * @return il risultato della scelta della combos
 	 */
-	public abstract int pickChoice(Carta[][] combos);
+	public abstract int pickChoice(Card[][] combos);
 
 	/**
 	 * Il metodo aggiorna il tavolo e il turno di gioco
@@ -55,7 +55,7 @@ public abstract class Player {
 	 * @param dimTable   la quantità di carte in tavola
 	 * @return 1 per verificare la giusta esecuzione del metodo
 	 */
-	public abstract int notifyTableState(Carta[] tableCards, int dimTable);
+	public abstract int notifyTableState(Card[] tableCards, int dimTable);
 
 	/**
 	 * Il metodo aggiorna e mostra i punti totalizzati

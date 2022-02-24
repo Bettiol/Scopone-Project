@@ -72,7 +72,7 @@ public class RemoteTable extends Table implements Runnable {
 					break;
 				case Message.STATE:
 					State table = (State) m.getMsg().getObj();
-					myPlayer.notifyTableState(table.getArr(), table.getDim());
+					myPlayer.notifyTableState(new ArrayList<>(List.of(table.getArr())));
 					break;
 				case Message.CHOICE:
 					Card[][] combos = (Card[][]) m.getMsg().getObj();

@@ -120,9 +120,9 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public int notifyTableState(Card[] tableCards, int dimTable) {
+	public int notifyTableState(ArrayList<Card> tableCards) {
 		//System.out.println("Turno enrico 2:"+turn);
-		if (lastPlayed.getRank() != 1 && dimTable == 0) {
+		if (lastPlayed.getRank() != 1 && tableCards.isEmpty()) {
 			if (turn == 0 || turn == 2) {
 				scopeS1++;
 				ccv.refreshScope(scopeS1, 1);
@@ -134,7 +134,7 @@ public class HumanPlayer extends Player {
 
 		ccv.refreshPlayed(null);
 		//System.out.println("Turno enrico 3 :"+turn);
-		ccv.refreshTable(tableCards, dimTable);
+		ccv.refreshTable(tableCards.toArray(new Card[0]), tableCards.size());
 		if (turn != 0) {
 			ccv.removeCard(turn);
 		}

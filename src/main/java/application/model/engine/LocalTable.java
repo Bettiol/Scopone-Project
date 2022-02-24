@@ -115,7 +115,7 @@ public class LocalTable extends Table implements Runnable {
 					for (int j = 0; j < 4; j++) {
 						// System.out.println("turno 56 :" + turn);
 						Card[] debug = table.toArray(new Card[0]);
-						allWentOk = myPlayers.get(j).notifyTableState(table.toArray(new Card[0]), table.size());
+						allWentOk = myPlayers.get(j).notifyTableState(table);
 						if (allWentOk == -1) {
 							System.out.println("Qualcosa è andato storto nella notifica al player " + j);
 							myPlayers.set(j, new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello()));

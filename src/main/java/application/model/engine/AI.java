@@ -92,7 +92,7 @@ public class AI extends Player {
 	}
 
 	@Override
-	public int notifyTableState(Card[] tableCards, int dimTable) {
+	public int notifyTableState(ArrayList<Card> tableCards) {
 
 		return 1;
 

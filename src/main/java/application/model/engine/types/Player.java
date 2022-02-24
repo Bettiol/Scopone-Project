@@ -26,11 +26,11 @@ public abstract class Player {
 	 * Il metodo seleziona tra le carte in mano quale giocare e ne effettua la
 	 * giocata
 	 * 
-	 * @param hand     il vettore di carte che il giocatore ha in mano
-	 * @param table    il vettore contente le carte presenti in tavola
+	 * @param handCards     il vettore di carte che il giocatore ha in mano
+	 * @param tableCards    il vettore contente le carte presenti in tavola
 	 * @return il risultato della giocata della carta selezionata
 	 */
-	public abstract int setPlayerTurn(ArrayList<Card> hand, ArrayList<Card> table);
+	public abstract int setPlayerTurn(ArrayList<Card> handCards, ArrayList<Card> tableCards);
 
 	/**
 	 * Il metodo aggiorna le carte che il giocatore possiede
@@ -52,10 +52,9 @@ public abstract class Player {
 	 * Il metodo aggiorna il tavolo e il turno di gioco
 	 * 
 	 * @param tableCards il vettore contenete le carte in tavola
-	 * @param dimTable   la quantità di carte in tavola
 	 * @return 1 per verificare la giusta esecuzione del metodo
 	 */
-	public abstract int notifyTableState(Card[] tableCards, int dimTable);
+	public abstract int notifyTableState(ArrayList<Card> tableCards);
 
 	/**
 	 * Il metodo aggiorna e mostra i punti totalizzati

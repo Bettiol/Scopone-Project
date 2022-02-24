@@ -110,8 +110,8 @@ public class RemotePlayer extends Player {
 	}
 
 	@Override
-	public int notifyTableState(Card[] tableCards, int dimTable) {
-		Message send = new Message(Message.STATE, new State(tableCards, dimTable));
+	public int notifyTableState(ArrayList<Card> tableCards) {
+		Message send = new Message(Message.STATE, new State(tableCards.toArray(new Card[0]), tableCards.size()));
 		try {
 			host.send(send);
 		} catch (IOException e) {

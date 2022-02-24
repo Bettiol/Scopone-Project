@@ -60,7 +60,9 @@ public class RefreshCards implements Runnable {
             cont++;
         }
 
-        while (i < arr.length) {
+        /*TODO Bisogna sbianchettare il tavolo (arraylist ha size diversa dall'array fisso)
+          Al posto di arr.length c'è 8 ma bisogna sistemare*/
+        while (i < 8) {
             if (ol.get(cont) instanceof ImageView) {
                 iv = (ImageView) ol.get(cont);
                 iv.setImage(cd.cardToImage(null));

@@ -25,8 +25,7 @@ import application.model.engine.types.cards.Suit;
 
 public class LocalTable extends Table implements Runnable {
 	// Carte in tavola
-	private Carta[] table; // 40
-	private int dimTable;
+	private ArrayList<Carta> table;
 	private int turn;
 
 	// Giocatori
@@ -49,8 +48,7 @@ public class LocalTable extends Table implements Runnable {
 	 * tavolo e dei giocatori, i giocatori, i punti e l'ultima presa
 	 */
 	public LocalTable(GameSettings cfg) {
-		table = new Carta[8];
-		dimTable = 0;
+		table = new ArrayList<>(8);
 		turn = 0;
 
 		myPlayers = new ArrayList<>(4);
@@ -113,11 +111,12 @@ public class LocalTable extends Table implements Runnable {
 				 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
 				 * System.out.println(" (" + turn + ")");
 				 */
-				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn).toArray(new Carta[0]), playersHands.get(turn).size(), table, dimTable);
+				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn).toArray(new Carta[0]), playersHands.get(turn).size(), table.toArray(new Carta[0]), table.size());
 				if (allWentOk != -1) {
 					for (int j = 0; j < 4; j++) {
 						// System.out.println("turno 56 :" + turn);
-						allWentOk = myPlayers.get(j).notifyTableState(table, dimTable);
+						Carta[] debug = table.toArray(new Carta[0]);
+						allWentOk = myPlayers.get(j).notifyTableState(table.toArray(new Carta[0]), table.size());
 						if (allWentOk == -1) {
 							System.out.println("Qualcosa è andato storto nella notifica al player " + j);
 							myPlayers.set(j, new AI(this, true, cfg.isAssoPigliatutto(), cfg.isReBello()));
@@ -207,8 +206,7 @@ public class LocalTable extends Table implements Runnable {
 					lastPick.add(c);
 				} else {
 					// Appoggia la carta
-					table[dimTable] = c;
-					dimTable++;
+					table.add(c);
 				}
 			}
 		}
@@ -246,35 +244,6 @@ public class LocalTable extends Table implements Runnable {
 	}
 
 	/**
-	 * Il metodo ricerca una carta in un vettore e ne ritorna l'indice, se non
-	 * presente -1
-	 * 
-	 * @param arr vettore su cui effettuare la ricerca
-	 * @param dim dimensione logica del vettore
-	 * @param x   carta di cui effettuare la ricerca
-	 * @return l'indice del vettore
-	 */
-	private int cardToIndex(Carta[] arr, int dim, Carta x) {
-		int i = 0;
-		boolean found = false;
-
-		while (i < dim && !found) {
-			if (arr[i].equals(x)) {
-				found = true;
-			} else {
-				i++;
-			}
-		}
-
-		if (found) {
-			return i;
-		} else {
-			return -1;
-		}
-
-	}
-
-	/**
 	 * Il metodo scarta una carta dal vettore delle certe del giocatore del turno
 	 * corrente
 	 * 
@@ -294,15 +263,9 @@ public class LocalTable extends Table implements Runnable {
 	 * @return carta eliminata
 	 */
 	private Carta scartaTavolo(Carta c) {
-		int pos = cardToIndex(table, dimTable, c);
-		Carta app = table[pos];
+		table.remove(c);
 
-		for (int i = pos; i < dimTable - 1; i++) {
-			table[i] = table[i + 1];
-		}
-		dimTable--;
-
-		return app;
+		return c;
 	}
 
 	/**
@@ -315,12 +278,12 @@ public class LocalTable extends Table implements Runnable {
 	private void assignPick(Carta calata, Carta presa) {
 		if (turn == 0 || turn == 2) {
 			if (calata.getRank() == 1 && cfg.isAssoPigliatutto()) {
-				for (int i = dimTable - 1; i >= 0; i--) {
-					teamOnePicks.add(scartaTavolo(table[i]));
+				for (int i = table.size() - 1; i >= 0; i--) {
+					teamOnePicks.add(scartaTavolo(table.get(i)));
 				}
 			} else {
 				teamOnePicks.add(scartaTavolo(presa));
-				if (dimTable == 0) {
+				if (table.isEmpty()) {
 					teamOnePoints++;
 				}
 			}
@@ -329,12 +292,12 @@ public class LocalTable extends Table implements Runnable {
 			lastPick = teamOnePicks;
 		} else {
 			if (calata.getRank() == 1 && cfg.isAssoPigliatutto()) {
-				for (int i = dimTable - 1; i >= 0; i--) {
-					teamTwoPicks.add(scartaTavolo(table[i]));
+				for (int i = table.size() - 1; i >= 0; i--) {
+					teamTwoPicks.add(scartaTavolo(table.get(i)));
 				}
 			} else {
 				teamTwoPicks.add(scartaTavolo(presa));
-				if (dimTable == 0) {
+				if (table.isEmpty()) {
 					teamTwoPoints++;
 				}
 			}
@@ -346,7 +309,7 @@ public class LocalTable extends Table implements Runnable {
 
 	/**
 	 * Il metodo aggiunge al vettore corretto delle carte prese un insieme di carte
-	 * acquisite dalla scuadra
+	 * acquisite dalla squadra
 	 * 
 	 * @param prese vettore di carte da aggiungere
 	 */
@@ -357,7 +320,7 @@ public class LocalTable extends Table implements Runnable {
 				teamOnePicks.add(scartaTavolo(prese[i]));
 				i++;
 			}
-			if (dimTable == 0) {
+			if (table.isEmpty()) {
 				teamOnePoints++;
 			}
 			// teamOnePicks.add(calata);
@@ -368,7 +331,7 @@ public class LocalTable extends Table implements Runnable {
 				teamTwoPicks.add(scartaTavolo(prese[i]));
 				i++;
 			}
-			if (dimTable == 0) {
+			if (table.isEmpty()) {
 				teamTwoPoints++;
 			}
 			// teamTwoPicks.add(calata);
@@ -387,15 +350,18 @@ public class LocalTable extends Table implements Runnable {
 	private Carta ricercaCartaT(Carta c) {
 		int pos = -1;
 		Carta app = null;
-		for (int i = 0; i < dimTable; i++) {
-			if (table[i].getRank() == c.getRank()) {
+		for (int i = 0; i < table.size(); i++) {
+			if (table.get(i).getRank() == c.getRank()) {
 				pos = i;
 			}
 		}
 
 		if (pos > -1) {
-			app = table[pos];
+			app = table.get(pos);
 		}
+
+		//TODO ??? table.contains(c);
+
 		return app;
 	}
 
@@ -409,7 +375,7 @@ public class LocalTable extends Table implements Runnable {
 	 */
 	private Carta[][] ricercaCombinazioni(Carta c) {
 		// il vettore contiene le posizione della somma posssibile
-		Carta posizioni[][] = new Carta[5][3];
+		Carta[][] posizioni = new Carta[5][3];
 		// da finire
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 3; j++) {
@@ -420,35 +386,35 @@ public class LocalTable extends Table implements Runnable {
 		int somma;
 		int l = 0;
 		// analizzo tutte le somme che posso comporre
-		for (int i = 0; i < dimTable; i++) {
-			somma = table[i].getRank();
-			for (int j = i; j < dimTable; j++) {
+		for (int i = 0; i < table.size(); i++) {
+			somma = table.get(i).getRank();
+			for (int j = i; j < table.size(); j++) {
 				// salto tutte le somme con la stessa carta
 				if (i != j) {
-					somma = somma + table[j].getRank();
+					somma = somma + table.get(j).getRank();
 					// se la somma che ottengo è corretta salvo le posizioni
 					if (somma == c.getRank()) {
-						posizioni[l][0] = table[i];
-						posizioni[l][1] = table[j];
+						posizioni[l][0] = table.get(i);
+						posizioni[l][1] = table.get(j);
 						posizioni[l][2] = null;
 						l++;
 					} else if (somma < c.getRank()) {
 						// se la somma è minore del valore della carta somma una terza carta
-						for (int k = j; k < dimTable; k++) {
+						for (int k = j; k < table.size(); k++) {
 							// salto tutte le carte che ho già sommato
 							if (k != i && k != j) {
-								somma = somma + table[k].getRank();
+								somma = somma + table.get(k).getRank();
 								if (somma == c.getRank()) {
-									posizioni[l][0] = table[i];
-									posizioni[l][1] = table[j];
-									posizioni[l][2] = table[k];
+									posizioni[l][0] = table.get(i);
+									posizioni[l][1] = table.get(j);
+									posizioni[l][2] = table.get(k);
 									l++;
 								}
-								somma = somma - table[k].getRank();
+								somma = somma - table.get(k).getRank();
 							}
 						}
 					}
-					somma = somma - table[j].getRank();
+					somma = somma - table.get(j).getRank();
 				}
 			}
 		}
@@ -460,8 +426,8 @@ public class LocalTable extends Table implements Runnable {
 	 * effettuato l'ultima presa
 	 */
 	private void assignLastPick() {
-		for (int i = dimTable - 1; i >= 0; i--) {
-			lastPick.add(scartaTavolo(table[i]));
+		for (int i = table.size() - 1; i >= 0; i--) {
+			lastPick.add(scartaTavolo(table.get(i)));
 		}
 	}
 
@@ -478,14 +444,14 @@ public class LocalTable extends Table implements Runnable {
 
 		squadra[0].setScope(teamOnePoints);
 		squadra[1].setScope(teamTwoPoints);
-		if (trovaSetteBello(teamOnePicks) == true) {
+		if (trovaSetteBello(teamOnePicks)) {
 			squadra[0].setSettebello(true);
 			squadra[1].setSettebello(false);
 		} else {
 			squadra[0].setSettebello(false);
 			squadra[1].setSettebello(true);
 		}
-		if (trovaReBello(teamOnePicks) == true && cfg.isReBello()) {
+		if (trovaReBello(teamOnePicks) && cfg.isReBello()) {
 			squadra[0].setRebello(true);
 			squadra[1].setRebello(false);
 		} else if(cfg.isReBello()){
@@ -631,39 +597,40 @@ public class LocalTable extends Table implements Runnable {
 	 * @return il punteggio della premiera
 	 */
 	private int calcolaPremiera(ArrayList<Carta> cartePrese) {
+		//TODO Se mi manca un seme devo incularmi
 		int tot = 0;
 		int pDanari = 0;
 		int pCoppe = 0;
 		int pSpade = 0;
 		int pBastoni = 0;
 		int app = 0;
-		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getRank() == 7) {
+		for (Carta carta : cartePrese) {
+			if (carta.getRank() == 7) {
 				app = 21;
-			} else if (cartePrese.get(i).getRank() == 6) {
+			} else if (carta.getRank() == 6) {
 				app = 18;
-			} else if (cartePrese.get(i).getRank() == 1) {
+			} else if (carta.getRank() == 1) {
 				app = 16;
-			} else if (cartePrese.get(i).getRank() == 5) {
+			} else if (carta.getRank() == 5) {
 				app = 15;
-			} else if (cartePrese.get(i).getRank() == 4) {
+			} else if (carta.getRank() == 4) {
 				app = 14;
-			} else if (cartePrese.get(i).getRank() == 3) {
+			} else if (carta.getRank() == 3) {
 				app = 13;
-			} else if (cartePrese.get(i).getRank() == 2) {
+			} else if (carta.getRank() == 2) {
 				app = 12;
 			} else {
 				app = 10;
 			}
-			if (cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
+			if (carta.getSuit().compareTo(Suit.DENARI) == 0) {
 				if (app > pDanari) {
 					pDanari = app;
 				}
-			} else if (cartePrese.get(i).getSuit().compareTo(Suit.SPADE) == 0) {
+			} else if (carta.getSuit().compareTo(Suit.SPADE) == 0) {
 				if (app > pSpade) {
 					pSpade = app;
 				}
-			} else if (cartePrese.get(i).getSuit().compareTo(Suit.COPPE) == 0) {
+			} else if (carta.getSuit().compareTo(Suit.COPPE) == 0) {
 				if (app > pCoppe) {
 					pCoppe = app;
 				}

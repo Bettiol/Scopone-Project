@@ -60,8 +60,10 @@ public class RefreshCards implements Runnable {
             cont++;
         }
 
-        /*TODO Bisogna sbianchettare il tavolo (arraylist ha size diversa dall'array fisso)
-          Al posto di arr.length c'è 8 ma bisogna sistemare*/
+        /*TODO Bisogna sbianchettare il tavolo (arraylist ha size diversa dall'array fisso). Diversificare tra array e mani
+          Al posto di arr.length c'è 8 ma bisogna sistemare
+          Provare a usare capacity se si riesce
+        */
         while (i < 8) {
             if (ol.get(cont) instanceof ImageView) {
                 iv = (ImageView) ol.get(cont);

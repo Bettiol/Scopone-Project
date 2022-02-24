@@ -2,6 +2,8 @@ package application.model.engine.types;
 
 import application.model.engine.types.cards.Card;
 
+import java.util.ArrayList;
+
 /**
  * La classe rappresenta le funzione obbligatorie che ogni Player deve
  * provvedere ad implementare
@@ -25,12 +27,10 @@ public abstract class Player {
 	 * giocata
 	 * 
 	 * @param hand     il vettore di carte che il giocatore ha in mano
-	 * @param dimHand  la quantità di carte che ho in mano
 	 * @param table    il vettore contente le carte presenti in tavola
-	 * @param dimTable la quantità di carte presenti in tavola
 	 * @return il risultato della giocata della carta selezionata
 	 */
-	public abstract int setPlayerTurn(Card[] hand, int dimHand, Card[] table, int dimTable);
+	public abstract int setPlayerTurn(ArrayList<Card> hand, ArrayList<Card> table);
 
 	/**
 	 * Il metodo aggiorna le carte che il giocatore possiede

@@ -1,6 +1,8 @@
 package application.model.networking;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import application.model.engine.types.cards.Card;
 import application.model.engine.types.Initialization;
@@ -66,8 +68,7 @@ public class RemoteTable extends Table implements Runnable {
 					break;
 				case Message.SET_TURN:
 					State[] states = (State[]) m.getMsg().getObj();
-					myPlayer.setPlayerTurn(states[0].getArr(), states[0].getDim(), states[1].getArr(),
-							states[1].getDim());
+					myPlayer.setPlayerTurn(new ArrayList<>(List.of(states[0].getArr())), new ArrayList<>(List.of(states[1].getArr())));
 					break;
 				case Message.STATE:
 					State table = (State) m.getMsg().getObj();

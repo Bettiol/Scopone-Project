@@ -1,6 +1,7 @@
 package application.model.networking;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.model.engine.LocalTable;
 import application.model.engine.types.cards.Card;
@@ -48,11 +49,11 @@ public class RemotePlayer extends Player {
 	}
 
 	@Override
-	public int setPlayerTurn(Card[] hand, int dimHand, Card[] tableCards, int dimTable) {
+	public int setPlayerTurn(ArrayList<Card> handCards, ArrayList<Card> tableCards) {
 		Message send;
 		State[] state = new State[2];
-		state[0] = new State(hand, dimHand);
-		state[1] = new State(tableCards, dimTable);
+		state[0] = new State(handCards.toArray(new Card[0]), handCards.size());
+		state[1] = new State(tableCards.toArray(new Card[0]), tableCards.size());
 
 		send = new Message(Message.SET_TURN, state);
 		try {

@@ -110,7 +110,7 @@ public class LocalTable extends Table implements Runnable {
 				 * myPlayers[turn] instanceof AI ? "Turno IA" : "Turno locale");
 				 * System.out.println(" (" + turn + ")");
 				 */
-				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn).toArray(new Card[0]), playersHands.get(turn).size(), table.toArray(new Card[0]), table.size());
+				allWentOk = myPlayers.get(turn).setPlayerTurn(playersHands.get(turn), table);
 				if (allWentOk != -1) {
 					for (int j = 0; j < 4; j++) {
 						// System.out.println("turno 56 :" + turn);

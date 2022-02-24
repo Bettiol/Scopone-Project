@@ -1,5 +1,6 @@
 package application.model.engine;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import application.control.ControllerCardView;
@@ -63,10 +64,10 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public int setPlayerTurn(Card[] hand, int dimHand, Card[] tableCards, int dimTable) {
+	public int setPlayerTurn(ArrayList<Card> hand, ArrayList<Card> tableCards) {
 		// Aggiorno il view
-		ccv.refreshHand(hand, dimHand);
-		ccv.refreshTable(tableCards, dimTable);
+		ccv.refreshHand(hand.toArray(new Card[0]), hand.size());
+		ccv.refreshTable(tableCards.toArray(new Card[0]), tableCards.size());
 
 		ccv.refreshTurn(0);
 
@@ -79,11 +80,16 @@ public class HumanPlayer extends Player {
 		}
 
 		int card = ccv.getGiocata();
+		Card picked;
+		Card[] newHand = scarta(hand.toArray(new Card[0]), hand.size(), card);
+		ccv.refreshHand(newHand, (hand.size() - 1));
 
-		Card[] newHand = scarta(hand, dimHand, card);
-		ccv.refreshHand(newHand, (dimHand - 1));
+		/*TODO fixare se riesce è più figo
+		picked = hand.remove(ccv.getGiocata().intValue());
+		ccv.refreshHand(hand.toArray(new Card[0]), hand.size());
+		 */
 
-		return table.playCard(hand[card]);
+		return table.playCard(hand.get(card));
 	}
 
 	@Override

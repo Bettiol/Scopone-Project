@@ -7,6 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * La classe gestisce il pannello contente le scelte possibili di una presa.
  * 
@@ -54,7 +57,8 @@ public class RefreshCombos implements Runnable {
 		for (int i = 0; i < 3; i++) {
 			p = (HBox) ol.get(i);
 			if (combos[i][0] != null) {
-				new RefreshCards(p, combos[i], 3, cd).run();
+				//TODO MAXSPACES QUI È SICURAMENTE BUGGATO
+				new RefreshCards(p, new ArrayList<>(List.of(combos[i])), 3, cd).run();
 				p.setVisible(true);
 			} else {
 				p.setVisible(false);

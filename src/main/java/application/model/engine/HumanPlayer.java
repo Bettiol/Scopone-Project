@@ -1,6 +1,7 @@
 package application.model.engine;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import application.control.ControllerCardView;
@@ -55,7 +56,7 @@ public class HumanPlayer extends Player {
 		//System.out.println("Turno enrico :"+turn);
 		ccv.refreshTurn(turn);
 
-		ccv.refreshHand(in.getHand(), 10);
+		ccv.refreshHand(new ArrayList<>(List.of(in.getHand())));
 
 		scopeS1 = 0;
 		scopeS2 = 0;
@@ -66,8 +67,8 @@ public class HumanPlayer extends Player {
 	@Override
 	public int setPlayerTurn(ArrayList<Card> hand, ArrayList<Card> tableCards) {
 		// Aggiorno il view
-		ccv.refreshHand(hand.toArray(new Card[0]), hand.size());
-		ccv.refreshTable(tableCards.toArray(new Card[0]), tableCards.size());
+		ccv.refreshHand(hand);
+		ccv.refreshTable(tableCards);
 
 		ccv.refreshTurn(0);
 
@@ -81,15 +82,16 @@ public class HumanPlayer extends Player {
 
 		int card = ccv.getGiocata();
 		Card picked;
+
+		/*
 		Card[] newHand = scarta(hand.toArray(new Card[0]), hand.size(), card);
 		ccv.refreshHand(newHand, (hand.size() - 1));
-
-		/*TODO fixare se riesce è più figo
+		*/
+		//TODO fixare se riesce è più figo
 		picked = hand.remove(ccv.getGiocata().intValue());
-		ccv.refreshHand(hand.toArray(new Card[0]), hand.size());
-		 */
+		ccv.refreshHand(hand);
 
-		return table.playCard(hand.get(card));
+		return table.playCard(picked);
 	}
 
 	@Override
@@ -134,7 +136,7 @@ public class HumanPlayer extends Player {
 
 		ccv.refreshPlayed(null);
 		//System.out.println("Turno enrico 3 :"+turn);
-		ccv.refreshTable(tableCards.toArray(new Card[0]), tableCards.size());
+		ccv.refreshTable(tableCards);
 		if (turn != 0) {
 			ccv.removeCard(turn);
 		}

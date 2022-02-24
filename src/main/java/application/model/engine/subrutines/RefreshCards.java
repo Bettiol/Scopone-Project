@@ -7,6 +7,8 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
 /**
  * La classe gestisce l'aggiornamento delle carte in un pannello (mano / tavolo)
  *
@@ -18,10 +20,9 @@ import javafx.scene.layout.Pane;
  */
 public class RefreshCards implements Runnable {
 
+    private ArrayList<Card> arr;
     private Pane target;
-    private Card[] arr;
-    private int dim;
-
+    private int maxSpaces;
     private CardDictionary cd;
 
     /**
@@ -29,14 +30,13 @@ public class RefreshCards implements Runnable {
      *
      * @param target Pannello bersaglio
      * @param arr    Array di carte
-     * @param dim    Dimensione dell'array
      * @param cd     Dizionario delle carte
      */
-    public RefreshCards(Pane target, Card[] arr, int dim, CardDictionary cd) {
+    public RefreshCards(Pane target, ArrayList<Card> arr, int maxSpaces, CardDictionary cd) {
         super();
         this.target = target;
         this.arr = arr;
-        this.dim = dim;
+        this.maxSpaces = maxSpaces;
         this.cd = cd;
     }
 
@@ -51,10 +51,10 @@ public class RefreshCards implements Runnable {
 
         int i = 0;
         int cont = 0;
-        while (i < dim) {
+        while (i < arr.size()) {
             if (ol.get(cont) instanceof ImageView) {
                 iv = (ImageView) ol.get(cont);
-                iv.setImage(cd.cardToImage(arr[i]));
+                iv.setImage(cd.cardToImage(arr.get(i)));
                 i++;
             }
             cont++;
@@ -64,7 +64,7 @@ public class RefreshCards implements Runnable {
           Al posto di arr.length c'è 8 ma bisogna sistemare
           Provare a usare capacity se si riesce
         */
-        while (i < 8) {
+        while (i < maxSpaces) {
             if (ol.get(cont) instanceof ImageView) {
                 iv = (ImageView) ol.get(cont);
                 iv.setImage(cd.cardToImage(null));

@@ -1,6 +1,7 @@
 package application.control;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.Semaphore;
 
@@ -253,12 +254,12 @@ public class ControllerCardView implements Initializable {
 		played.setImage(cd.getTransparent());
 	}
 
-	public void refreshHand(Card arr[], int dim) {
-		Platform.runLater(new RefreshCards(g1, arr, dim, cd));
+	public void refreshHand(ArrayList<Card> arr) {
+		Platform.runLater(new RefreshCards(g1, arr, 10, cd));
 	}
 
-	public void refreshTable(Card arr[], int dim) {
-		Platform.runLater(new RefreshCards(table, arr, dim, cd));
+	public void refreshTable(ArrayList<Card> arr) {
+		Platform.runLater(new RefreshCards(table, arr, 8, cd));
 	}
 
 	public void refreshCombos(Card[][] combos) {

@@ -10,7 +10,7 @@ import application.model.engine.types.Initialization;
 import application.model.engine.types.Player;
 import application.model.engine.types.Points;
 import application.model.engine.types.Table;
-import application.model.engine.types.cards.Semi;
+import application.model.engine.types.cards.Suit;
 
 /**
  * La classe rappresente il tavolo di gioco e il mazziere e posside come sue
@@ -182,7 +182,7 @@ public class LocalTable extends Table implements Runnable {
 		}
 
 		// Calcolo la presa
-		if (c.getNum() == 1 && cfg.isAssoPigliatutto()) {
+		if (c.getRank() == 1 && cfg.isAssoPigliatutto()) {
 			//TODO Messo a null ma meglio ricontrollare
 			assignPick(c, null);
 			lastPick.add(c);
@@ -321,7 +321,7 @@ public class LocalTable extends Table implements Runnable {
 	 */
 	private void assignPick(Carta calata, Carta presa) {
 		if (turn == 0 || turn == 2) {
-			if (calata.getNum() == 1 && cfg.isAssoPigliatutto()) {
+			if (calata.getRank() == 1 && cfg.isAssoPigliatutto()) {
 				for (int i = dimTable - 1; i >= 0; i--) {
 					teamOnePicks.add(scartaTavolo(table[i]));
 				}
@@ -335,7 +335,7 @@ public class LocalTable extends Table implements Runnable {
 
 			lastPick = teamOnePicks;
 		} else {
-			if (calata.getNum() == 1 && cfg.isAssoPigliatutto()) {
+			if (calata.getRank() == 1 && cfg.isAssoPigliatutto()) {
 				for (int i = dimTable - 1; i >= 0; i--) {
 					teamTwoPicks.add(scartaTavolo(table[i]));
 				}
@@ -395,7 +395,7 @@ public class LocalTable extends Table implements Runnable {
 		int pos = -1;
 		Carta app = null;
 		for (int i = 0; i < dimTable; i++) {
-			if (table[i].getNum() == c.getNum()) {
+			if (table[i].getRank() == c.getRank()) {
 				pos = i;
 			}
 		}
@@ -428,34 +428,34 @@ public class LocalTable extends Table implements Runnable {
 		int l = 0;
 		// analizzo tutte le somme che posso comporre
 		for (int i = 0; i < dimTable; i++) {
-			somma = table[i].getNum();
+			somma = table[i].getRank();
 			for (int j = i; j < dimTable; j++) {
 				// salto tutte le somme con la stessa carta
 				if (i != j) {
-					somma = somma + table[j].getNum();
+					somma = somma + table[j].getRank();
 					// se la somma che ottengo è corretta salvo le posizioni
-					if (somma == c.getNum()) {
+					if (somma == c.getRank()) {
 						posizioni[l][0] = table[i];
 						posizioni[l][1] = table[j];
 						posizioni[l][2] = null;
 						l++;
-					} else if (somma < c.getNum()) {
+					} else if (somma < c.getRank()) {
 						// se la somma è minore del valore della carta somma una terza carta
 						for (int k = j; k < dimTable; k++) {
 							// salto tutte le carte che ho già sommato
 							if (k != i && k != j) {
-								somma = somma + table[k].getNum();
-								if (somma == c.getNum()) {
+								somma = somma + table[k].getRank();
+								if (somma == c.getRank()) {
 									posizioni[l][0] = table[i];
 									posizioni[l][1] = table[j];
 									posizioni[l][2] = table[k];
 									l++;
 								}
-								somma = somma - table[k].getNum();
+								somma = somma - table[k].getRank();
 							}
 						}
 					}
-					somma = somma - table[j].getNum();
+					somma = somma - table[j].getRank();
 				}
 			}
 		}
@@ -553,7 +553,7 @@ public class LocalTable extends Table implements Runnable {
 	private boolean trovaSetteBello(ArrayList<Carta> cartePrese) {
 		boolean trovato = false;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getNum() == 7 && cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
+			if (cartePrese.get(i).getRank() == 7 && cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
 				trovato = true;
 			}
 		}
@@ -569,7 +569,7 @@ public class LocalTable extends Table implements Runnable {
 	private boolean trovaReBello(ArrayList<Carta> cartePrese) {
 		boolean trovato = false;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getNum() == 10 && cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
+			if (cartePrese.get(i).getRank() == 10 && cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
 				trovato = true;
 			}
 		}
@@ -585,7 +585,7 @@ public class LocalTable extends Table implements Runnable {
 	private int trovaDanari(ArrayList<Carta> cartePrese) {
 		int trovato = 0;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
+			if (cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
 				trovato++;
 			}
 		}
@@ -600,23 +600,23 @@ public class LocalTable extends Table implements Runnable {
 	 */
 	private int trovaNapoli(ArrayList<Carta> cartePrese) {
 		int punti = 0;
-		if (cartePrese.contains(new Carta(Semi.DENARI, 1))) {
-			if (cartePrese.contains(new Carta(Semi.DENARI, 2))) {
-				if (cartePrese.contains(new Carta(Semi.DENARI, 3))) {
+		if (cartePrese.contains(new Carta(Suit.DENARI, 1))) {
+			if (cartePrese.contains(new Carta(Suit.DENARI, 2))) {
+				if (cartePrese.contains(new Carta(Suit.DENARI, 3))) {
 					punti = 3;
-					if (cartePrese.contains(new Carta(Semi.DENARI, 4))) {
+					if (cartePrese.contains(new Carta(Suit.DENARI, 4))) {
 						punti++;
-						if (cartePrese.contains(new Carta(Semi.DENARI, 5))) {
+						if (cartePrese.contains(new Carta(Suit.DENARI, 5))) {
 							punti++;
-							if (cartePrese.contains(new Carta(Semi.DENARI, 6))) {
+							if (cartePrese.contains(new Carta(Suit.DENARI, 6))) {
 								punti++;
-								if (cartePrese.contains(new Carta(Semi.DENARI, 7))) {
+								if (cartePrese.contains(new Carta(Suit.DENARI, 7))) {
 									punti++;
-									if (cartePrese.contains(new Carta(Semi.DENARI, 8))) {
+									if (cartePrese.contains(new Carta(Suit.DENARI, 8))) {
 										punti++;
-										if (cartePrese.contains(new Carta(Semi.DENARI, 9))) {
+										if (cartePrese.contains(new Carta(Suit.DENARI, 9))) {
 											punti++;
-											if (cartePrese.contains(new Carta(Semi.DENARI, 10))) {
+											if (cartePrese.contains(new Carta(Suit.DENARI, 10))) {
 												punti++;
 											}
 										}
@@ -645,32 +645,32 @@ public class LocalTable extends Table implements Runnable {
 		int pBastoni = 0;
 		int app = 0;
 		for (int i = 0; i < cartePrese.size(); i++) {
-			if (cartePrese.get(i).getNum() == 7) {
+			if (cartePrese.get(i).getRank() == 7) {
 				app = 21;
-			} else if (cartePrese.get(i).getNum() == 6) {
+			} else if (cartePrese.get(i).getRank() == 6) {
 				app = 18;
-			} else if (cartePrese.get(i).getNum() == 1) {
+			} else if (cartePrese.get(i).getRank() == 1) {
 				app = 16;
-			} else if (cartePrese.get(i).getNum() == 5) {
+			} else if (cartePrese.get(i).getRank() == 5) {
 				app = 15;
-			} else if (cartePrese.get(i).getNum() == 4) {
+			} else if (cartePrese.get(i).getRank() == 4) {
 				app = 14;
-			} else if (cartePrese.get(i).getNum() == 3) {
+			} else if (cartePrese.get(i).getRank() == 3) {
 				app = 13;
-			} else if (cartePrese.get(i).getNum() == 2) {
+			} else if (cartePrese.get(i).getRank() == 2) {
 				app = 12;
 			} else {
 				app = 10;
 			}
-			if (cartePrese.get(i).getSeme().compareTo(Semi.DENARI) == 0) {
+			if (cartePrese.get(i).getSuit().compareTo(Suit.DENARI) == 0) {
 				if (app > pDanari) {
 					pDanari = app;
 				}
-			} else if (cartePrese.get(i).getSeme().compareTo(Semi.SPADE) == 0) {
+			} else if (cartePrese.get(i).getSuit().compareTo(Suit.SPADE) == 0) {
 				if (app > pSpade) {
 					pSpade = app;
 				}
-			} else if (cartePrese.get(i).getSeme().compareTo(Semi.COPPE) == 0) {
+			} else if (cartePrese.get(i).getSuit().compareTo(Suit.COPPE) == 0) {
 				if (app > pCoppe) {
 					pCoppe = app;
 				}

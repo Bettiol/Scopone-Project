@@ -116,7 +116,7 @@ public class HumanPlayer extends Player {
 	@Override
 	public int notifyTableState(Carta[] tableCards, int dimTable) {
 		//System.out.println("Turno enrico 2:"+turn);
-		if (lastPlayed.getNum() != 1 && dimTable == 0) {
+		if (lastPlayed.getRank() != 1 && dimTable == 0) {
 			if (turn == 0 || turn == 2) {
 				scopeS1++;
 				ccv.refreshScope(scopeS1, 1);

@@ -18,8 +18,8 @@ public class Carta implements Serializable, Comparable<Carta> {
 	@Serial
 	private static final long serialVersionUID = 8223232637933818932L;
 
-	private Semi seme;
-	private int num;
+	private Suit suit;
+	private int rank;
 
 	/**
 	 * Metodo costruttore della classe
@@ -27,10 +27,10 @@ public class Carta implements Serializable, Comparable<Carta> {
 	 * @param seme il seme a cui appartiene la carta
 	 * @param num  il valore della carta
 	 */
-	public Carta(Semi seme, int num) {
+	public Carta(Suit seme, int num) {
 		super();
-		this.seme = seme;
-		this.num = num;
+		this.suit = seme;
+		this.rank = num;
 	}
 
 	/**
@@ -38,8 +38,8 @@ public class Carta implements Serializable, Comparable<Carta> {
 	 * 
 	 * @return la stringa contenente il seme della carta
 	 */
-	public Semi getSeme() {
-		return seme;
+	public Suit getSuit() {
+		return suit;
 	}
 
 	/**
@@ -47,13 +47,13 @@ public class Carta implements Serializable, Comparable<Carta> {
 	 * 
 	 * @return l'intero rappresentante il valore della carta
 	 */
-	public int getNum() {
-		return num;
+	public int getRank() {
+		return rank;
 	}
 
 	@Override
 	public String toString() {
-		return "seme=" + seme + " num=" + num;
+		return "seme=" + suit + " num=" + rank;
 	}
 
 	@Override
@@ -68,14 +68,14 @@ public class Carta implements Serializable, Comparable<Carta> {
 			return false;
 		}
 		Carta other = (Carta) obj;
-		if (num != other.num) {
+		if (rank != other.rank) {
 			return false;
 		}
-		if (seme == null) {
-			if (other.seme != null) {
+		if (suit == null) {
+			if (other.suit != null) {
 				return false;
 			}
-		} else if (!seme.equals(other.seme)) {
+		} else if (!suit.equals(other.suit)) {
 			return false;
 		}
 		return true;
@@ -84,10 +84,10 @@ public class Carta implements Serializable, Comparable<Carta> {
 	@Override
 	public int compareTo(Carta o) {
 
-		if (this.getNum() != o.getNum()) {
-			return this.getNum() - o.getNum();
+		if (this.getRank() != o.getRank()) {
+			return this.getRank() - o.getRank();
 		} else {
-			return this.getSeme().compareTo(o.getSeme());
+			return this.getSuit().compareTo(o.getSuit());
 		}
 
 	}

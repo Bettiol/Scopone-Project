@@ -37,7 +37,7 @@ public class CardDictionary {
 	 */
 	private void initialize() {
 		String key;
-		for (Semi seme : Semi.values()) {
+		for (Suit seme : Suit.values()) {
 
 			for (int j = 1; j <= 10; ++j) {
 				key = j + "_" + seme;
@@ -57,7 +57,7 @@ public class CardDictionary {
 	public Image cardToImage(Carta c) {
 		Image i;
 		if (c != null) {
-			String key = c.getNum() + "_" + c.getSeme();
+			String key = c.getRank() + "_" + c.getSuit();
 			i = cards.get(key);
 		} else {
 			i = transparent;

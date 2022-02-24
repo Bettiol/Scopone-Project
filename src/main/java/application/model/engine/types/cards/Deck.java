@@ -21,7 +21,7 @@ public class Deck {
 		super();
 		this.deck = new ArrayList<>(40);
 		this.generaMazzo();
-		this.mischiaMazzo();
+		Collections.shuffle(deck);
 	}
 
 	/**
@@ -29,18 +29,11 @@ public class Deck {
 	 * dei 4 semi
 	 */
 	private void generaMazzo() {
-		for(Semi seme : Semi.values()) {
+		for(Suit seme : Suit.values()) {
 			for (int i = 1; i <= 10; ++i) {
 				deck.add(new Carta(seme, i));
 			}
 		}
-	}
-
-	/**
-	 * Il metodo mette in disordine il mazzo
-	 */
-	private void mischiaMazzo() {
-		Collections.shuffle(deck);
 	}
 
 	@Override

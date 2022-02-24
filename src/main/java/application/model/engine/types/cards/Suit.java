@@ -1,11 +1,11 @@
 package application.model.engine.types.cards;
 
-public enum Semi {
+public enum Suit {
     BASTONI("bastone"), COPPE("coppa"), SPADE("spada"), DENARI("danaro");
 
     private final String value;
 
-    private Semi(String value){
+    private Suit(String value){
         this.value = value;
     }
 

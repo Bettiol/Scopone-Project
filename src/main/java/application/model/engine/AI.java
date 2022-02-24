@@ -6,7 +6,7 @@ import application.model.engine.types.cards.Carta;
 import application.model.engine.types.Initialization;
 import application.model.engine.types.Player;
 import application.model.engine.types.Points;
-import application.model.engine.types.cards.Semi;
+import application.model.engine.types.cards.Suit;
 
 /**
  * La classe AI rappresenta un Player che effettua le scelte senza interagire
@@ -124,7 +124,7 @@ public class AI extends Player {
 		for (int i = 0; i < dimHand; i++) {
 			punti = 0;
 			// assegno punti fissi all'asso
-			if (handCards[i].getNum() == 1 && assoPiglia) {
+			if (handCards[i].getRank() == 1 && assoPiglia) {
 				punti = selezionaPuntiAsso();
 			} else {
 				// visualizzo se poter far scopa
@@ -164,10 +164,10 @@ public class AI extends Player {
 		int sommaTavolo = contaPuntiTavolo();
 		int p = 0;
 		// scopa
-		if (sommaTavolo == c.getNum()) {
+		if (sommaTavolo == c.getRank()) {
 			p = 99;
 			// scopa con danaro
-			if (sommaTavolo == c.getNum() && c.getSeme() == Semi.DENARI) {
+			if (sommaTavolo == c.getRank() && c.getSuit() == Suit.DENARI) {
 				p = 100;
 			}
 		}
@@ -182,7 +182,7 @@ public class AI extends Player {
 	public int contaPuntiTavolo() {
 		int somma = 0;
 		for (int i = 0; i < dimTable; i++) {
-			somma = somma + tableCards[i].getNum();
+			somma = somma + tableCards[i].getRank();
 		}
 		return somma;
 	}
@@ -206,33 +206,33 @@ public class AI extends Player {
 		pos = ricercaCartaT(c);
 		// se sono presenti combinazioni analizzo il loro punteggio
 		if (pos != -1) {
-			if (c.getNum() == 7) {
+			if (c.getRank() == 7) {
 				p = p + 80;
-			} else if (c.getNum() == 2 || c.getNum() == 3) {
+			} else if (c.getRank() == 2 || c.getRank() == 3) {
 				p = p + 75;
-			} else if (c.getNum() == 6) {
+			} else if (c.getRank() == 6) {
 				p = p + 70;
-			} else if (c.getNum() == 10) {
+			} else if (c.getRank() == 10) {
 				p = p + 72;
 			} else {
 				p = p + 60;
 			}
-			if (c.getSeme() == Semi.DENARI || tableCards[pos].getSeme() == Semi.DENARI) {
+			if (c.getSuit() == Suit.DENARI || tableCards[pos].getSuit() == Suit.DENARI) {
 				p = p + 3;
-				if ((c.getNum() == 10 && c.getSeme() == Semi.DENARI && reBello)
-						|| (tableCards[pos].getNum() == 10 && tableCards[pos].getSeme() == Semi.DENARI)) {
+				if ((c.getRank() == 10 && c.getSuit() == Suit.DENARI && reBello)
+						|| (tableCards[pos].getRank() == 10 && tableCards[pos].getSuit() == Suit.DENARI)) {
 					p = p + 7;
 				}
-				if ((c.getNum() == 7 && c.getSeme() == Semi.DENARI)
-						|| (tableCards[pos].getNum() == 7 && tableCards[pos].getSeme() == Semi.DENARI)) {
+				if ((c.getRank() == 7 && c.getSuit() == Suit.DENARI)
+						|| (tableCards[pos].getRank() == 7 && tableCards[pos].getSuit() == Suit.DENARI)) {
 					p = p + 7;
 				}
-				if ((c.getNum() == 2 && c.getSeme() == Semi.DENARI)
-						|| (tableCards[pos].getNum() == 2 && tableCards[pos].getSeme() == Semi.DENARI)) {
+				if ((c.getRank() == 2 && c.getSuit() == Suit.DENARI)
+						|| (tableCards[pos].getRank() == 2 && tableCards[pos].getSuit() == Suit.DENARI)) {
 					p = p + 7;
 				}
-				if ((c.getNum() == 3 && c.getSeme() == Semi.DENARI)
-						|| (tableCards[pos].getNum() == 3 && tableCards[pos].getSeme() == Semi.DENARI)) {
+				if ((c.getRank() == 3 && c.getSuit() == Suit.DENARI)
+						|| (tableCards[pos].getRank() == 3 && tableCards[pos].getSuit() == Suit.DENARI)) {
 					p = p + 7;
 				}
 			}
@@ -242,33 +242,33 @@ public class AI extends Player {
 			// se sono presenti combinazioni analizzo il loro punteggio
 			if (posizioni[0][0] != -1) {
 				while (posizioni[i][0] != -1) {
-					if (c.getNum() == 7 || posizioni[i][0] == 7 || posizioni[i][1] == 7 || posizioni[i][2] == 7) {
+					if (c.getRank() == 7 || posizioni[i][0] == 7 || posizioni[i][1] == 7 || posizioni[i][2] == 7) {
 						appP = appP + 80;
-					} else if (c.getNum() == 6 || posizioni[i][0] == 6 || posizioni[i][1] == 6
+					} else if (c.getRank() == 6 || posizioni[i][0] == 6 || posizioni[i][1] == 6
 							|| posizioni[i][2] == 6) {
 						appP = appP + 70;
-					} else if ((c.getNum() == 10 || posizioni[i][0] == 10 || posizioni[i][1] == 10
+					} else if ((c.getRank() == 10 || posizioni[i][0] == 10 || posizioni[i][1] == 10
 							|| posizioni[i][2] == 10 )&& reBello) {
 						appP = appP + 72;
-					} else if (c.getNum() == 2 || c.getNum() == 3 || posizioni[i][0] == 2 || posizioni[i][1] == 2
+					} else if (c.getRank() == 2 || c.getRank() == 3 || posizioni[i][0] == 2 || posizioni[i][1] == 2
 							|| posizioni[i][2] == 2 || posizioni[i][0] == 3 || posizioni[i][1] == 3
 							|| posizioni[i][2] == 3) {
 						appP = appP + 75;
 					} else {
 						appP = appP + 60;
 					}
-					if (c.getSeme() == Semi.DENARI) {
+					if (c.getSuit() == Suit.DENARI) {
 						appP = appP + 3;
-						if (c.getNum() == 10 && reBello) {
+						if (c.getRank() == 10 && reBello) {
 							appP = appP + 7;
 						}
-						if (posizioni[i][0] != -1 && tableCards[posizioni[i][0]].getSeme() == Semi.DENARI) {
+						if (posizioni[i][0] != -1 && tableCards[posizioni[i][0]].getSuit() == Suit.DENARI) {
 							appP = appP + 3;
 						}
-						if (posizioni[i][1] != -1 && tableCards[posizioni[i][1]].getSeme() == Semi.DENARI) {
+						if (posizioni[i][1] != -1 && tableCards[posizioni[i][1]].getSuit() == Suit.DENARI) {
 							appP = appP + 3;
 						}
-						if (posizioni[i][2] != -1 && tableCards[posizioni[i][2]].getSeme() == Semi.DENARI) {
+						if (posizioni[i][2] != -1 && tableCards[posizioni[i][2]].getSuit() == Suit.DENARI) {
 							appP = appP + 3;
 						}
 					}
@@ -281,8 +281,8 @@ public class AI extends Player {
 		}
 		// se lascio scopa in tavola
 		int somma = contaPuntiTavolo();
-		if ((somma - c.getNum() < 11) && (pos != -1 || posizioni[0][0] != -1)
-				&& this.carteRimaneti(somma - c.getNum()) != 0) {
+		if ((somma - c.getRank() < 11) && (pos != -1 || posizioni[0][0] != -1)
+				&& this.carteRimaneti(somma - c.getRank()) != 0) {
 			p = 1;
 		}
 		return p;
@@ -304,7 +304,7 @@ public class AI extends Player {
 	public int appoggiaCarta(Carta c) {
 		int p = 0;
 		int appP = 0;
-		int rimantenti = this.carteRimaneti(c.getNum());
+		int rimantenti = this.carteRimaneti(c.getRank());
 		// analizzo quante carte sono già state giocate
 		if (rimantenti == 0) {
 			p = 55;
@@ -316,23 +316,23 @@ public class AI extends Player {
 			p = 25;
 		}
 		// analizzo il seme e il valore della carta
-		if (c.getSeme() == Semi.DENARI) {
+		if (c.getSuit() == Suit.DENARI) {
 			p = p - 5;
 		}
 		// decremento vedere se manca re bello, 7 bello...
-		if ((c.getNum() == 2 && !this.scesoDueBello()) || (c.getNum() == 3 && !this.scesoTreBello())
-				|| (c.getNum() == 7 && !this.scesoSetteBello()) || (c.getNum() == 10 && !this.scesoReBello() && reBello)) {
+		if ((c.getRank() == 2 && !this.scesoDueBello()) || (c.getRank() == 3 && !this.scesoTreBello())
+				|| (c.getRank() == 7 && !this.scesoSetteBello()) || (c.getRank() == 10 && !this.scesoReBello() && reBello)) {
 			p = p - 20;
 		}
 		// decremento se e re bello sette bello...
-		if ((3 == c.getNum() && c.getSeme() == Semi.DENARI)
-				|| (2 == c.getNum() && c.getSeme() == Semi.DENARI)
-				|| (7 == c.getNum() && c.getSeme() == Semi.DENARI)
-				|| (10 == c.getNum() && c.getSeme() == Semi.DENARI && reBello)) {
+		if ((3 == c.getRank() && c.getSuit() == Suit.DENARI)
+				|| (2 == c.getRank() && c.getSuit() == Suit.DENARI)
+				|| (7 == c.getRank() && c.getSuit() == Suit.DENARI)
+				|| (10 == c.getRank() && c.getSuit() == Suit.DENARI && reBello)) {
 			p = p - 20;
 		}
 		// controllo di non lasciare scopa in tavola
-		if (this.contaPuntiTavolo() + c.getNum() < 11 && dimTable != 0 && carteRimaneti(this.contaPuntiTavolo() + c.getNum())!=0) {
+		if (this.contaPuntiTavolo() + c.getRank() < 11 && dimTable != 0 && carteRimaneti(this.contaPuntiTavolo() + c.getRank())!=0) {
 			p = 10;
 		}
 		int sommPossibili[] = this.ricercaSommePossibili(c);
@@ -353,7 +353,7 @@ public class AI extends Player {
 					appP = 20;
 				}
 				// analizzo il seme e il valore della carta
-				if (c.getSeme() == Semi.DENARI) {
+				if (c.getSuit() == Suit.DENARI) {
 					appP = appP - 5;
 				}
 				// analizzo di non lasciare somme valide per punti
@@ -388,7 +388,7 @@ public class AI extends Player {
 	public int ricercaCartaT(Carta c) {
 		int pos = -1;
 		for (int i = 0; i < dimTable; i++) {
-			if (tableCards[i].getNum() == c.getNum()) {
+			if (tableCards[i].getRank() == c.getRank()) {
 				pos = i;
 			}
 		}
@@ -416,35 +416,35 @@ public class AI extends Player {
 		int somma;
 		// analizzo tutte le somme che posso comporre
 		for (int i = 0; i < dimTable; i++) {
-			somma = tableCards[i].getNum();
+			somma = tableCards[i].getRank();
 			for (int j = i; j < dimTable; j++) {
 				// salto tutte le somme con la stessa carta
 				if (i != j) {
-					somma = somma + tableCards[j].getNum();
+					somma = somma + tableCards[j].getRank();
 					// se la somma che ottengo è corretta salvo le posizioni
-					if (somma == c.getNum()) {
+					if (somma == c.getRank()) {
 						posizioni[l][0] = i;
 						posizioni[l][1] = j;
 						l++;
-					} else if (somma < c.getNum()) {
+					} else if (somma < c.getRank()) {
 						// se la somma è minore del valore della carta somma una terza carta
 						for (int k = j; k < dimTable; k++) {
 							// salto tutte le carte che ho già sommato
 							if (k != i && k != j) {
-								somma = somma + tableCards[k].getNum();
-								if (somma == c.getNum()) {
+								somma = somma + tableCards[k].getRank();
+								if (somma == c.getRank()) {
 									posizioni[l][0] = i;
 									posizioni[l][1] = j;
 									posizioni[l][2] = k;
 									l++;
 								} else {
-									somma = somma - tableCards[k].getNum();
+									somma = somma - tableCards[k].getRank();
 								}
 							}
 						}
 					}
 				} else {
-					somma = somma - tableCards[j].getNum();
+					somma = somma - tableCards[j].getRank();
 				}
 			}
 		}
@@ -464,14 +464,14 @@ public class AI extends Player {
 		// somme possibili che posso ottenere
 		int somme[] = new int[30];
 		int j = 0;
-		int somma = c.getNum();
+		int somma = c.getRank();
 		for (int i = 0; i < dimTable; i++) {
-			somma = somma + tableCards[i].getNum();
+			somma = somma + tableCards[i].getRank();
 			if (somma < 11) {
 				j++;
 				somme[j] = somma;
 			}
-			somma = somma - tableCards[i].getNum();
+			somma = somma - tableCards[i].getRank();
 		}
 		somme[0] = j;
 		return somme;
@@ -488,24 +488,24 @@ public class AI extends Player {
 	public int carteRimaneti(int num) {
 		int somma = 4;
 		for (int i = 0; i < dimHand; i++) {
-			if (num == handCards[i].getNum()) {
+			if (num == handCards[i].getRank()) {
 				somma--;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (num == tableCards[i].getNum()) {
+			if (num == tableCards[i].getRank()) {
 				somma--;
 			}
 		}
 		ArrayList<Carta> app = teamOnePicks;
 		for (int i = 0; i < app.size(); i++) {
-			if (num == app.get(i).getNum()) {
+			if (num == app.get(i).getRank()) {
 				somma--;
 			}
 		}
 		ArrayList<Carta> app1 = teamTwoPicks;
 		for (int i = 0; i < app1.size(); i++) {
-			if (num == app1.get(i).getNum()) {
+			if (num == app1.get(i).getRank()) {
 				somma--;
 			}
 		}
@@ -522,22 +522,22 @@ public class AI extends Player {
 	public boolean scesoReBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (10 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
+			if (10 == handCards[i].getRank() && handCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (10 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
+			if (10 == tableCards[i].getRank() && tableCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (10 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
+			if (10 == teamOnePicks.get(i).getRank() && teamOnePicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (10 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
+			if (10 == teamTwoPicks.get(i).getRank() && teamTwoPicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
@@ -554,22 +554,22 @@ public class AI extends Player {
 	public boolean scesoSetteBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (7 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
+			if (7 == handCards[i].getRank() && handCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (7 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
+			if (7 == tableCards[i].getRank() && tableCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (7 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
+			if (7 == teamOnePicks.get(i).getRank() && teamOnePicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (7 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
+			if (7 == teamTwoPicks.get(i).getRank() && teamTwoPicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
@@ -586,22 +586,22 @@ public class AI extends Player {
 	public boolean scesoDueBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (2 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
+			if (2 == handCards[i].getRank() && handCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (2 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
+			if (2 == tableCards[i].getRank() && tableCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (2 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
+			if (2 == teamOnePicks.get(i).getRank() && teamOnePicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (2 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
+			if (2 == teamTwoPicks.get(i).getRank() && teamTwoPicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
@@ -618,22 +618,22 @@ public class AI extends Player {
 	public boolean scesoTreBello() {
 		boolean sceso = false;
 		for (int i = 0; i < dimHand; i++) {
-			if (3 == handCards[i].getNum() && handCards[i].getSeme() == Semi.DENARI) {
+			if (3 == handCards[i].getRank() && handCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < dimTable; i++) {
-			if (3 == tableCards[i].getNum() && tableCards[i].getSeme() == Semi.DENARI) {
+			if (3 == tableCards[i].getRank() && tableCards[i].getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamOnePicks.size(); i++) {
-			if (3 == teamOnePicks.get(i).getNum() && teamOnePicks.get(i).getSeme() == Semi.DENARI) {
+			if (3 == teamOnePicks.get(i).getRank() && teamOnePicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
 		for (int i = 0; i < teamTwoPicks.size(); i++) {
-			if (3 == teamTwoPicks.get(i).getNum() && teamTwoPicks.get(i).getSeme() == Semi.DENARI) {
+			if (3 == teamTwoPicks.get(i).getRank() && teamTwoPicks.get(i).getSuit() == Suit.DENARI) {
 				sceso = true;
 			}
 		}
@@ -652,35 +652,35 @@ public class AI extends Player {
 		for (int i = 0; i < dimTable; i++) {
 			// se ci sono sette o re o due o tre aumento per evitare la presa del danaro da
 			// parte degli avversari
-			if (tableCards[i].getNum() == 7) {
+			if (tableCards[i].getRank() == 7) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 10 && !scesoReBello()) {
+			if (tableCards[i].getRank() == 10 && !scesoReBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 7 && !scesoSetteBello()) {
+			if (tableCards[i].getRank() == 7 && !scesoSetteBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 3 && !scesoTreBello()) {
+			if (tableCards[i].getRank() == 3 && !scesoTreBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getNum() == 2 && !scesoDueBello()) {
+			if (tableCards[i].getRank() == 2 && !scesoDueBello()) {
 				punti = punti + 10 - dimHand;
 			}
-			if (tableCards[i].getSeme() == Semi.DENARI) {
+			if (tableCards[i].getSuit() == Suit.DENARI) {
 				punti = punti + 5;
 			}
 			// se è prensente il re/sette/due/tre bello in tavola aumento i punti
-			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 10) {
+			if (tableCards[i].getSuit() == Suit.DENARI && tableCards[i].getRank() == 10) {
 				punti = 75 + 6;
 			}
-			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 7) {
+			if (tableCards[i].getSuit() == Suit.DENARI && tableCards[i].getRank() == 7) {
 				punti = 75 + 6;
 			}
-			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 2) {
+			if (tableCards[i].getSuit() == Suit.DENARI && tableCards[i].getRank() == 2) {
 				punti = 75 + 6;
 			}
-			if (tableCards[i].getSeme() == Semi.DENARI && tableCards[i].getNum() == 3) {
+			if (tableCards[i].getSuit() == Suit.DENARI && tableCards[i].getRank() == 3) {
 				punti = 75 + 6;
 			}
 		}
@@ -707,17 +707,17 @@ public class AI extends Player {
 			j = 0;
 			while (combos[i][j] != null && j < 3) {
 				p = p + 5;
-				if (combos[i][j].getNum() == 7 && combos[i][j].getSeme() == Semi.DENARI) {
+				if (combos[i][j].getRank() == 7 && combos[i][j].getSuit() == Suit.DENARI) {
 					p = p + 25;
-				} else if ((combos[i][j].getNum() == 2 || combos[i][j].getNum() == 3)
-						&& combos[i][j].getSeme() == Semi.DENARI) {
+				} else if ((combos[i][j].getRank() == 2 || combos[i][j].getRank() == 3)
+						&& combos[i][j].getSuit() == Suit.DENARI) {
 					p = p + 20;
-				} else if (combos[i][j].getSeme() == Semi.DENARI) {
+				} else if (combos[i][j].getSuit() == Suit.DENARI) {
 					p = p + 5;
-				} else if (combos[i][j].getNum() == 7) {
+				} else if (combos[i][j].getRank() == 7) {
 					p = p + 10;
 				}
-				if (combos[i][j].getNum() == 6) {
+				if (combos[i][j].getRank() == 6) {
 					p = p + 8;
 				}
 				j++;
@@ -738,33 +738,33 @@ public class AI extends Player {
 		int puntiMax=0;
 		for(int i=0;i<dimHand;i++) {
 			//calcolo della minore possibilità di lasciare scopa
-			if(handCards[i].getNum()+contaPuntiTavolo()<11) {
-				if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==0)
+			if(handCards[i].getRank()+contaPuntiTavolo()<11) {
+				if(carteRimaneti(handCards[i].getRank()+contaPuntiTavolo())==0)
 					punti = 25;
-				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==1)
+				else if(carteRimaneti(handCards[i].getRank()+contaPuntiTavolo())==1)
 					punti = 20;
-				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==2)
+				else if(carteRimaneti(handCards[i].getRank()+contaPuntiTavolo())==2)
 					punti = 15;
-				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==3)
+				else if(carteRimaneti(handCards[i].getRank()+contaPuntiTavolo())==3)
 					punti = 10;
-				else if(carteRimaneti(handCards[i].getNum()+contaPuntiTavolo())==4)
+				else if(carteRimaneti(handCards[i].getRank()+contaPuntiTavolo())==4)
 					punti = 5;
 			}
 			else
 				punti = 25;
 			//se sono finiti gli assi tolgo il timore di lancire una carta che porta punto
-			if(handCards[i].getNum()==10 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(10)!=0 && carteRimaneti(1)!=0)
+			if(handCards[i].getRank()==10 && handCards[i].getSuit() == Suit.DENARI && carteRimaneti(10)!=0 && carteRimaneti(1)!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==7 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(7)!=0 && carteRimaneti(1)!=0 && carteRimaneti(7+contaPuntiTavolo())!=0)
+			else if(handCards[i].getRank()==7 && handCards[i].getSuit() == Suit.DENARI && carteRimaneti(7)!=0 && carteRimaneti(1)!=0 && carteRimaneti(7+contaPuntiTavolo())!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==3 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(3)!=0 && carteRimaneti(1)!=0 && carteRimaneti(3+contaPuntiTavolo())!=0)
+			else if(handCards[i].getRank()==3 && handCards[i].getSuit() == Suit.DENARI && carteRimaneti(3)!=0 && carteRimaneti(1)!=0 && carteRimaneti(3+contaPuntiTavolo())!=0)
 				punti=punti-5;
-			else if(handCards[i].getNum()==2 && handCards[i].getSeme() == Semi.DENARI && carteRimaneti(2)!=0 && carteRimaneti(1)!=0 && carteRimaneti(2+contaPuntiTavolo())!=0)
+			else if(handCards[i].getRank()==2 && handCards[i].getSuit() == Suit.DENARI && carteRimaneti(2)!=0 && carteRimaneti(1)!=0 && carteRimaneti(2+contaPuntiTavolo())!=0)
 				punti=punti-5;
 			
-			if(handCards[i].getSeme() == Semi.DENARI)
+			if(handCards[i].getSuit() == Suit.DENARI)
 				punti=punti-2;
-			if(handCards[i].getNum()==7 && carteRimaneti(7)!=0)
+			if(handCards[i].getRank()==7 && carteRimaneti(7)!=0)
 				punti = punti -2;
 
 			if (punti > puntiMax) {

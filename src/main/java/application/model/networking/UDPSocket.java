@@ -68,7 +68,7 @@ public class UDPSocket {
 	 * @throws ClassNotFoundException
 	 */
 	public Packet receive() throws SocketTimeoutException, IOException, ClassNotFoundException {
-		byte buff[] = new byte[1024];
+		byte[] buff = new byte[1024];
 		DatagramPacket packetIn = new DatagramPacket(buff, buff.length);
 
 		ByteArrayInputStream baos;

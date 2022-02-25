@@ -39,9 +39,8 @@ public class TCPConnection {
 	public Message receive() throws IOException, ClassNotFoundException {
 
 		ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
-		Message object = (Message) ois.readObject();
 
-		return object;
+		return (Message) ois.readObject();
 	}
 
 	/**

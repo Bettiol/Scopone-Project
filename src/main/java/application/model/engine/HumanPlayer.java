@@ -1,7 +1,6 @@
 package application.model.engine;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import application.control.ControllerCardView;
@@ -56,7 +55,7 @@ public class HumanPlayer extends Player {
 		//System.out.println("Turno enrico :"+turn);
 		ccv.refreshTurn(turn);
 
-		ccv.refreshHand(new ArrayList<>(List.of(in.getHand())));
+		ccv.refreshHand(new ArrayList<>(in.getHand()));
 
 		scopeS1 = 0;
 		scopeS2 = 0;

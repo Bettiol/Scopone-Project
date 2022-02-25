@@ -173,21 +173,11 @@ public class Points implements Serializable {
 	public int calcolaTotale() {
 		int tot = 0;
 
-		if (carte) {
-			tot++;
-		}
-		if (danari) {
-			tot++;
-		}
-		if (primiera) {
-			tot++;
-		}
-		if (settebello) {
-			tot++;
-		}
-		if (rebello) {
-			tot++;
-		}
+		if (carte) ++tot;
+		if (danari) ++tot;
+		if (primiera) ++tot;
+		if (settebello) ++tot;
+		if (rebello) ++tot;
 		tot = tot + scope + napoli;
 
 		return tot;

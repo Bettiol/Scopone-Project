@@ -4,6 +4,7 @@ import application.model.engine.types.cards.Card;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 
@@ -20,8 +21,8 @@ public class Initialization implements Serializable {
 
 	private int whoAmI;
 	private int turn;
-	private Card[] hand;
-	private String[] playerNames;
+	private ArrayList<Card> hand;
+	private ArrayList<String> playerNames;
 
 	/**
 	 * Metodo costruttore della classe
@@ -31,7 +32,7 @@ public class Initialization implements Serializable {
 	 * @param hand        Mano iniziale del giocatore
 	 * @param playerNames Nomi degli altri giocatori
 	 */
-	public Initialization(int whoAmI, int turn, Card[] hand, String[] playerNames) {
+	public Initialization(int whoAmI, int turn, ArrayList<Card> hand, ArrayList<String> playerNames) {
 		super();
 		this.whoAmI = whoAmI;
 		this.turn = turn;
@@ -47,11 +48,11 @@ public class Initialization implements Serializable {
 		return turn;
 	}
 
-	public Card[] getHand() {
+	public ArrayList<Card> getHand() {
 		return hand;
 	}
 
-	public String[] getPlayerNames() {
+	public ArrayList<String> getPlayerNames() {
 		return playerNames;
 	}
 

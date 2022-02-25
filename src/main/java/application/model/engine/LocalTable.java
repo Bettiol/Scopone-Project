@@ -89,7 +89,7 @@ public class LocalTable extends Table implements Runnable {
 			int app = turn;
 			Initialization pippo = null;
 			for (int i = 0; i < 4; i++) {
-				pippo = new Initialization(i, app, playersHands.get(i).toArray(new Card[0]), null);
+				pippo = new Initialization(i, app, playersHands.get(i), null);
 				allWentOk = myPlayers.get(i).init(pippo);
 				// System.out.println("turn : "+pippo.getTurn()+" whoamI : "+pippo.getWhoAmI());
 				// System.out.println("Player(" + i + ") + turno " + app);
